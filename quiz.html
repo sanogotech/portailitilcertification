@@ -1,1 +1,1222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Certification ITIL Fondation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Styles CSS personnalisés pour le quiz ITIL */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e8f0f7;
+            color: #2c3e50;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+        .quiz-container {
+            max-width: 950px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+            animation: fadeIn 1s ease-out;
+        }
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #3498db;
+            font-weight: 700;
+            font-size: 2.8rem;
+            position: relative;
+            padding-bottom: 18px;
+        }
+        .quiz-header::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 5px;
+            background-color: #2c3e50;
+            border-radius: 3px;
+        }
 
+        .score-progress-container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 25px;
+            padding: 15px 25px;
+            background-color: #f0f8ff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .score-display, .question-progress-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .question-progress-display {
+            margin-bottom: 0;
+        }
+        .progress {
+            height: 15px;
+            border-radius: 10px;
+            background-color: #e9ecef;
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+        .progress-bar {
+            background-color: #3498db;
+            border-radius: 10px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .question-card {
+            margin-bottom: 35px;
+            border: none;
+            border-radius: 12px;
+            padding: 30px;
+            background-color: #fefefe;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .question-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .question-card h5 {
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.4rem;
+            line-height: 1.5;
+        }
+        .answer-option {
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            border: 1px solid #d0d9e2;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            background-color: #f8fbfd;
+        }
+        .answer-option:hover {
+            background-color: #eef7ff;
+            border-color: #9ac7ed;
+        }
+        .answer-option input[type="radio"] {
+            margin-right: 18px;
+            transform: scale(1.3);
+            cursor: pointer;
+        }
+        .answer-option label {
+            cursor: pointer;
+            flex-grow: 1;
+        }
+
+        /* Styles pour les retours (correct/incorrect) en mode apprentissage */
+        .answer-option.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+            font-weight: bold;
+            color: #155724;
+            animation: pulseGreen 0.5s ease-out;
+        }
+        .answer-option.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+            font-weight: bold;
+            color: #721c24;
+            animation: shakeRed 0.5s ease-out;
+        }
+        .rationale {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e9eff5;
+            border-left: 6px solid #607d8b;
+            border-radius: 8px;
+            font-size: 1em;
+            color: #455a64;
+            display: none;
+            animation: slideInUp 0.4s ease-out;
+        }
+        .rationale ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-bottom: 0;
+        }
+        .rationale li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .rationale li:last-child {
+            margin-bottom: 0;
+        }
+
+        .hint {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff8e1;
+            border-left: 6px solid #ffb300;
+            border-radius: 8px;
+            font-size: 0.95em;
+            color: #a1887f;
+            display: none;
+            animation: slideInUp 0.4s ease-out;
+        }
+        .show-info {
+            display: block;
+        }
+        .btn-toggle-info {
+            margin-top: 20px;
+            font-size: 0.95em;
+            padding: 10px 20px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .btn-toggle-info:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Styles pour le pop-up de résultats (modal) */
+        .results-modal .modal-content {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 20px;
+            text-align: center;
+        }
+        .results-modal .modal-header {
+            border-bottom: none;
+            padding-bottom: 0;
+            justify-content: center;
+        }
+        .results-modal .modal-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .results-modal .modal-body {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .results-modal .score-text {
+            font-size: 1.8rem;
+            color: #495057;
+            margin-bottom: 15px;
+        }
+        .results-modal .score-percentage {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .results-modal .recommendations {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e9eff5;
+            border-radius: 10px;
+            border-left: 6px solid #3498db;
+            text-align: left;
+        }
+        .results-modal .recommendations h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .results-modal .recommendations ul {
+            list-style-type: disc;
+            padding-left: 25px;
+        }
+        .results-modal .recommendations li {
+            margin-bottom: 8px;
+            color: #495057;
+        }
+        .results-modal .modal-footer {
+            border-top: none;
+            padding-top: 0;
+            justify-content: center;
+        }
+        .results-modal #restart-quiz-btn-modal {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulseGreen {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.005); }
+            100% { transform: scale(1); }
+        }
+        @keyframes shakeRed {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        
+        /* Badges de difficulté */
+        .difficulty-badge {
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+        .easy {
+            background-color: #28a745;
+            color: white;
+        }
+        .medium {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .hard {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container quiz-container">
+        <h2 class="quiz-header">Quiz de Certification ITIL Fondation</h2>
+        <p class="text-center text-muted mb-5">Testez vos connaissances sur les concepts clés d'ITIL v4. Chaque question offre un indice et une explication détaillée.</p>
+
+        <div class="score-progress-container">
+            <div class="score-display">
+                <span id="current-score-display">Score: 0 / 0</span>
+            </div>
+            <div class="question-progress-display">
+                <span id="question-count-display">Question: 1 / 40</span>
+                <div class="progress">
+                    <div id="question-progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="quiz-display">
+            <div class="text-center my-5" id="loading-spinner">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Chargement des questions...</span>
+                </div>
+                <p class="mt-2 text-muted">Chargement des questions du quiz...</p>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4" id="quiz-navigation">
+            <button id="prev-btn" class="btn btn-primary" disabled>
+                <i class="fas fa-arrow-left me-2"></i> Précédent
+            </button>
+            <button id="next-btn" class="btn btn-primary" disabled>
+                Suivant <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="modal fade results-modal" id="resultsModal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultsModalLabel">Résultats du Quiz</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="score-text">Vous avez répondu correctement à <span id="final-score-correct">0</span> questions sur <span id="final-score-total">0</span>.</p>
+                    <p class="score-percentage" id="final-score-percentage" style="color: #28a745;">0%</p>
+                    <div class="recommendations" id="final-recommendations">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="restart-quiz-btn-modal">
+                        <i class="fas fa-redo me-2"></i> Recommencer le quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const quizDisplayDiv = document.getElementById('quiz-display');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const quizNavigationDiv = document.getElementById('quiz-navigation');
+        const currentScoreDisplay = document.getElementById('current-score-display');
+        const questionCountDisplay = document.getElementById('question-count-display');
+        const questionProgressBar = document.getElementById('question-progress-bar');
+
+        // Modal elements
+        const resultsModal = new bootstrap.Modal(document.getElementById('resultsModal'));
+        const finalScoreCorrectSpan = document.getElementById('final-score-correct');
+        const finalScoreTotalSpan = document.getElementById('final-score-total');
+        const finalScorePercentage = document.getElementById('final-score-percentage');
+        const finalRecommendationsDiv = document.getElementById('final-recommendations');
+        const restartQuizBtnModal = document.getElementById('restart-quiz-btn-modal');
+
+        let currentQuestionIndex = 0;
+        let questions = [];
+        let score = 0;
+        let userAnswers = new Array(40).fill(null);
+
+        // Données du quiz ITIL Fondation (40 questions)
+        const quizData = {
+            "title": "Quiz de Certification ITIL Fondation",
+            "questions": [
+                // 15 questions faciles
+                {
+                    "question": "Quelle est la définition d'un service selon ITIL?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Un moyen de permettre la co-création de valeur en facilitant les résultats que les clients veulent atteindre", "rationale": "C'est la définition exacte d'un service selon ITIL. Un service permet la co-création de valeur entre le fournisseur et le client.", "is_correct": true},
+                        {"text": "Un produit vendu par une entreprise à ses clients", "rationale": "Trop restrictif - un service est plus qu'un simple produit, il inclut la co-création de valeur.", "is_correct": false},
+                        {"text": "Une activité effectuée par une organisation pour gagner de l'argent", "rationale": "Trop centré sur l'organisation - un service doit créer de la valeur pour le client.", "is_correct": false},
+                        {"text": "Un ensemble de processus IT standardisés", "rationale": "Trop technique - un service est plus large que des processus IT.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la création de valeur conjointe entre fournisseur et client."
+                },
+                {
+                    "question": "Quel est l'objectif principal de la pratique de gestion des incidents?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Restaurer le service normal aussi rapidement que possible", "rationale": "L'objectif principal de la gestion des incidents est de restaurer le service normal dans les plus brefs délais.", "is_correct": true},
+                        {"text": "Identifier la cause racine des problèmes", "rationale": "C'est l'objectif de la gestion des problèmes, pas des incidents.", "is_correct": false},
+                        {"text": "Documenter tous les changements dans le système", "rationale": "C'est l'objectif de la gestion des changements.", "is_correct": false},
+                        {"text": "Améliorer en continu les services", "rationale": "C'est un objectif plus large qui concerne l'amélioration continue.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la réactivité et à la minimisation des impacts."
+                },
+                {
+                    "question": "Quelle est la bonne séquence des étapes du cycle de vie du service dans ITIL v3?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Stratégie, Conception, Transition, Exploitation, Amélioration continue", "rationale": "C'est la séquence correcte des étapes du cycle de vie du service dans ITIL v3.", "is_correct": true},
+                        {"text": "Planification, Développement, Test, Déploiement, Support", "rationale": "Cette séquence est trop technique et ne reflète pas les étapes ITIL.", "is_correct": false},
+                        {"text": "Identification, Analyse, Solution, Implémentation, Revue", "rationale": "Cette séquence ressemble à un processus de résolution de problème, pas au cycle de vie ITIL.", "is_correct": false},
+                        {"text": "Définition, Conception, Construction, Validation, Maintenance", "rationale": "Cette séquence est inspirée du développement logiciel, pas d'ITIL.", "is_correct": false}
+                    ],
+                    "hint": "Pensez aux grandes phases de la gestion des services."
+                },
+                {
+                    "question": "Quel est le rôle du Centre de services (Service Desk) dans ITIL?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Point de contact unique entre le fournisseur de services et les utilisateurs", "rationale": "Le Centre de services est effectivement le point de contact unique entre le fournisseur et les utilisateurs.", "is_correct": true},
+                        {"text": "Gestion des actifs matériels de l'entreprise", "rationale": "C'est le rôle de la gestion des actifs, pas du Centre de services.", "is_correct": false},
+                        {"text": "Développement de nouveaux services IT", "rationale": "C'est le rôle du développement, pas du Centre de services.", "is_correct": false},
+                        {"text": "Audit des processus IT", "rationale": "C'est le rôle de l'audit ou de la gouvernance, pas du Centre de services.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la fonction qui centralise les demandes et incidents."
+                },
+                {
+                    "question": "Quelle pratique a pour objectif de s'assurer que les services répondent aux besoins actuels et futurs des clients?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Gestion du niveau de service", "rationale": "La gestion du niveau de service (SLM) vise précisément à s'assurer que les services répondent aux besoins des clients.", "is_correct": true},
+                        {"text": "Gestion des incidents", "rationale": "La gestion des incidents traite des interruptions de service, pas de leur adéquation aux besoins.", "is_correct": false},
+                        {"text": "Gestion des problèmes", "rationale": "La gestion des problèmes traite des causes racines, pas de l'adéquation des services.", "is_correct": false},
+                        {"text": "Gestion des changements", "rationale": "La gestion des changements traite des modifications contrôlées, pas de l'adéquation des services.", "is_correct": false}
+                    ],
+                    "hint": "Pensez aux accords de niveau de service (SLA)."
+                },
+                {
+                    "question": "Quel document définit les niveaux de service attendus entre un fournisseur et un client?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Accord de niveau de service (SLA)", "rationale": "Le SLA (Service Level Agreement) est le document qui définit formellement les niveaux de service attendus.", "is_correct": true},
+                        {"text": "Plan de continuité des services", "rationale": "Ce document traite des plans de reprise, pas des niveaux de service normaux.", "is_correct": false},
+                        {"text": "Catalogue de services", "rationale": "Le catalogue liste les services disponibles, mais ne définit pas les niveaux de service.", "is_correct": false},
+                        {"text": "Contrat de fourniture de services", "rationale": "Bien que lié, ce document est plus large et souvent juridique, pas spécifique aux niveaux de service.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à l'acronyme SLA."
+                },
+                {
+                    "question": "Quelle est la première étape du processus de gestion des incidents?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Identification de l'incident", "rationale": "L'identification est effectivement la première étape - on ne peut pas gérer ce qu'on n'a pas identifié.", "is_correct": true},
+                        {"text": "Analyse de la cause racine", "rationale": "L'analyse vient plus tard dans le processus.", "is_correct": false},
+                        {"text": "Classification de l'incident", "rationale": "La classification vient après l'identification.", "is_correct": false},
+                        {"text": "Résolution de l'incident", "rationale": "La résolution est l'étape finale, pas la première.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la détection initiale du problème."
+                },
+                {
+                    "question": "Quelle pratique est responsable de la gestion des modifications planifiées dans les services IT?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Gestion des changements", "rationale": "La gestion des changements est effectivement responsable des modifications planifiées.", "is_correct": true},
+                        {"text": "Gestion des configurations", "rationale": "La gestion des configurations enregistre les changements, mais ne les gère pas.", "is_correct": false},
+                        {"text": "Gestion des problèmes", "rationale": "La gestion des problèmes traite des causes racines, pas des changements.", "is_correct": false},
+                        {"text": "Gestion des versions", "rationale": "La gestion des versions traite des déploiements, pas de l'ensemble des changements.", "is_correct": false}
+                    ],
+                    "hint": "Pensez au processus qui évalue, approuve et coordonne les modifications."
+                },
+                {
+                    "question": "Quel est le principal objectif de la gestion des problèmes?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Identifier et éliminer les causes racines des incidents", "rationale": "C'est l'objectif principal de la gestion des problèmes.", "is_correct": true},
+                        {"text": "Restaurer le service le plus rapidement possible", "rationale": "C'est l'objectif de la gestion des incidents.", "is_correct": false},
+                        {"text": "Documenter tous les composants IT", "rationale": "C'est l'objectif de la gestion des configurations.", "is_correct": false},
+                        {"text": "Planifier les nouvelles fonctionnalités", "rationale": "C'est l'objectif de la gestion du portefeuille de services.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la prévention des incidents récurrents."
+                },
+                {
+                    "question": "Quel est l'objectif de la gestion des configurations?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Maintenir des informations précises sur les actifs de service et leurs relations", "rationale": "C'est l'objectif principal de la gestion des configurations.", "is_correct": true},
+                        {"text": "Gérer les demandes des utilisateurs", "rationale": "C'est le rôle du centre de services.", "is_correct": false},
+                        {"text": "Planifier les capacités futures", "rationale": "C'est l'objectif de la gestion de la capacité.", "is_correct": false},
+                        {"text": "Négocier les contrats avec les fournisseurs", "rationale": "C'est le rôle de la gestion des fournisseurs.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la base de données des éléments de configuration (CMDB)."
+                },
+                {
+                    "question": "Quelle est la différence entre un incident et un problème dans ITIL?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Un incident est une interruption de service, un problème en est la cause inconnue", "rationale": "C'est la distinction correcte entre incident et problème.", "is_correct": true},
+                        {"text": "Un incident est mineur, un problème est majeur", "rationale": "La gravité n'est pas ce qui différencie incident et problème.", "is_correct": false},
+                        {"text": "Un incident concerne le matériel, un problème le logiciel", "rationale": "Cette distinction par type de composant est incorrecte.", "is_correct": false},
+                        {"text": "Un incident est planifié, un problème ne l'est pas", "rationale": "C'est l'inverse - les incidents ne sont pas planifiés.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la relation cause/conséquence."
+                },
+                {
+                    "question": "Quel document décrit tous les services IT disponibles pour les clients?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Catalogue de services", "rationale": "Le catalogue de services liste effectivement tous les services disponibles.", "is_correct": true},
+                        {"text": "Accord de niveau de service", "rationale": "Le SLA définit les niveaux de service, pas la liste des services.", "is_correct": false},
+                        {"text": "Plan de continuité", "rationale": "Ce document traite des plans de reprise, pas des services normaux.", "is_correct": false},
+                        {"text": "Base de données des configurations", "rationale": "La CMDB recense les composants, pas les services.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à un document similaire à un catalogue commercial."
+                },
+                {
+                    "question": "Quelle pratique est responsable de la gestion des relations avec les fournisseurs externes?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Gestion des fournisseurs", "rationale": "La gestion des fournisseurs est effectivement responsable des relations avec les fournisseurs externes.", "is_correct": true},
+                        {"text": "Gestion des incidents", "rationale": "La gestion des incidents traite des interruptions de service, pas des fournisseurs.", "is_correct": false},
+                        {"text": "Gestion des configurations", "rationale": "La gestion des configurations traite des actifs, pas des relations.", "is_correct": false},
+                        {"text": "Gestion des niveaux de service", "rationale": "La gestion des niveaux de service traite des SLA, pas spécifiquement des fournisseurs.", "is_correct": false}
+                    ],
+                    "hint": "Pensez aux contrats et accords avec les tiers."
+                },
+                {
+                    "question": "Quel est le but principal de la gestion des connaissances dans ITIL?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Maintenir et partager les informations utiles à la fourniture des services", "rationale": "C'est l'objectif principal de la gestion des connaissances.", "is_correct": true},
+                        {"text": "Former tous les nouveaux employés", "rationale": "La formation est une activité connexe mais pas l'objectif principal.", "is_correct": false},
+                        {"text": "Documenter les procédures techniques", "rationale": "C'est une partie de la gestion des connaissances, mais pas son but principal.", "is_correct": false},
+                        {"text": "Gérer les licences logicielles", "rationale": "C'est le rôle de la gestion des actifs, pas des connaissances.", "is_correct": false}
+                    ],
+                    "hint": "Pensez au partage d'informations et à la base de connaissances."
+                },
+                {
+                    "question": "Quelle est la définition d'un actif de service dans ITIL?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Toute ressource ou capacité utilisée pour fournir un service", "rationale": "C'est la définition correcte d'un actif de service.", "is_correct": true},
+                        {"text": "Un équipement informatique coûteux", "rationale": "Trop restrictif - les actifs de service incluent plus que le matériel.", "is_correct": false},
+                        {"text": "Les logiciels installés sur les serveurs", "rationale": "Trop technique - les actifs de service sont plus larges.", "is_correct": false},
+                        {"text": "Les contrats avec les fournisseurs", "rationale": "Trop spécifique - les actifs de service incluent plus que les contrats.", "is_correct": false}
+                    ],
+                    "hint": "Pensez aux ressources nécessaires pour fournir un service."
+                },
+                {
+                    "question": "Quel est le principal avantage de l'approche processus dans ITIL?",
+                    "difficulty": "easy",
+                    "answer_options": [
+                        {"text": "Améliorer l'efficacité et la cohérence dans la fourniture des services", "rationale": "C'est l'avantage principal de l'approche processus.", "is_correct": true},
+                        {"text": "Réduire les coûts du personnel", "rationale": "Ce peut être un effet secondaire, mais pas l'avantage principal.", "is_correct": false},
+                        {"text": "Automatiser toutes les tâches IT", "rationale": "L'automatisation est une possibilité, mais pas l'objectif principal.", "is_correct": false},
+                        {"text": "Éliminer tous les incidents", "rationale": "Impossible à atteindre et pas l'objectif de l'approche processus.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la standardisation et à la répétabilité."
+                },
+
+                // 15 questions de difficulté moyenne
+                {
+                    "question": "Quelle est la différence entre un changement standard et un changement normal dans ITIL?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Un changement standard est pré-approuvé et à faible risque, un changement normal nécessite une évaluation", "rationale": "C'est la distinction correcte. Les changements standards sont prédéfinis et à faible risque, tandis que les normaux nécessitent une évaluation.", "is_correct": true},
+                        {"text": "Un changement standard est initié par l'utilisateur, un changement normal par le support IT", "rationale": "L'initiateur n'est pas le critère de distinction entre ces types de changements.", "is_correct": false},
+                        {"text": "Un changement standard est pour les systèmes critiques, un changement normal pour les systèmes non critiques", "rationale": "Le niveau de criticité ne détermine pas le type de changement, mais son risque et son impact.", "is_correct": false},
+                        {"text": "Un changement standard ne requiert pas de documentation, un changement normal oui", "rationale": "Tous les changements doivent être documentés, même les standards, bien que la documentation puisse être plus légère.", "is_correct": false}
+                    ],
+                    "hint": "Pensez aux niveaux d'approbation et de risque associés."
+                },
+                {
+                    "question": "Quel est le rôle du système de gestion de la configuration (CMS) dans ITIL?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Gérer et maintenir les informations sur les éléments de configuration (CIs) et leurs relations", "rationale": "Le CMS est une collection d'outils et de données utilisés pour gérer les informations sur les CIs et leurs relations, incluant la CMDB.", "is_correct": true},
+                        {"text": "Planifier la capacité future des services IT", "rationale": "C'est le rôle de la gestion de la capacité.", "is_correct": false},
+                        {"text": "Enregistrer et suivre tous les incidents", "rationale": "C'est le rôle de la gestion des incidents.", "is_correct": false},
+                        {"text": "Définir les niveaux de service avec les clients", "rationale": "C'est le rôle de la gestion du niveau de service.", "is_correct": false}
+                    ],
+                    "hint": "Il est plus large que la simple CMDB et inclut des outils pour la gestion des informations."
+                },
+                {
+                    "question": "Quels sont les quatre dimensions de la gestion de service ITIL v4?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Organisations et personnes, Information et technologie, Partenaires et fournisseurs, Flux de valeur et processus", "rationale": "Ce sont les quatre dimensions clés d'ITIL v4, qui s'appliquent à tous les services IT.", "is_correct": true},
+                        {"text": "Stratégie, Conception, Transition, Exploitation", "rationale": "Ce sont les phases du cycle de vie de ITIL v3.", "is_correct": false},
+                        {"text": "Coût, Valeur, Risque, Utilité", "rationale": "Ce sont des concepts importants, mais pas les quatre dimensions.", "is_correct": false},
+                        {"text": "Processus, Technologie, Culture, Environnement", "rationale": "Ce sont des éléments importants mais pas les dimensions officielles d'ITIL v4.", "is_correct": false}
+                    ],
+                    "hint": "Pensez aux différentes perspectives à prendre en compte pour une gestion de service holistique."
+                },
+                {
+                    "question": "Quel est l'objectif principal de la pratique de gestion de la demande?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Comprendre la demande des clients pour les services afin d'assurer que l'organisation puisse y répondre", "rationale": "La gestion de la demande vise à comprendre et influencer la demande pour optimiser les ressources et éviter la surcapacité ou la sous-capacité.", "is_correct": true},
+                        {"text": "Gérer les requêtes de service des utilisateurs", "rationale": "C'est le rôle de la pratique de gestion des requêtes de service, qui est une partie de la gestion de la demande, mais pas l'objectif principal.", "is_correct": false},
+                        {"text": "Définir les exigences techniques des services", "rationale": "C'est le rôle de la conception de service, pas de la gestion de la demande.", "is_correct": false},
+                        {"text": "Assurer la disponibilité continue des services", "rationale": "C'est le rôle de la gestion de la disponibilité.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à l'équilibre entre l'offre et la demande de services."
+                },
+                {
+                    "question": "Quelle est la chaîne de valeur du service ITIL v4 et ses activités principales?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Planifier, Améliorer, Engager, Concevoir et Transiter, Obtenir/Construire, Fournir et Supporter", "rationale": "C'est la séquence correcte des activités de la chaîne de valeur du service ITIL v4.", "is_correct": true},
+                        {"text": "Concevoir, Développer, Tester, Déployer, Opérer", "rationale": "Cette séquence est plus orientée vers le développement logiciel.", "is_correct": false},
+                        {"text": "Détecter, Diagnostiquer, Résoudre, Clore", "rationale": "Ce sont les étapes de la gestion des incidents.", "is_correct": false},
+                        {"text": "Stratégie, Tactique, Opérationnel, Révision", "rationale": "Ce sont des niveaux de planification, pas la chaîne de valeur.", "is_correct": false}
+                    ],
+                    "hint": "Pensez aux grandes étapes de la création et de la livraison de valeur dans ITIL v4."
+                },
+                {
+                    "question": "Quel est le but de la pratique de gestion des requêtes de service?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Gérer les demandes standards et pré-approuvées des utilisateurs de manière efficace", "rationale": "La gestion des requêtes de service vise à fournir un canal clair et efficace pour les utilisateurs afin de demander et recevoir des services pré-définis.", "is_correct": true},
+                        {"text": "Restaurer le service après une interruption inattendue", "rationale": "C'est l'objectif de la gestion des incidents.", "is_correct": false},
+                        {"text": "Évaluer et autoriser les changements majeurs", "rationale": "C'est l'objectif de la gestion des changements.", "is_correct": false},
+                        {"text": "Maintenir un inventaire des actifs IT", "rationale": "C'est l'objectif de la gestion des actifs.", "is_correct": false}
+                    ],
+                    "hint": "Pensez aux demandes d'accès à un logiciel ou de réinitialisation de mot de passe."
+                },
+                {
+                    "question": "Pourquoi la communication est-elle cruciale dans la gestion des incidents?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Pour informer les utilisateurs et les parties prenantes de l'état de l'incident et des progrès de la résolution", "rationale": "Une communication efficace réduit l'anxiété des utilisateurs, gère les attentes et facilite la résolution en informant les bonnes personnes.", "is_correct": true},
+                        {"text": "Pour s'assurer que les incidents sont enregistrés dans la CMDB", "rationale": "L'enregistrement est une étape, mais la communication est plus large et essentielle pour la satisfaction client.", "is_correct": false},
+                        {"text": "Pour automatiser la résolution des problèmes", "rationale": "La communication n'automatise pas la résolution.", "is_correct": false},
+                        {"text": "Pour justifier les coûts des services IT", "rationale": "La justification des coûts est un aspect de la gestion financière, pas de la communication incident.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à l'impact sur la satisfaction des utilisateurs et les attentes."
+                },
+                {
+                    "question": "Quel est le rôle du plan d'amélioration continue (CIP)?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Documenter et suivre les initiatives d'amélioration à travers le temps", "rationale": "Le CIP aide à formaliser, prioriser et suivre les efforts d'amélioration continue.", "is_correct": true},
+                        {"text": "Définir les objectifs stratégiques de l'entreprise", "rationale": "C'est le rôle de la stratégie d'entreprise, pas du CIP.", "is_correct": false},
+                        {"text": "Gérer les risques liés aux nouveaux services", "rationale": "C'est le rôle de la gestion des risques.", "is_correct": false},
+                        {"text": "Assurer la conformité réglementaire", "rationale": "C'est le rôle de la gouvernance et de la conformité.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à un plan d'action pour l'amélioration continue."
+                },
+                {
+                    "question": "Pourquoi la gestion des problèmes est-elle importante même si les incidents sont résolus rapidement?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Pour identifier les causes profondes et prévenir la récurrence des incidents", "rationale": "La gestion des problèmes vise la prévention proactive des incidents en s'attaquant à leurs causes racines.", "is_correct": true},
+                        {"text": "Pour prouver la valeur des services IT", "rationale": "Bien que la gestion des problèmes puisse y contribuer, ce n'est pas son objectif principal.", "is_correct": false},
+                        {"text": "Pour réduire le nombre d'appels au Service Desk", "rationale": "C'est un bénéfice, mais le but principal est la prévention des interruptions.", "is_correct": false},
+                        {"text": "Pour documenter toutes les solutions temporaires (workarounds)", "rationale": "Les workarounds sont documentés dans la gestion des problèmes, mais ce n'est pas l'objectif principal.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la prévention à long terme."
+                },
+                {
+                    "question": "Quel est le but de la pratique de gestion des risques?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Identifier, évaluer et contrôler les risques qui pourraient impacter la valeur des services", "rationale": "La gestion des risques s'assure que l'organisation comprend et gère les incertitudes qui pourraient affecter ses objectifs.", "is_correct": true},
+                        {"text": "S'assurer que tous les changements sont implémentés sans impact", "rationale": "C'est un idéal, mais la gestion des risques reconnaît que certains impacts peuvent exister.", "is_correct": false},
+                        {"text": "Calculer le retour sur investissement des projets IT", "rationale": "C'est le rôle de la gestion financière.", "is_correct": false},
+                        {"text": "Fournir des rapports détaillés sur la performance des services", "rationale": "C'est le rôle de la gestion du niveau de service ou du reporting.", "is_correct": false}
+                    ],
+                    "hint": "Pensez aux menaces et opportunités pour les services."
+                },
+                {
+                    "question": "Comment la pratique d'amélioration continue contribue-t-elle à la chaîne de valeur du service ITIL v4?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Elle s'applique à toutes les activités de la chaîne de valeur pour garantir une amélioration progressive", "rationale": "L'amélioration continue est une pratique universelle qui s'intègre à chaque étape de la chaîne de valeur du service.", "is_correct": true},
+                        {"text": "Elle est une activité distincte qui a lieu après la fourniture et le support", "rationale": "C'est une activité continue, pas seulement une phase finale.", "is_correct": false},
+                        {"text": "Elle remplace la phase de 'Planifier'", "rationale": "Elle complète 'Planifier', mais ne la remplace pas.", "is_correct": false},
+                        {"text": "Elle se concentre uniquement sur l'amélioration des processus, pas des services", "rationale": "Elle concerne à la fois les services, les processus, les produits et la valeur.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à l'intégration de l'amélioration dans tout le cycle de vie du service."
+                },
+                {
+                    "question": "Quel est le but de la pratique de gestion de la disponibilité?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "S'assurer que le service et ses composants sont disponibles quand et où c'est requis", "rationale": "La gestion de la disponibilité garantit que les services peuvent être utilisés selon les besoins des utilisateurs.", "is_correct": true},
+                        {"text": "Minimiser le coût des services IT", "rationale": "Ce peut être un bénéfice, mais pas l'objectif principal.", "is_correct": false},
+                        {"text": "Gérer la capacité des services IT", "rationale": "La capacité est liée, mais la disponibilité est plus sur l'accès réel au service.", "is_correct": false},
+                        {"text": "Assurer la sécurité des informations", "rationale": "C'est le rôle de la gestion de la sécurité de l'information.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à l'accessibilité et au temps de fonctionnement."
+                },
+                {
+                    "question": "Quelle est la relation entre les services, les produits et les ressources IT dans ITIL?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Les produits sont des configurations de ressources conçues pour offrir de la valeur à travers des services", "rationale": "C'est la relation correcte. Les ressources sont les 'ingrédients', les produits sont les 'recettes' ou offres structurées, et les services sont la 'livraison de repas' créant la valeur.", "is_correct": true},
+                        {"text": "Les services sont des ressources, les produits des livrables", "rationale": "Les services sont une forme de co-création de valeur, pas simplement des ressources.", "is_correct": false},
+                        {"text": "Les produits sont uniquement des logiciels, les services du support", "rationale": "Trop restrictif. Les produits peuvent inclure le matériel, les logiciels, les licences, le support, etc.", "is_correct": false},
+                        {"text": "Les ressources sont des services fournis par des produits", "rationale": "L'ordre est inversé. Les services sont fournis en utilisant des ressources.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la manière dont une organisation transforme ses capacités et ressources en offres de valeur pour les clients."
+                },
+                {
+                    "question": "Quel est le principe directeur d'ITIL v4 qui met l'accent sur l'observation des résultats avant de prendre des mesures?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Progresser itérativement avec des retours", "rationale": "Ce principe encourage le travail par petites étapes, l'apprentissage et l'ajustement basés sur les retours.", "is_correct": true},
+                        {"text": "Commencer là où vous êtes", "rationale": "Ce principe encourage l'évaluation de la situation actuelle avant de commencer une amélioration.", "is_correct": false},
+                        {"text": "Collaborer et promouvoir la visibilité", "rationale": "Ce principe met l'accent sur le travail d'équipe et la transparence.", "is_correct": false},
+                        {"text": "Penser et travailler de manière holistique", "rationale": "Ce principe met l'accent sur la considération de l'ensemble du système, pas seulement d'une partie.", "is_correct": false}
+                    ],
+                    "hint": "Pensez au concept de 'boucle de rétroaction' ou 'feedback loop'."
+                },
+                {
+                    "question": "Quelle est la définition de la valeur dans le contexte d'ITIL?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Les avantages perçus, l'utilité et l'importance d'un service par un client ou une partie prenante", "rationale": "La valeur est subjective et est définie par le client, basée sur l'utilité (fonctionnalité) et la garantie (performance).", "is_correct": true},
+                        {"text": "Le coût total de possession d'un actif IT", "rationale": "Le coût est un aspect, mais pas la définition de la valeur elle-même.", "is_correct": false},
+                        {"text": "Les bénéfices financiers réalisés par le fournisseur de services", "rationale": "La valeur inclut bien plus que les bénéfices financiers du fournisseur.", "is_correct": false},
+                        {"text": "La capacité d'un service à répondre à toutes les exigences techniques", "rationale": "La valeur est plus large et inclut les résultats métier souhaités, pas seulement la conformité technique.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la perception du client et aux résultats attendus."
+                },
+                {
+                    "question": "Comment ITIL v4 diffère-t-il d'ITIL v3 concernant la notion de 'processus'?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "ITIL v4 met l'accent sur les 'pratiques' plutôt que les processus rigides, offrant plus de flexibilité", "rationale": "ITIL v4 a remplacé la notion de 'processus' par celle de 'pratiques', qui sont plus flexibles et adaptables, tout en incluant les processus.", "is_correct": true},
+                        {"text": "ITIL v4 ne contient plus de processus", "rationale": "Faux, les processus sont toujours là, mais intégrés dans des pratiques plus larges.", "is_correct": false},
+                        {"text": "ITIL v4 introduit plus de processus que v3", "rationale": "ITIL v4 a consolidé et renommé les processus en pratiques, avec une approche plus flexible.", "is_correct": false},
+                        {"text": "ITIL v4 ne se concentre que sur l'automatisation des processus", "rationale": "L'automatisation est un aspect, mais pas le changement fondamental.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la terminologie et à la flexibilité introduites par v4."
+                },
+                {
+                    "question": "Quel est le but de la pratique de gestion des niveaux de service (SLM)?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Définir, documenter, gérer et améliorer les accords de niveau de service (SLA) avec les clients", "rationale": "La SLM est essentielle pour garantir que les services répondent aux attentes convenues avec les clients.", "is_correct": true},
+                        {"text": "Surveiller les performances techniques des serveurs", "rationale": "C'est une activité de monitoring, partie de l'exploitation, mais pas le but de la SLM.", "is_correct": false},
+                        {"text": "Réduire le nombre de plaintes des clients", "rationale": "C'est un bénéfice, mais le but est la gestion proactive des attentes et des performances.", "is_correct": false},
+                        {"text": "Gérer les contrats avec les fournisseurs de technologie", "rationale": "C'est le rôle de la gestion des fournisseurs.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la gestion des attentes et à la performance des services vis-à-vis des clients."
+                },
+                {
+                    "question": "Dans le contexte d'ITIL, qu'est-ce qu'une demande de service?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Une demande d'un utilisateur pour obtenir un service ou une information prédéfinie", "rationale": "Une demande de service est une demande standard et généralement pré-approuvée, comme une réinitialisation de mot de passe ou une demande d'accès.", "is_correct": true},
+                        {"text": "Une interruption non planifiée d'un service", "rationale": "C'est la définition d'un incident.", "is_correct": false},
+                        {"text": "La cause racine d'un ou plusieurs incidents", "rationale": "C'est la définition d'un problème.", "is_correct": false},
+                        {"text": "Une proposition pour modifier un service existant", "rationale": "C'est la définition d'une demande de changement.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à une requête courante et prévisible de la part de l'utilisateur."
+                },
+                {
+                    "question": "Quel est le but de la pratique de gestion de la sécurité de l'information?",
+                    "difficulty": "medium",
+                    "answer_options": [
+                        {"text": "Protéger les informations de l'organisation pour maintenir la confidentialité, l'intégrité et la disponibilité", "rationale": "C'est le but principal de la gestion de la sécurité de l'information, souvent résumé par la triade C.I.A. (Confidentiality, Integrity, Availability).", "is_correct": true},
+                        {"text": "Prévenir les cyberattaques uniquement", "rationale": "La sécurité de l'information est plus large que les cyberattaques, incluant la protection contre les pertes accidentelles, la corruption, etc.", "is_correct": false},
+                        {"text": "Assurer la conformité légale des données", "rationale": "La conformité est un aspect, mais le but est la protection globale des informations.", "is_correct": false},
+                        {"text": "Gérer les accès aux systèmes et applications", "rationale": "La gestion des accès est une activité de la sécurité de l'information, pas son but global.", "is_correct": false}
+                    ],
+                    "hint": "Pensez aux trois piliers de la sécurité des informations."
+                },
+
+                // 15 questions difficiles
+                {
+                    "question": "Selon ITIL v4, qu'est-ce que la 'co-création de valeur' et comment se manifeste-t-elle?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "C'est la collaboration entre le fournisseur de services et le consommateur de services pour générer de la valeur, manifestée par l'engagement et les feedbacks", "rationale": "ITIL v4 met un fort accent sur la co-création de valeur, où le fournisseur et le consommateur travaillent ensemble pour atteindre les résultats souhaités, ce qui se voit par une collaboration active et l'intégration des retours d'expérience.", "is_correct": true},
+                        {"text": "C'est lorsque le fournisseur de services fournit un service sans aucune interaction avec le client", "rationale": "C'est l'opposé de la co-création de valeur.", "is_correct": false},
+                        {"text": "C'est l'automatisation complète de la chaîne de valeur du service", "rationale": "L'automatisation peut aider, mais la co-création implique une interaction humaine et un partage de responsabilités.", "is_correct": false},
+                        {"text": "C'est la capacité du fournisseur de services à réduire les coûts pour le client", "rationale": "La réduction des coûts est un bénéfice potentiel, mais pas la définition de la co-création de valeur.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à un partenariat actif et à la contribution mutuelle pour obtenir des résultats."
+                },
+                {
+                    "question": "Dans ITIL v4, quel est l'objectif des 'flux de valeur et processus' dans les quatre dimensions de la gestion de service?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Définir la manière dont l'organisation crée de la valeur par des activités, des flux de travail et des procédures", "rationale": "Cette dimension se concentre sur l'organisation des activités nécessaires pour créer, livrer et améliorer les services, en intégrant les flux de valeur (chaîne de valeur du service) et les processus.", "is_correct": true},
+                        {"text": "Gérer les relations avec les parties prenantes externes", "rationale": "C'est la dimension 'Partenaires et fournisseurs'.", "is_correct": false},
+                        {"text": "Assurer que l'organisation a les bonnes compétences et la bonne culture", "rationale": "C'est la dimension 'Organisations et personnes'.", "is_correct": false},
+                        {"text": "Utiliser les bonnes technologies pour supporter les services", "rationale": "C'est la dimension 'Information et technologie'.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la manière dont le travail est structuré et exécuté pour créer de la valeur."
+                },
+                {
+                    "question": "Qu'est-ce que l'utilité (utility) et la garantie (warranty) dans ITIL, et pourquoi sont-elles importantes pour la valeur d'un service?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "L'utilité est la fonctionnalité d'un service (ce qu'il fait), la garantie est son niveau de performance (comment il fonctionne); elles créent la valeur", "rationale": "La valeur d'un service est la combinaison de son utilité (l'aptitude à l'usage) et de sa garantie (l'aptitude à la conformité). Sans les deux, la valeur perçue est incomplète.", "is_correct": true},
+                        {"text": "L'utilité est le coût, la garantie est le bénéfice", "rationale": "Ces termes ne sont pas définis par coût/bénéfice.", "is_correct": false},
+                        {"text": "L'utilité est interne, la garantie est externe", "rationale": "Les deux sont des attributs du service perçus par le consommateur.", "is_correct": false},
+                        {"text": "L'utilité est pour le fournisseur, la garantie pour le client", "rationale": "Les deux sont des aspects de la proposition de valeur pour le client.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à 'est-ce que ça fait ce que je veux?' et 'est-ce que ça le fait bien?'."
+                },
+                {
+                    "question": "Expliquez le concept de 'principe directeur' dans ITIL v4 et donnez un exemple.",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Un principe directeur est une recommandation universelle qui guide une organisation dans toutes les circonstances. Exemple: 'Commencer là où vous êtes'.", "rationale": "Les principes directeurs sont des lignes directrices non prescriptives qui aident les organisations à adopter et adapter ITIL à leurs contextes spécifiques.", "is_correct": true},
+                        {"text": "Un principe directeur est une règle stricte qui doit être suivie à la lettre. Exemple: 'Toujours automatiser les tâches'.", "rationale": "Les principes sont flexibles, pas des règles strictes. L'automatisation n'est pas toujours appropriée.", "is_correct": false},
+                        {"text": "Un principe directeur est un objectif SMART spécifique à chaque processus ITIL. Exemple: 'Réduire les incidents de 10%'", "rationale": "Les principes sont universels et non liés à des objectifs spécifiques de processus.", "is_correct": false},
+                        {"text": "Un principe directeur est une liste de bonnes pratiques pour chaque domaine de gestion. Exemple: 'Utiliser la méthode Kanban'", "rationale": "Les principes sont plus fondamentaux que des méthodes spécifiques.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à des philosophies ou des valeurs fondamentales qui devraient influencer toutes les décisions et actions."
+                },
+                {
+                    "question": "Quelle est l'importance de la gestion des relations (Relationship Management) et de la gestion des fournisseurs (Supplier Management) dans ITIL?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Elles sont cruciales pour assurer une collaboration efficace et une valeur optimale avec les partenaires et les fournisseurs, partie intégrante de la dimension 'Partenaires et fournisseurs'", "rationale": "Ces pratiques sont essentielles pour la dimension 'Partenaires et fournisseurs', garantissant que les relations sont gérées efficacement pour maximiser la valeur et minimiser les risques liés aux tiers.", "is_correct": true},
+                        {"text": "Elles ne concernent que les contrats légaux et n'ont pas d'impact sur la valeur des services", "rationale": "Elles vont bien au-delà des contrats légaux et ont un impact direct sur la performance des services.", "is_correct": false},
+                        {"text": "Elles sont principalement axées sur la réduction des coûts et la négociation de prix bas", "rationale": "Bien que les coûts soient un facteur, l'accent est mis sur la valeur à long terme, la collaboration et la qualité.", "is_correct": false},
+                        {"text": "Elles sont obsolètes avec l'avènement du cloud computing et des services externes", "rationale": "Au contraire, elles sont devenues encore plus importantes avec la complexité croissante des écosystèmes de fournisseurs.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à l'écosystème de services et à l'importance des collaborations externes."
+                },
+                {
+                    "question": "Comment la pratique de gestion du portefeuille contribue-t-elle à la stratégie de service?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Elle garantit que l'organisation a la bonne combinaison de services pour atteindre ses objectifs commerciaux, en équilibrant investissements et retours", "rationale": "La gestion du portefeuille aide à sélectionner et prioriser les services, les produits et les opportunités d'investissement qui correspondent à la stratégie globale de l'organisation et optimisent la valeur.", "is_correct": true},
+                        {"text": "Elle s'assure que tous les incidents sont résolus dans les temps", "rationale": "C'est l'objectif de la gestion des incidents.", "is_correct": false},
+                        {"text": "Elle documente les configurations de tous les composants IT", "rationale": "C'est l'objectif de la gestion des configurations.", "is_correct": false},
+                        {"text": "Elle gère la capacité technique des infrastructures", "rationale": "C'est l'objectif de la gestion de la capacité.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la vision d'ensemble des offres de service de l'organisation."
+                },
+                {
+                    "question": "Décrivez la relation entre la gouvernance et le système de valeur de service (SVS) dans ITIL v4.",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "La gouvernance est le cadre par lequel l'organisation est dirigée et contrôlée, assurant que le SVS génère de la valeur conformément aux objectifs", "rationale": "La gouvernance fournit les directives, les politiques et les responsabilités pour s'assurer que le système de valeur de service fonctionne efficacement et contribue à la réalisation des objectifs stratégiques de l'organisation.", "is_correct": true},
+                        {"text": "Le SVS remplace la gouvernance et la rend obsolète", "rationale": "La gouvernance est un composant clé du SVS, pas remplacée.", "is_correct": false},
+                        {"text": "La gouvernance ne s'applique qu'aux aspects financiers du SVS", "rationale": "La gouvernance s'applique à l'ensemble de l'organisation et de ses activités, y compris la gestion de service.", "is_correct": false},
+                        {"text": "Le SVS est une composante de la gouvernance", "rationale": "C'est l'inverse : la gouvernance est une composante du SVS.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la direction et au contrôle stratégiques de l'organisation et comment cela s'applique à la création de valeur par les services."
+                },
+                {
+                    "question": "Comment le principe directeur 'Optimiser et automatiser' est-il lié aux autres principes et aux pratiques ITIL?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Il encourage la simplification avant l'automatisation, en s'appuyant sur 'Progresser itérativement' et 'Commencer là où vous êtes', et est implémenté via des pratiques comme la gestion des changements", "rationale": "Il s'agit d'optimiser les processus existants avant d'investir dans l'automatisation. Il s'appuie sur une compréhension claire de la situation actuelle ('Commencer là où vous êtes') et sur l'amélioration progressive ('Progresser itérativement'). Les pratiques comme la gestion des changements et de la demande sont essentielles pour l'implémenter.", "is_correct": true},
+                        {"text": "Il signifie que toutes les activités doivent être automatisées dès le début de la planification", "rationale": "C'est une vision simpliste et potentiellement coûteuse; l'optimisation doit précéder l'automatisation.", "is_correct": false},
+                        {"text": "Il est indépendant des autres principes directeurs et des pratiques", "rationale": "Les principes directeurs sont interdépendants et doivent être appliqués ensemble.", "is_correct": false},
+                        {"text": "Il se concentre uniquement sur la réduction des effectifs via l'automatisation", "rationale": "Bien que la réduction des coûts puisse en découler, l'objectif principal est l'efficacité et la valeur, pas seulement la réduction du personnel.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à l'ordre des priorités : rendre les choses efficaces manuellement avant de les automatiser, et comment cela s'inscrit dans une approche d'amélioration continue."
+                },
+                {
+                    "question": "Quelle est la signification de l'architecture de service et pourquoi est-elle cruciale pour la conception de services ITIL?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Elle décrit la structure des services et de leurs composants interdépendants, essentielle pour garantir la cohérence, la réutilisabilité et l'évolutivité", "rationale": "L'architecture de service fournit un cadre pour concevoir des services qui sont cohérents, modulaires, évolutifs et réutilisables, ce qui est fondamental pour une gestion de service efficace et efficiente.", "is_correct": true},
+                        {"text": "C'est le plan de déploiement des nouveaux logiciels", "rationale": "C'est une partie de la gestion des versions, pas l'architecture de service globale.", "is_correct": false},
+                        {"text": "Elle se réfère uniquement à l'infrastructure matérielle sous-jacente", "rationale": "L'architecture de service est une abstraction qui inclut le logiciel, le matériel, les processus et les personnes.", "is_correct": false},
+                        {"text": "Elle est utilisée pour documenter les incidents majeurs après qu'ils se soient produits", "rationale": "Elle est liée à la conception proactive, pas à la documentation réactive d'incidents.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la carte ou au plan détaillé qui guide la construction et l'évolution des services."
+                },
+                {
+                    "question": "Comment la pratique de gestion du changement organisationnel (OCM) complète-t-elle la gestion des changements dans ITIL?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "L'OCM se concentre sur les aspects humains et culturels des changements, tandis que la gestion des changements se focalise sur les aspects techniques et procéduraux des services", "rationale": "La gestion des changements (technique/processus) et l'OCM (personnes/culture) sont complémentaires et nécessaires pour garantir le succès des initiatives de changement. Ignorer l'OCM peut entraîner une résistance et un échec même si les aspects techniques sont bien gérés.", "is_correct": true},
+                        {"text": "L'OCM est un remplacement de la gestion des changements", "rationale": "Elles sont complémentaires, pas remplaçantes.", "is_correct": false},
+                        {"text": "La gestion des changements inclut déjà l'OCM, donc elle est redondante", "rationale": "ITIL les distingue comme des pratiques distinctes mais liées, reconnaissant la complexité de l'aspect humain.", "is_correct": false},
+                        {"text": "L'OCM est uniquement pour les fusions et acquisitions, pas pour les changements IT quotidiens", "rationale": "L'OCM est pertinente pour tout changement impactant les personnes et leur travail.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la différence entre modifier un système et modifier la façon dont les gens travaillent avec ce système."
+                },
+                {
+                    "question": "Expliquez l'importance du concept de 'feedback loop' (boucle de rétroaction) dans ITIL et donnez un exemple concret.",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "C'est un mécanisme où les résultats d'une action sont réintroduits dans le système pour influencer les actions futures, essentiel pour l'amélioration continue. Ex: Retours des utilisateurs sur un service pour l'améliorer.", "rationale": "Les boucles de rétroaction sont cruciales pour l'apprentissage et l'adaptation. Elles permettent de s'assurer que les services et les pratiques évoluent en fonction de la performance et des besoins changeants.", "is_correct": true},
+                        {"text": "C'est un processus pour résoudre les problèmes techniques en temps réel", "rationale": "C'est plus large que la résolution de problèmes techniques et concerne l'apprentissage et l'amélioration.", "is_correct": false},
+                        {"text": "C'est une méthode de communication unidirectionnelle du fournisseur au client", "rationale": "Une boucle de rétroaction est bidirectionnelle, impliquant un retour d'information pour l'ajustement.", "is_correct": false},
+                        {"text": "C'est une obligation légale pour toutes les organisations certifiées ITIL", "rationale": "Ce n'est pas une obligation légale, mais une bonne pratique fondamentale.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à comment les systèmes s'ajustent et s'améliorent en fonction de ce qui se passe."
+                },
+                {
+                    "question": "En quoi le principe 'Penser et travailler de manière holistique' est-il fondamental pour la gestion de service ITIL v4?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Il exige que l'organisation considère le service dans son ensemble, y compris ses dimensions (personnes, techno, partenaires, flux de valeur), afin d'éviter l'optimisation des silos", "rationale": "Ce principe met en évidence la nécessité de voir l'organisation et ses services comme un tout interconnecté. L'optimisation d'une partie au détriment des autres peut nuire à la valeur globale. Les quatre dimensions de la gestion de service sont un exemple de cette approche holistique.", "is_correct": true},
+                        {"text": "Il signifie que seules les équipes IT doivent être impliquées dans la conception de service", "rationale": "L'approche holistique implique toutes les parties prenantes, pas seulement l'IT.", "is_correct": false},
+                        {"text": "Il met l'accent sur la division du travail en petites tâches pour une meilleure gestion", "rationale": "Bien que la division du travail soit utile, ce principe encourage la vision d'ensemble.", "is_correct": false},
+                        {"text": "Il n'est pertinent que pour les grandes organisations avec des structures complexes", "rationale": "Il est pertinent pour toutes les organisations, quelle que soit leur taille.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à l'image d'un puzzle où toutes les pièces doivent s'assembler pour former une image complète."
+                },
+                {
+                    "question": "Quel est l'impact de l'intégration et de la composition des services sur l'efficacité de la chaîne de valeur du service ITIL v4?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Une bonne intégration et composition réduisent la complexité, améliorent l'automatisation et accélèrent la livraison de valeur en reliant efficacement les activités de la chaîne de valeur", "rationale": "L'intégration (liens entre activités) et la composition (combinaison de services existants pour en créer de nouveaux) permettent une production de valeur plus rapide, plus cohérente et plus efficiente en évitant les redondances et les ruptures de flux.", "is_correct": true},
+                        {"text": "Elles augmentent la complexité et ralentissent le déploiement", "rationale": "C'est l'inverse; elles visent à simplifier et accélérer.", "is_correct": false},
+                        {"text": "Elles sont principalement des concepts marketing sans impact opérationnel réel", "rationale": "Elles ont un impact direct sur l'efficacité opérationnelle.", "is_correct": false},
+                        {"text": "Elles ne sont nécessaires que pour les services de très grande envergure", "rationale": "Elles sont bénéfiques pour des services de toute taille.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à l'assemblage de Lego: comment les pièces s'emboîtent pour créer quelque chose de plus grand et plus efficace."
+                },
+                {
+                    "question": "Comment la mesure et le reporting contribuent-ils à l'amélioration continue dans ITIL?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Ils fournissent les données nécessaires pour identifier les lacunes de performance, valider les améliorations et prendre des décisions basées sur des preuves", "rationale": "La mesure et le reporting sont fondamentaux pour l'amélioration continue car ils permettent de quantifier la performance actuelle, de détecter les écarts, de suivre l'efficacité des changements implémentés et de justifier les actions futures.", "is_correct": true},
+                        {"text": "Ils ne sont utilisés que pour la facturation des clients", "rationale": "C'est une utilisation possible, mais pas la principale raison pour l'amélioration continue.", "is_correct": false},
+                        {"text": "Ils remplacent le besoin de feedback direct des utilisateurs", "rationale": "Ils complètent le feedback direct, ils ne le remplacent pas.", "is_correct": false},
+                        {"text": "Ils sont une exigence réglementaire sans valeur ajoutée opérationnelle", "rationale": "Ils sont essentiels pour la gestion et l'amélioration de la valeur.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à l'adage 'on ne peut améliorer que ce que l'on mesure'."
+                },
+                {
+                    "question": "Quel est le rôle de la planification de la capacité dans la prévention des problèmes de performance?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Elle anticipe les besoins futurs en ressources IT, planifiant les évolutions pour éviter les goulots d'étranglement et les dégradations de performance", "rationale": "La planification de la capacité garantit que les services auront les ressources nécessaires pour maintenir les niveaux de performance attendus, prévenant ainsi les problèmes causés par des ressources insuffisantes.", "is_correct": true},
+                        {"text": "Elle résout les problèmes après qu'ils se soient produits", "rationale": "Elle est proactive, visant à prévenir, pas à résoudre après coup.", "is_correct": false},
+                        {"text": "Elle se concentre uniquement sur l'achat de nouveau matériel", "rationale": "Elle inclut la planification logicielle, réseau, personnel, etc., pas seulement le matériel.", "is_correct": false},
+                        {"text": "Elle est gérée par la fonction financière de l'organisation", "rationale": "Elle est gérée par l'IT en collaboration avec la finance.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à prévoir les besoins futurs plutôt que de réagir aux problèmes actuels."
+                },
+                {
+                    "question": "Comment le principe 'Maintenir la simplicité et la praticité' (Keep it simple and practical) influence-t-il l'implémentation d'ITIL?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Il encourage à utiliser le moins d'étapes et de ressources possible pour atteindre un objectif, évitant la complexité inutile et la bureaucratie", "rationale": "Ce principe incite à trouver la solution la plus simple et la plus directe qui fonctionne, en évitant la suringénierie et en se concentrant sur ce qui apporte réellement de la valeur.", "is_correct": true},
+                        {"text": "Il signifie qu'il faut ignorer les processus complexes", "rationale": "Il s'agit de simplifier, pas d'ignorer la complexité nécessaire.", "is_correct": false},
+                        {"text": "Il favorise l'utilisation de technologies de pointe, même si elles sont difficiles à maîtriser", "rationale": "Ce principe met l'accent sur la praticité et la simplicité, pas la complexité technologique.", "is_correct": false},
+                        {"text": "Il s'applique uniquement à la gestion des incidents", "rationale": "Il s'applique à toutes les pratiques et à l'ensemble du système de valeur de service.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la phrase 'Less is more' ou 'ne compliquez pas les choses'."
+                },
+                {
+                    "question": "Quelle est la valeur de la base de données des erreurs connues (KEDB) pour la gestion des problèmes et des incidents?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Elle contient des informations sur les problèmes identifiés, leurs causes racines et des solutions de contournement, permettant une résolution plus rapide des incidents récurrents", "rationale": "La KEDB est un outil essentiel de la gestion des problèmes. Elle permet au Service Desk de résoudre plus rapidement les incidents liés à des problèmes connus, même si la cause racine n'est pas encore éliminée, en fournissant des solutions de contournement ou des solutions permanentes.", "is_correct": true},
+                        {"text": "Elle remplace la base de données de gestion de la configuration (CMDB)", "rationale": "Ce sont des bases de données complémentaires avec des objectifs différents.", "is_correct": false},
+                        {"text": "Elle n'est utilisée que pour la formation des nouveaux employés", "rationale": "Son utilité principale est la résolution d'incidents et de problèmes.", "is_correct": false},
+                        {"text": "Elle est un registre de tous les changements planifiés", "rationale": "C'est le rôle du calendrier des changements, pas de la KEDB.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à un référentiel de solutions pour des problèmes déjà rencontrés."
+                },
+                {
+                    "question": "Comment la gestion du portefeuille de services et le catalogue de services se complètent-ils dans ITIL?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Le portefeuille contient tous les services (actifs, en pipeline, retirés) et supporte la prise de décision stratégique, tandis que le catalogue est une vue client du portefeuille avec les services disponibles", "rationale": "Le portefeuille est la vue complète de tous les services et investissements potentiels de l'organisation. Le catalogue est un sous-ensemble du portefeuille, une vue plus simple et orientée client, des services disponibles et de leurs détails.", "is_correct": true},
+                        {"text": "Ils sont interchangeables et désignent la même chose", "rationale": "Ils ont des objectifs et des publics différents.", "is_correct": false},
+                        {"text": "Le catalogue est pour la gestion interne, le portefeuille pour les clients externes", "rationale": "C'est l'inverse: le portefeuille est plus stratégique (interne/externe), le catalogue est pour les clients (internes/externes).", "is_correct": false},
+                        {"text": "Le portefeuille contient uniquement les services existants, le catalogue les services futurs", "rationale": "Le portefeuille inclut les services en pipeline et retirés, le catalogue les services actifs.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à une bibliothèque complète (portefeuille) et à une brochure marketing (catalogue)."
+                },
+                {
+                    "question": "Quel est l'impact d'une faible maturité de la gestion des changements sur la chaîne de valeur du service?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Cela peut entraîner des incidents fréquents, des retards de déploiement, des pannes de service et une insatisfaction client, affectant négativement toutes les activités de la chaîne", "rationale": "Une gestion des changements immature mène à des changements non coordonnés, à des conflits, des erreurs, et des interruptions de service, ce qui impacte négativement l'ensemble de la chaîne de valeur du service et la capacité de l'organisation à livrer de la valeur de manière fiable.", "is_correct": true},
+                        {"text": "Cela accélère le déploiement de nouveaux services", "rationale": "C'est l'inverse; sans contrôle, les déploiements peuvent être chaotiques et retardés.", "is_correct": false},
+                        {"text": "Cela réduit les coûts opérationnels", "rationale": "Cela augmente les coûts liés aux incidents et aux reprises.", "is_correct": false},
+                        {"text": "Cela n'affecte que la phase de 'Transition' de la chaîne de valeur", "rationale": "Cela affecte toutes les phases, de la conception à l'exploitation et l'amélioration.", "is_correct": false}
+                    ],
+                    "hint": "Pensez aux conséquences du chaos et du manque de contrôle sur les modifications apportées aux systèmes."
+                },
+                {
+                    "question": "Comment la gestion du niveau de service (SLM) peut-elle être optimisée en utilisant la gestion des problèmes et la gestion des incidents?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "En utilisant les données d'incidents et de problèmes pour identifier les tendances, les causes racines des dégradations de service et proposer des améliorations aux SLA", "rationale": "SLM utilise les informations des incidents (fréquence, durée) et des problèmes (causes racines, workarounds, solutions permanentes) pour comprendre les causes des non-conformités aux SLA, négocier des SLA plus réalistes ou initier des actions d'amélioration pour les respecter.", "is_correct": true},
+                        {"text": "En séparant complètement ces pratiques pour éviter les conflits", "rationale": "Elles sont interdépendantes et se nourrissent mutuellement.", "is_correct": false},
+                        {"text": "En utilisant uniquement les métriques financières", "rationale": "Les métriques de performance de service sont essentielles, pas seulement les financières.", "is_correct": false},
+                        {"text": "En ignorant les incidents mineurs qui ne menacent pas directement les SLA", "rationale": "Même les incidents mineurs, s'ils sont récurrents, peuvent indiquer un problème sous-jacent affectant les SLA.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à la manière dont les dysfonctionnements quotidiens (incidents) et leurs causes sous-jacentes (problèmes) peuvent éclairer la performance globale des services par rapport aux engagements."
+                },
+                {
+                    "question": "Quel rôle jouent les indicateurs clés de performance (KPIs) dans la surveillance des services ITIL?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Les KPIs sont des métriques mesurables qui indiquent la performance et l'efficacité d'un service ou d'un processus par rapport à des objectifs, permettant de juger du succès et d'identifier les domaines à améliorer", "rationale": "Les KPIs sont cruciaux pour le monitoring et le reporting. Ils permettent à l'organisation de savoir si elle atteint ses objectifs de service et d'identifier les domaines où des améliorations sont nécessaires, en lien direct avec les SLA.", "is_correct": true},
+                        {"text": "Les KPIs sont des documents décrivant les procédures opérationnelles standard", "rationale": "C'est la définition des SOPs, pas des KPIs.", "is_correct": false},
+                        {"text": "Les KPIs sont des outils logiciels pour l'automatisation des tâches", "rationale": "Les KPIs sont des mesures, pas des outils.", "is_correct": false},
+                        {"text": "Les KPIs sont principalement utilisés pour sanctionner les équipes en cas de non-respect des objectifs", "rationale": "Bien qu'ils puissent être utilisés pour la performance individuelle, leur objectif principal est l'amélioration de la performance des services et des processus.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à ce qui vous permet de savoir si vous êtes sur la bonne voie ou si vous avez atteint vos cibles."
+                },
+                {
+                    "question": "Pourquoi la compréhension du contexte organisationnel est-elle essentielle lors de l'application des principes directeurs ITIL?",
+                    "difficulty": "hard",
+                    "answer_options": [
+                        {"text": "Car les principes sont des recommandations qui doivent être adaptées au contexte unique (culture, taille, objectifs) de chaque organisation pour être efficaces", "rationale": "ITIL n'est pas prescriptif. Les principes directeurs et les pratiques doivent être adaptés au contexte spécifique de chaque organisation pour être pertinents et efficaces. Ignorer le contexte mène à des implémentations rigides et infructueuses.", "is_correct": true},
+                        {"text": "Les principes directeurs ne s'appliquent qu'aux grandes entreprises, le contexte des PME est irrelevant", "rationale": "Les principes sont universels, applicables à toutes les tailles d'organisation.", "is_correct": false},
+                        {"text": "Le contexte n'est pertinent que pour la conformité réglementaire, pas pour l'efficacité opérationnelle", "rationale": "Le contexte est fondamental pour l'efficacité opérationnelle et la création de valeur.", "is_correct": false},
+                        {"text": "Comprendre le contexte ralentit le processus d'implémentation d'ITIL", "rationale": "Bien que cela puisse prendre du temps, une bonne compréhension du contexte est essentielle pour une implémentation réussie et durable.", "is_correct": false}
+                    ],
+                    "hint": "Pensez à l'idée qu'il n'y a pas de solution unique qui convienne à tous, et que l'adaptation est clé."
+                }
+            ]
+        };
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        async function loadQuestions() {
+            loadingSpinner.style.display = 'block';
+            quizNavigationDiv.style.display = 'none';
+            // Simulate API call delay
+            await new Promise(resolve => setTimeout(resolve, 500)); 
+
+            questions = quizData.questions;
+            shuffleArray(questions); // Shuffle questions
+            questions.forEach(q => shuffleArray(q.answer_options)); // Shuffle answers for each question
+            
+            loadingSpinner.style.display = 'none';
+            quizNavigationDiv.style.display = 'flex'; // Show navigation buttons
+            displayQuestion(currentQuestionIndex);
+            updateProgress();
+        }
+
+        function displayQuestion(index) {
+            const q = questions[index];
+            let optionsHtml = '';
+            q.answer_options.forEach((option, optIndex) => {
+                const checked = userAnswers[index] === optIndex ? 'checked' : '';
+                optionsHtml += `
+                    <div class="form-check answer-option" data-option-index="${optIndex}">
+                        <input class="form-check-input" type="radio" name="question${index}" id="option${index}-${optIndex}" value="${optIndex}" ${checked} ${userAnswers[index] !== null ? 'disabled' : ''}>
+                        <label class="form-check-label" for="option${index}-${optIndex}">
+                            ${option.text}
+                        </label>
+                    </div>
+                `;
+            });
+
+            const difficultyClass = q.difficulty === 'easy' ? 'easy' : q.difficulty === 'medium' ? 'medium' : 'hard';
+            const difficultyText = q.difficulty === 'easy' ? 'Facile' : q.difficulty === 'medium' ? 'Moyenne' : 'Difficile';
+
+            quizDisplayDiv.innerHTML = `
+                <div class="question-card">
+                    <h5>
+                        ${q.question} 
+                        <span class="badge ${difficultyClass} difficulty-badge">${difficultyText}</span>
+                    </h5>
+                    <div class="options-container">
+                        ${optionsHtml}
+                    </div>
+                    <button class="btn btn-info btn-sm btn-toggle-info" data-bs-toggle="collapse" data-bs-target="#hint-${index}" aria-expanded="false" aria-controls="hint-${index}">
+                        <i class="fas fa-lightbulb me-2"></i> Afficher l'indice
+                    </button>
+                    <div class="collapse hint" id="hint-${index}">
+                        <p>${q.hint}</p>
+                    </div>
+                    <button class="btn btn-secondary btn-sm btn-toggle-info mt-2" data-bs-toggle="collapse" data-bs-target="#rationale-${index}" aria-expanded="false" aria-controls="rationale-${index}" style="display: none;">
+                        <i class="fas fa-info-circle me-2"></i> Afficher l'explication
+                    </button>
+                    <div class="collapse rationale" id="rationale-${index}">
+                        <h6>Explication:</h6>
+                        <p>${q.answer_options.find(opt => opt.is_correct).rationale}</p>
+                    </div>
+                </div>
+            `;
+
+            attachEventListeners();
+            updateNavigationButtons();
+            updateProgress();
+            
+            // Show rationale if answer was already selected
+            if (userAnswers[index] !== null) {
+                const selectedOptionElement = quizDisplayDiv.querySelector(`.answer-option[data-option-index="${userAnswers[index]}"]`);
+                const correctAnswerIndex = q.answer_options.findIndex(opt => opt.is_correct);
+
+                if (userAnswers[index] === correctAnswerIndex) {
+                    selectedOptionElement.classList.add('correct');
+                } else {
+                    selectedOptionElement.classList.add('incorrect');
+                    // Highlight correct answer if an incorrect one was chosen
+                    const correctOptionElement = quizDisplayDiv.querySelector(`.answer-option[data-option-index="${correctAnswerIndex}"]`);
+                    if (correctOptionElement) {
+                        correctOptionElement.classList.add('correct');
+                    }
+                }
+                quizDisplayDiv.querySelector('.btn-toggle-info[data-bs-target^="#rationale"]').style.display = 'block';
+                new bootstrap.Collapse(document.getElementById(`rationale-${index}`), { toggle: true });
+            }
+        }
+
+        function attachEventListeners() {
+            quizDisplayDiv.querySelectorAll('.answer-option').forEach(optionElement => {
+                optionElement.addEventListener('click', function() {
+                    if (userAnswers[currentQuestionIndex] === null) { // Only allow selection if not already answered
+                        const selectedOptionIndex = parseInt(this.dataset.optionIndex);
+                        userAnswers[currentQuestionIndex] = selectedOptionIndex;
+
+                        const question = questions[currentQuestionIndex];
+                        const correctAnswerIndex = question.answer_options.findIndex(opt => opt.is_correct);
+
+                        if (selectedOptionIndex === correctAnswerIndex) {
+                            score++;
+                            this.classList.add('correct');
+                        } else {
+                            this.classList.add('incorrect');
+                            // Highlight the correct answer
+                            const correctOptionElement = quizDisplayDiv.querySelector(`.answer-option[data-option-index="${correctAnswerIndex}"]`);
+                            if (correctOptionElement) {
+                                correctOptionElement.classList.add('correct');
+                            }
+                        }
+
+                        // Disable all radio buttons for the current question
+                        quizDisplayDiv.querySelectorAll('input[type="radio"]').forEach(radio => radio.disabled = true);
+
+                        // Show rationale button and automatically expand it
+                        quizDisplayDiv.querySelector('.btn-toggle-info[data-bs-target^="#rationale"]').style.display = 'block';
+                        new bootstrap.Collapse(document.getElementById(`rationale-${currentQuestionIndex}`), { toggle: true });
+
+                        updateProgress();
+                    }
+                });
+            });
+        }
+
+        function updateNavigationButtons() {
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.disabled = false; // Always allow navigating forward, even if not answered
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.textContent = 'Terminer le Quiz';
+                nextBtn.classList.remove('btn-primary');
+                nextBtn.classList.add('btn-success');
+                nextBtn.innerHTML = `Terminer le Quiz <i class="fas fa-check-circle ms-2"></i>`;
+            } else {
+                nextBtn.textContent = 'Suivant';
+                nextBtn.classList.remove('btn-success');
+                nextBtn.classList.add('btn-primary');
+                nextBtn.innerHTML = `Suivant <i class="fas fa-arrow-right ms-2"></i>`;
+            }
+        }
+
+        function updateProgress() {
+            currentScoreDisplay.textContent = `Score: ${score} / ${questions.filter( (q, idx) => userAnswers[idx] !== null).length}`;
+            questionCountDisplay.textContent = `Question: ${currentQuestionIndex + 1} / ${questions.length}`;
+            const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+            questionProgressBar.style.width = `${progressPercentage}%`;
+            questionProgressBar.setAttribute('aria-valuenow', progressPercentage);
+        }
+
+        function showResults() {
+            const totalQuestions = questions.length;
+            const percentage = (score / totalQuestions) * 100;
+
+            finalScoreCorrectSpan.textContent = score;
+            finalScoreTotalSpan.textContent = totalQuestions;
+            finalScorePercentage.textContent = `${percentage.toFixed(1)}%`;
+            finalScorePercentage.style.color = percentage >= 70 ? '#28a745' : percentage >= 50 ? '#ffc107' : '#dc3545';
+
+            let recommendationsHtml = '<h4>Recommandations:</h4><ul>';
+            if (percentage >= 85) {
+                recommendationsHtml += '<li>Félicitations ! Vous maîtrisez très bien les concepts ITIL Fondation. Vous êtes prêt(e) pour l\'examen.</li>';
+            } else if (percentage >= 70) {
+                recommendationsHtml += '<li>Bon travail ! Vous avez une solide compréhension d\'ITIL. Revoyez les domaines où vous avez eu des difficultés.</li>';
+            } else if (percentage >= 50) {
+                recommendationsHtml += '<li>Vous avez une base en ITIL, mais une révision approfondie est nécessaire. Concentrez-vous sur les principes fondamentaux et les pratiques clés.</li>';
+            } else {
+                recommendationsHtml += '<li>Des efforts supplémentaires sont nécessaires. Il est conseillé de revoir l\'ensemble du matériel de cours ITIL Fondation.</li>';
+            }
+            recommendationsHtml += '</ul>';
+            finalRecommendationsDiv.innerHTML = recommendationsHtml;
+
+            resultsModal.show();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion(currentQuestionIndex);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion(currentQuestionIndex);
+            } else {
+                showResults();
+            }
+        });
+
+        restartQuizBtnModal.addEventListener('click', () => {
+            resultsModal.hide();
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            shuffleArray(questions); // Reshuffle questions for a new quiz
+            questions.forEach(q => shuffleArray(q.answer_options)); // Reshuffle answers
+            displayQuestion(currentQuestionIndex);
+            updateProgress();
+        });
+
+        // Initial load
+        loadQuestions();
+    </script>
+</body>
+</html>
