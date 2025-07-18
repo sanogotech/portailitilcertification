@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
+        /* Variables de couleurs personnalisées */
         :root {
             --primary-dark: #1a365d;
             --primary-color: #2c5282;
@@ -17,15 +18,18 @@
             --light-color: #ebf8ff;
             --dark-color: #2d3748;
             --highlight-color: #f6e05e;
+            --info-color: #0d6efd; /* Added for info badges/elements */
         }
         
+        /* Styles généraux du corps */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif; /* Changed font to Inter for modern look */
             background-color: #f8f9fa;
             color: var(--dark-color);
             line-height: 1.7;
         }
         
+        /* Barre de navigation */
         .navbar {
             box-shadow: 0 2px 15px rgba(0,0,0,0.1);
             background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
@@ -43,12 +47,15 @@
             padding: 0.5rem 1rem;
             border-radius: 50px;
             transition: all 0.3s ease;
+            color: rgba(255,255,255,0.7) !important; /* Default nav link color */
         }
         
         .nav-link:hover, .nav-link.active {
             background-color: rgba(255,255,255,0.15);
+            color: white !important; /* Active/hover color */
         }
         
+        /* Section Héro */
         .hero-section {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
             color: white;
@@ -83,6 +90,7 @@
             opacity: 0.9;
         }
         
+        /* Cartes (Cards) */
         .card {
             border: none;
             border-radius: 12px;
@@ -91,7 +99,7 @@
             margin-bottom: 25px;
             overflow: hidden;
             background-color: white;
-            border-top: 4px solid transparent;
+            border-top: 4px solid transparent; /* Default transparent border-top */
         }
         
         .card:hover {
@@ -105,6 +113,7 @@
             font-weight: 600;
             padding: 1.25rem;
             border-bottom: none;
+            border-radius: 12px 12px 0 0; /* Rounded corners for header */
         }
         
         .card-body {
@@ -115,8 +124,10 @@
             background-color: rgba(0,0,0,0.03);
             border-top: none;
             padding: 1.25rem;
+            border-radius: 0 0 12px 12px; /* Rounded corners for footer */
         }
         
+        /* Boutons */
         .btn {
             font-weight: 600;
             letter-spacing: 0.5px;
@@ -147,7 +158,15 @@
             background-color: var(--secondary-color);
             color: white;
         }
+
+        .btn-light {
+            color: var(--primary-color);
+        }
+        .btn-light:hover {
+            color: var(--primary-dark);
+        }
         
+        /* Badges */
         .badge {
             padding: 0.5rem 0.8rem;
             font-weight: 600;
@@ -155,6 +174,7 @@
             letter-spacing: 0.5px;
         }
         
+        /* Accordéon */
         .accordion {
             --bs-accordion-border-color: none;
             --bs-accordion-btn-focus-box-shadow: none;
@@ -185,6 +205,7 @@
             background-color: rgba(245, 245, 245, 0.5);
         }
         
+        /* Barres de progression */
         .progress {
             height: 12px;
             border-radius: 6px;
@@ -196,6 +217,7 @@
             border-radius: 6px;
         }
         
+        /* Tableaux */
         .table {
             --bs-table-striped-bg: rgba(49, 130, 206, 0.05);
         }
@@ -204,6 +226,7 @@
             background-color: rgba(49, 130, 206, 0.1);
         }
         
+        /* Pied de page */
         footer {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
             color: white;
@@ -296,9 +319,10 @@
             border-radius: 50%;
             background-color: white;
             border: 4px solid var(--secondary-color);
+            z-index: 1; /* Ensure it's above the line */
         }
         
-        /* Exam tips */
+        /* Conseils d'examen */
         .exam-tip {
             background-color: white;
             border-left: 4px solid var(--secondary-color);
@@ -327,7 +351,7 @@
             margin-right: 10px;
         }
         
-        /* Knowledge check */
+        /* Vérification des connaissances */
         .knowledge-check {
             background-color: rgba(49, 130, 206, 0.08);
             border-radius: 10px;
@@ -349,7 +373,7 @@
             font-size: 1.2rem;
         }
         
-        /* Key concept */
+        /* Concept clé */
         .key-concept {
             background-color: white;
             border-radius: 10px;
@@ -364,7 +388,15 @@
             color: var(--warning-color);
             margin-bottom: 1rem;
         }
-        
+
+        /* Styles spécifiques pour les sections */
+        section {
+            padding: 4rem 0;
+        }
+        section:nth-of-type(even) {
+            background-color: #f0f2f5; /* Light grey background for alternating sections */
+        }
+
         /* Responsive adjustments */
         @media (max-width: 992px) {
             .hero-section {
@@ -426,13 +458,16 @@
                         <a class="nav-link active" href="#concepts">Concepts Clés</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#dimensions">Dimensions</a>
+                        <a class="nav-link" href="#dimensions">4 Dimensions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#value-chain">Chaîne de Valeur</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#practices">Pratiques</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#value-chain">Chaîne de Valeur</a>
+                        <a class="nav-link" href="#improvement">Amélioration Continue</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#resources">Ressources</a>
@@ -452,20 +487,20 @@
         <div class="container position-relative">
             <div class="row align-items-center">
                 <div class="col-lg-7 text-center text-lg-start">
-                    <h1 class="display-4 fw-bold mb-3">Maîtrisez la Certification <span class="highlight">ITIL 4</span></h1>
-                    <p class="lead-hero mb-4">Le guide expert complet pour réussir l'examen Foundation et maîtriser les bonnes pratiques du management des services IT</p>
+                    <h1 class="display-4 fw-bold mb-3">Maîtrisez la Certification <span class="highlight">ITIL 4 Foundation</span></h1>
+                    <p class="lead-hero mb-4">Le guide expert complet pour réussir l'examen Foundation et maîtriser les bonnes pratiques du management des services IT. Développez une approche holistique de la création de valeur.</p>
                     <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
-                        <a href="#start" class="btn btn-light btn-lg px-4">
+                        <a href="#start" class="btn btn-light btn-lg px-4 shadow-sm">
                             <i class="bi bi-book me-2"></i>Commencer l'apprentissage
                         </a>
-                        <a href="#exam" class="btn btn-outline-light btn-lg px-4">
+                        <a href="#exam" class="btn btn-outline-light btn-lg px-4 shadow-sm">
                             <i class="bi bi-patch-question me-2"></i>Guide de l'examen
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-5 mt-5 mt-lg-0">
                     <div class="text-center floating">
-                        <img src="https://via.placeholder.com/400x300" alt="ITIL 4 Certification" class="img-fluid rounded-3 shadow" style="max-height: 300px;">
+                        <img src="https://placehold.co/400x300/2c5282/ffffff?text=ITIL+4+Certification" alt="ITIL 4 Certification" class="img-fluid rounded-3 shadow" style="max-height: 300px;">
                     </div>
                 </div>
             </div>
@@ -484,6 +519,10 @@
                         <i class="bi bi-check-circle-fill text-success me-2 fs-5"></i>
                         <span>Stratégies d'examen</span>
                     </div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill text-success me-2 fs-5"></i>
+                        <span>Concepts modernes (Agile, DevOps)</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -494,55 +533,106 @@
             <div class="col-lg-8 mx-auto">
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-primary text-white">
-                        <h2 class="mb-0"><i class="bi bi-info-circle me-2"></i>Introduction à ITIL 4</h2>
+                        <h2 class="mb-0"><i class="bi bi-info-circle me-2"></i>Introduction à ITIL 4 et ses Bénéfices</h2>
                     </div>
                     <div class="card-body">
-                        <p class="lead">ITIL 4 (Information Technology Infrastructure Library) est le cadre de référence mondial pour la gestion des services informatiques, développé par <strong>AXELOS</strong>. Il fournit des bonnes pratiques pour aligner les services IT sur les besoins des entreprises.</p>
+                        <p class="lead">ITIL 4 (Information Technology Infrastructure Library) est le cadre de référence mondial pour la gestion des services informatiques, développé par <strong>AXELOS</strong>. Il fournit des bonnes pratiques pour aligner les services IT sur les besoins des entreprises et créer de la valeur de manière efficace et efficiente.</p>
                         
                         <div class="key-concept mt-3">
-                            <div class="concept-title"><i class="bi bi-lightbulb"></i> Pourquoi ITIL 4 ?</div>
-                            <p>ITIL 4 aide les organisations à créer de la valeur grâce à des services IT bien gérés. Il intègre des concepts modernes comme Agile, DevOps et Lean tout en conservant les bonnes pratiques éprouvées d'ITIL v3. ITIL 4 se concentre sur la co-création de valeur entre les fournisseurs de services et leurs clients.</p>
+                            <div class="concept-title"><i class="bi bi-lightbulb"></i> Pourquoi ITIL 4 est essentiel aujourd'hui ?</div>
+                            <p>ITIL 4 aide les organisations à naviguer dans le paysage numérique en constante évolution. Il intègre des concepts modernes comme Agile, DevOps et Lean, permettant aux entreprises de rester compétitives. Le cadre met l'accent sur la <strong>co-création de valeur</strong>, la flexibilité et l'adaptabilité, en se concentrant sur les résultats plutôt que sur les processus rigides.</p>
+                            <ul class="list-group list-group-flush mt-3">
+                                <li class="list-group-item d-flex align-items-start">
+                                    <i class="bi bi-arrow-right-circle text-primary me-2 mt-1"></i>
+                                    <span><strong>Agilité accrue :</strong> ITIL 4 favorise des cycles d'amélioration courts et des retours d'information rapides.</span>
+                                </li>
+                                <li class="list-group-item d-flex align-items-start">
+                                    <i class="bi bi-arrow-right-circle text-primary me-2 mt-1"></i>
+                                    <span><strong>Collaboration améliorée :</strong> Encourage la collaboration entre les équipes IT et métier, brisant les silos.</span>
+                                </li>
+                                <li class="list-group-item d-flex align-items-start">
+                                    <i class="bi bi-arrow-right-circle text-primary me-2 mt-1"></i>
+                                    <span><strong>Orientation valeur :</strong> Chaque activité est centrée sur la création de valeur pour le client et l'organisation.</span>
+                                </li>
+                                <li class="list-group-item d-flex align-items-start">
+                                    <i class="bi bi-arrow-right-circle text-primary me-2 mt-1"></i>
+                                    <span><strong>Adaptabilité :</strong> Le cadre est conçu pour être adaptable à différents types d'organisations et de contextes.</span>
+                                </li>
+                            </ul>
                         </div>
                         
-                        <h4 class="mt-4 fw-bold">Objectifs de la Certification</h4>
+                        <h4 class="mt-4 fw-bold">Objectifs de cette Certification ITIL 4 Foundation</h4>
+                        <p>En suivant ce guide, vous serez en mesure de :</p>
                         <ul class="list-group list-group-flush mb-4">
                             <li class="list-group-item d-flex align-items-start">
                                 <i class="bi bi-check2-square text-success me-2 mt-1"></i>
-                                <span>Comprendre les concepts clés du management des services IT</span>
+                                <span>Comprendre les concepts clés du management des services IT et la nature de la valeur.</span>
                             </li>
                             <li class="list-group-item d-flex align-items-start">
                                 <i class="bi bi-check2-square text-success me-2 mt-1"></i>
-                                <span>Maîtriser les 4 dimensions et 34 pratiques</span>
+                                <span>Maîtriser le Système de Valeur des Services (SVS) et ses composants essentiels.</span>
                             </li>
                             <li class="list-group-item d-flex align-items-start">
                                 <i class="bi bi-check2-square text-success me-2 mt-1"></i>
-                                <span>Comprendre la chaîne de valeur des services</span>
+                                <span>Identifier et appliquer les 7 Principes Directeurs d'ITIL 4 dans diverses situations.</span>
                             </li>
                             <li class="list-group-item d-flex align-items-start">
                                 <i class="bi bi-check2-square text-success me-2 mt-1"></i>
-                                <span>Préparer et réussir l'examen ITIL 4 Foundation</span>
+                                <span>Expliquer les 4 Dimensions du Management des Services et leur importance holistique.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check2-square text-success me-2 mt-1"></i>
+                                <span>Décrire la Chaîne de Valeur des Services (SVC) et comment elle transforme la demande en valeur.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check2-square text-success me-2 mt-1"></i>
+                                <span>Connaître les objectifs et les rôles clés des principales Pratiques ITIL.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check2-square text-success me-2 mt-1"></i>
+                                <span>Comprendre le modèle d'Amélioration Continue et son application.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check2-square text-success me-2 mt-1"></i>
+                                <span>Préparer et réussir l'examen ITIL 4 Foundation avec confiance.</span>
                             </li>
                         </ul>
                         
                         <div class="knowledge-check">
                             <div class="check-title">
-                                <i class="bi bi-question-circle-fill"></i> Vérification des connaissances
+                                <i class="bi bi-question-circle-fill"></i> Vérification des connaissances - Introduction
                             </div>
-                            <p><strong>Q:</strong> Quel organisme développe et maintient le cadre ITIL ?</p>
+                            <p><strong>Q1:</strong> Quel est l'objectif principal d'ITIL 4 ?</p>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="introCheck" id="introCheck1">
-                                <label class="form-check-label" for="introCheck1">ISO</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="introCheck" id="introCheck2">
-                                <label class="form-check-label" for="introCheck2">AXELOS</label>
+                                <input class="form-check-input" type="radio" name="introCheck1" id="introCheck1_1">
+                                <label class="form-check-label" for="introCheck1_1">Standardiser tous les processus IT d'une organisation.</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="introCheck" id="introCheck3">
-                                <label class="form-check-label" for="introCheck3">ISACA</label>
+                                <input class="form-check-input" type="radio" name="introCheck1" id="introCheck1_2">
+                                <label class="form-check-label" for="introCheck1_2">Aider les organisations à co-créer de la valeur grâce aux services IT.</label>
                             </div>
-                            <button class="btn btn-sm btn-outline-primary mt-2" onclick="checkAnswer('introCheck2', 'introCheckFeedback')">Vérifier</button>
-                            <div id="introCheckFeedback" class="mt-2 d-none"></div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="introCheck1" id="introCheck1_3">
+                                <label class="form-check-label" for="introCheck1_3">Fournir une certification aux professionnels de l'informatique.</label>
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary mt-2" onclick="checkAnswer('introCheck1_2', 'introCheck1Feedback')">Vérifier</button>
+                            <div id="introCheck1Feedback" class="mt-2 d-none"></div>
+
+                            <p class="mt-4"><strong>Q2:</strong> Quels concepts modernes ITIL 4 intègre-t-il ?</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="introCheck2" id="introCheck2_1">
+                                <label class="form-check-label" for="introCheck2_1">Waterfall et CMMI</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="introCheck2" id="introCheck2_2">
+                                <label class="form-check-label" for="introCheck2_2">Agile, DevOps et Lean</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="introCheck2" id="introCheck2_3">
+                                <label class="form-check-label" for="introCheck2_3">Six Sigma et TQM</label>
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary mt-2" onclick="checkAnswer('introCheck2_2', 'introCheck2Feedback')">Vérifier</button>
+                            <div id="introCheck2Feedback" class="mt-2 d-none"></div>
                         </div>
                     </div>
                 </div>
@@ -554,7 +644,7 @@
         <div class="row">
             <div class="col-lg-10 mx-auto text-center">
                 <h2 class="fw-bold mb-1">Concepts Clés d'ITIL 4</h2>
-                <p class="lead mb-5">Fondamentaux à maîtriser pour comprendre l'approche ITIL 4</p>
+                <p class="lead mb-5">Fondamentaux à maîtriser pour comprendre l'approche ITIL 4 et son vocabulaire spécifique.</p>
             </div>
         </div>
         
@@ -566,11 +656,11 @@
                         <h5 class="mb-0">Valeur des Services</h5>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">La valeur est définie par le client et co-créée par le fournisseur et le client à travers le service.</p>
+                        <p class="card-text">La <strong>valeur</strong> est le bénéfice perçu, l'utilité et l'importance de quelque chose. En ITIL, la valeur est définie par le client et co-créée par le fournisseur et le client à travers le service.</p>
                         
                         <div class="key-concept mt-3">
                             <div class="concept-title">Composants de la valeur</div>
-                            <p>Résultats atteints + Expérience client - Coûts + Risques</p>
+                            <p>La valeur est une combinaison complexe de résultats atteints, de l'expérience client, des coûts et des risques. C'est la perception globale du client.</p>
                             <div class="progress mt-2">
                                 <div class="progress-bar bg-primary" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">Résultats</div>
                                 <div class="progress-bar bg-success" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">Expérience</div>
@@ -582,15 +672,15 @@
                         <ul class="list-group list-group-flush mt-3">
                             <li class="list-group-item d-flex align-items-start">
                                 <i class="bi bi-arrow-right-circle text-primary me-2 mt-1"></i>
-                                <span>La valeur est subjective et perçue</span>
+                                <span>La valeur est subjective et perçue différemment par chaque partie prenante.</span>
                             </li>
                             <li class="list-group-item d-flex align-items-start">
                                 <i class="bi bi-arrow-right-circle text-primary me-2 mt-1"></i>
-                                <span>Nécessite une compréhension des besoins clients</span>
+                                <span>Nécessite une compréhension approfondie des besoins et des attentes des clients.</span>
                             </li>
                             <li class="list-group-item d-flex align-items-start">
                                 <i class="bi bi-arrow-right-circle text-primary me-2 mt-1"></i>
-                                <span>Évolue avec le temps et le contexte</span>
+                                <span>Évolue avec le temps, le contexte et les objectifs de l'entreprise.</span>
                             </li>
                         </ul>
                     </div>
@@ -606,40 +696,40 @@
                 <div class="card h-100 border-top-success">
                     <div class="card-header d-flex align-items-center">
                         <span class="badge bg-success me-3">2</span>
-                        <h5 class="mb-0">Modèle SVS</h5>
+                        <h5 class="mb-0">Système de Valeur des Services (SVS)</h5>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Le Système de Valeur des Services (SVS) décrit comment tous les composants travaillent ensemble pour créer de la valeur.</p>
+                        <p class="card-text">Le <strong>Système de Valeur des Services (SVS)</strong> décrit comment tous les composants et activités d'une organisation travaillent ensemble pour faciliter la création de valeur.</p>
                         
                         <div class="key-concept mt-3">
                             <div class="concept-title">Composants du SVS</div>
                             <div class="d-flex flex-wrap gap-2 mt-2">
-                                <span class="badge bg-primary">Chaîne de valeur</span>
-                                <span class="badge bg-success">Pratiques</span>
-                                <span class="badge bg-info">Principes</span>
-                                <span class="badge bg-warning">Gouvernance</span>
-                                <span class="badge bg-secondary">Amélioration</span>
+                                <span class="badge bg-primary">Principes Directeurs</span>
+                                <span class="badge bg-success">Gouvernance</span>
+                                <span class="badge bg-info">Chaîne de Valeur des Services</span>
+                                <span class="badge bg-warning">Pratiques ITIL</span>
+                                <span class="badge bg-secondary">Amélioration Continue</span>
                             </div>
                         </div>
                         
                         <ul class="list-group list-group-flush mt-3">
                             <li class="list-group-item d-flex align-items-start">
                                 <i class="bi bi-arrow-right-circle text-success me-2 mt-1"></i>
-                                <span>Approche holistique du management des services</span>
+                                <span>Offre une approche holistique et intégrée du management des services.</span>
                             </li>
                             <li class="list-group-item d-flex align-items-start">
                                 <i class="bi bi-arrow-right-circle text-success me-2 mt-1"></i>
-                                <span>Flexible et adaptable</span>
+                                <span>Permet une flexibilité et une adaptabilité pour répondre aux changements.</span>
                             </li>
                             <li class="list-group-item d-flex align-items-start">
                                 <i class="bi bi-arrow-right-circle text-success me-2 mt-1"></i>
-                                <span>Permet la co-création de valeur</span>
+                                <span>Le SVS est au cœur de la transformation de la demande en valeur.</span>
                             </li>
                         </ul>
                     </div>
                     <div class="card-footer bg-transparent">
                         <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#concept2Modal">
-                            <i class="bi bi-diagram-3 me-1"></i> Visualiser
+                            <i class="bi bi-diagram-3 me-1"></i> Visualiser le SVS
                         </button>
                     </div>
                 </div>
@@ -652,10 +742,10 @@
                         <h5 class="mb-0">7 Principes Directeurs</h5>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Recommandations universelles pour guider les décisions et actions dans toutes les circonstances.</p>
+                        <p class="card-text">Les <strong>7 Principes Directeurs</strong> sont des recommandations universelles et durables qui guident les décisions et actions d'une organisation dans toutes les circonstances, indépendamment de ses objectifs, stratégies ou type de travail.</p>
                         
                         <div class="key-concept mt-3">
-                            <div class="concept-title">Les 7 Principes</div>
+                            <div class="concept-title">Les 7 Principes Directeurs d'ITIL 4</div>
                             <div class="row mt-2 g-2">
                                 <div class="col-6">
                                     <div class="p-2 bg-light rounded text-center">
@@ -704,7 +794,7 @@
                     </div>
                     <div class="card-footer bg-transparent">
                         <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#concept3Modal">
-                            <i class="bi bi-list-ol me-1"></i> Voir les 7
+                            <i class="bi bi-list-ol me-1"></i> Détail des 7 Principes
                         </button>
                     </div>
                 </div>
@@ -714,36 +804,37 @@
                 <div class="card h-100 border-top-warning">
                     <div class="card-header d-flex align-items-center">
                         <span class="badge bg-warning me-3">4</span>
-                        <h5 class="mb-0">Gestion des Produits & Services</h5>
+                        <h5 class="mb-0">Utilité et Garantie</h5>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Approche centrée sur le client pour développer et gérer des services tout au long de leur cycle de vie.</p>
+                        <p class="card-text">La valeur d'un service est définie par son <strong>utilité</strong> (ce qu'il fait) et sa <strong>garantie</strong> (comment il fonctionne). Ces deux aspects sont cruciaux pour la perception de la valeur par le client.</p>
                         
                         <div class="key-concept mt-3">
-                            <div class="concept-title">Cycle de Vie des Services</div>
-                            <div class="timeline">
-                                <div class="timeline-item">
-                                    <h6>Engagement</h6>
-                                    <p>Comprendre les besoins et opportunités</p>
-                                </div>
-                                <div class="timeline-item">
-                                    <h6>Conception & Transition</h6>
-                                    <p>Créer et déployer le service</p>
-                                </div>
-                                <div class="timeline-item">
-                                    <h6>Fourniture & Support</h6>
-                                    <p>Livrer et maintenir le service</p>
-                                </div>
-                                <div class="timeline-item">
-                                    <h6>Amélioration</h6>
-                                    <p>Optimiser continuellement</p>
-                                </div>
-                            </div>
+                            <div class="concept-title">Distinction clé</div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <strong>Utilité :</strong> La fonctionnalité d'un service pour répondre à un besoin spécifique. Par exemple, la capacité d'une voiture à transporter des passagers.
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Garantie :</strong> L'assurance que le service fonctionnera comme prévu, en termes de performance, disponibilité, sécurité, etc. Par exemple, la voiture démarre toujours, est sûre et consomme peu.
+                                </li>
+                            </ul>
                         </div>
+                        
+                        <ul class="list-group list-group-flush mt-3">
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-arrow-right-circle text-warning me-2 mt-1"></i>
+                                <span>Un service doit avoir à la fois utilité et garantie pour créer de la valeur.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-arrow-right-circle text-warning me-2 mt-1"></i>
+                                <span>L'utilité est souvent liée aux "capacités" et la garantie aux "contraintes".</span>
+                            </li>
+                        </ul>
                     </div>
                     <div class="card-footer bg-transparent">
                         <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#concept4Modal">
-                            <i class="bi bi-arrow-repeat me-1"></i> Processus
+                            <i class="bi bi-lightbulb me-1"></i> Exemples
                         </button>
                     </div>
                 </div>
@@ -753,43 +844,686 @@
                 <div class="card h-100 border-top-danger">
                     <div class="card-header d-flex align-items-center">
                         <span class="badge bg-danger me-3">5</span>
-                        <h5 class="mb-0">Amélioration Continue</h5>
+                        <h5 class="mb-0">Coûts et Risques</h5>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Approche structurée pour améliorer les produits, services et pratiques au fil du temps.</p>
+                        <p class="card-text">La création de valeur implique toujours des <strong>coûts</strong> (financiers et non financiers) et des <strong>risques</strong> (incertitude des résultats). ITIL 4 encourage une gestion équilibrée de ces éléments.</p>
                         
                         <div class="key-concept mt-3">
-                            <div class="concept-title">Modèle d'Amélioration Continue (CSI)</div>
-                            <ol>
-                                <li>Quelle est la vision ?</li>
-                                <li>Où en sommes-nous ?</li>
-                                <li>Où voulons-nous être ?</li>
-                                <li>Comment y arriverons-nous ?</li>
-                                <li>Passer à l'action</li>
-                                <li>Avons-nous atteint notre objectif ?</li>
-                                <li>Comment maintenir l'élan ?</li>
-                            </ol>
+                            <div class="concept-title">Impact sur la Valeur</div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <strong>Coûts :</strong> Peuvent être directs (prix du service) ou indirects (temps passé à utiliser le service). La valeur est maximisée lorsque les bénéfices dépassent les coûts.
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Risques :</strong> Événements incertains qui pourraient avoir un impact négatif sur la réalisation des objectifs. ITIL vise à réduire l'exposition aux risques et à les gérer proactivement.
+                                </li>
+                            </ul>
                         </div>
                         
                         <ul class="list-group list-group-flush mt-3">
                             <li class="list-group-item d-flex align-items-start">
                                 <i class="bi bi-arrow-right-circle text-danger me-2 mt-1"></i>
-                                <span>Essentielle pour l'adaptabilité</span>
+                                <span>Les coûts et les risques doivent être optimisés, pas nécessairement minimisés à tout prix.</span>
                             </li>
                             <li class="list-group-item d-flex align-items-start">
                                 <i class="bi bi-arrow-right-circle text-danger me-2 mt-1"></i>
-                                <span>Application à tous les niveaux</span>
-                            </li>
-                            <li class="list-group-item d-flex align-items-start">
-                                <i class="bi bi-arrow-right-circle text-danger me-2 mt-1"></i>
-                                <span>Cycle itératif</span>
+                                <span>La gestion des risques est une activité continue et intégrée.</span>
                             </li>
                         </ul>
                     </div>
                     <div class="card-footer bg-transparent">
                         <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#concept5Modal">
-                            <i class="bi bi-graph-up me-1"></i> En savoir plus
+                            <i class="bi bi-currency-dollar me-1"></i> Approfondir
                         </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-top-info">
+                    <div class="card-header d-flex align-items-center">
+                        <span class="badge bg-info me-3">6</span>
+                        <h5 class="mb-0">Produits et Services</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Un <strong>produit</strong> est une configuration de ressources, créée par l'organisation, qui offrira de la valeur à un client. Un <strong>service</strong> est un moyen de co-créer de la valeur en facilitant les résultats souhaités par les clients, sans que le client ait à gérer des coûts et des risques spécifiques.</p>
+                        
+                        <div class="key-concept mt-3">
+                            <div class="concept-title">Différence clé</div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <strong>Produit :</strong> Ce que l'organisation offre. Il peut inclure plusieurs services.
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Service :</strong> La performance d'une activité ou d'un ensemble d'activités pour fournir de la valeur.
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <ul class="list-group list-group-flush mt-3">
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-arrow-right-circle text-info me-2 mt-1"></i>
+                                <span>Les produits sont la base à partir de laquelle les services sont configurés.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-arrow-right-circle text-info me-2 mt-1"></i>
+                                <span>ITIL 4 met l'accent sur la gestion des produits tout au long de leur cycle de vie.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#concept6Modal">
+                            <i class="bi bi-box-seam me-1"></i> En savoir plus
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="dimensions" class="container my-6">
+        <div class="row">
+            <div class="col-lg-10 mx-auto text-center">
+                <h2 class="fw-bold mb-1">Les 4 Dimensions du Management des Services</h2>
+                <p class="lead mb-5">Une approche holistique pour garantir une gestion de service efficace et efficiente.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-6">
+                <div class="card h-100 border-top-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-people me-2"></i>1. Organisations et Personnes</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Cette dimension couvre la structure organisationnelle, la culture, les compétences et les rôles nécessaires pour fournir des services. Elle met l'accent sur la création d'une culture de service positive et sur le développement des compétences du personnel.</p>
+                        <ul class="list-group list-group-flush mt-3">
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-primary me-2 mt-1"></i>
+                                <span><strong>Structure :</strong> Hiérarchie, équipes, départements et leurs relations.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-primary me-2 mt-1"></i>
+                                <span><strong>Culture :</strong> Valeurs partagées, comportements, communication.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-primary me-2 mt-1"></i>
+                                <span><strong>Compétences :</strong> Connaissances, aptitudes et expertises requises.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-primary me-2 mt-1"></i></i>
+                                <span><strong>Rôles :</strong> Responsabilités et autorités définies pour chaque poste.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="card h-100 border-top-success">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="bi bi-pc-display-horizontal me-2"></i>2. Information et Technologie</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Cette dimension traite de l'information et des connaissances nécessaires à la gestion des services, ainsi que des technologies et des outils qui les supportent. Elle inclut la gestion des données, des applications, des infrastructures et des communications.</p>
+                        <ul class="list-group list-group-flush mt-3">
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-success me-2 mt-1"></i>
+                                <span><strong>Information :</strong> Données, connaissances, sagesse utilisées dans la prestation de services.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-success me-2 mt-1"></i>
+                                <span><strong>Technologie :</strong> Applications, bases de données, infrastructures, réseaux.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-success me-2 mt-1"></i>
+                                <span><strong>Outils :</strong> Systèmes de gestion des services (ITSM), automatisation, IA.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-success me-2 mt-1"></i>
+                                <span><strong>Sécurité :</strong> Protection des informations et des systèmes.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="card h-100 border-top-warning">
+                    <div class="card-header bg-warning text-white">
+                        <h5 class="mb-0"><i class="bi bi-handshake me-2"></i>3. Partenaires et Fournisseurs</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Cette dimension englobe les relations d'une organisation avec d'autres organisations impliquées dans la conception, le déploiement, la livraison, le support et l'amélioration continue des services. Elle met l'accent sur la gestion des contrats, des accords de niveau de service (SLA) et des relations avec les fournisseurs.</p>
+                        <ul class="list-group list-group-flush mt-3">
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-warning me-2 mt-1"></i>
+                                <span><strong>Partenaires :</strong> Collaborations stratégiques pour la co-création de valeur.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-warning me-2 mt-1"></i>
+                                <span><strong>Fournisseurs :</strong> Entités externes fournissant des produits ou services.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-warning me-2 mt-1"></i>
+                                <span><strong>Contrats :</strong> Accords formels régissant les relations.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-warning me-2 mt-1"></i>
+                                <span><strong>Gestion des relations :</strong> Assurer une collaboration efficace et des performances optimales.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="card h-100 border-top-info">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="bi bi-diagram-2-fill me-2"></i>4. Flux de Valeur et Processus</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Cette dimension se concentre sur la manière dont l'organisation crée de la valeur à travers des flux de travail spécifiques et des processus bien définis. Elle vise à optimiser les activités pour une livraison de services efficace et efficiente.</p>
+                        <ul class="list-group list-group-flush mt-3">
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-info me-2 mt-1"></i>
+                                <span><strong>Flux de valeur :</strong> Série d'étapes que l'organisation suit pour créer et livrer un produit ou service.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-info me-2 mt-1"></i>
+                                <span><strong>Processus :</strong> Ensemble d'activités qui transforment des entrées en sorties.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-info me-2 mt-1"></i>
+                                <span><strong>Optimisation :</strong> Améliorer l'efficacité et l'efficience des flux et processus.</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check-lg text-info me-2 mt-1"></i>
+                                <span><strong>Automatisation :</strong> Utilisation de la technologie pour exécuter des tâches répétitives.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="knowledge-check mt-5">
+            <div class="check-title">
+                <i class="bi bi-question-circle-fill"></i> Vérification des connaissances - Dimensions
+            </div>
+            <p><strong>Q1:</strong> Laquelle des 4 dimensions du management des services se concentre sur la culture et les compétences de l'organisation ?</p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="dimensionsCheck1" id="dimensionsCheck1_1">
+                <label class="form-check-label" for="dimensionsCheck1_1">Information et Technologie</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="dimensionsCheck1" id="dimensionsCheck1_2">
+                <label class="form-check-label" for="dimensionsCheck1_2">Organisations et Personnes</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="dimensionsCheck1" id="dimensionsCheck1_3">
+                <label class="form-check-label" for="dimensionsCheck1_3">Flux de Valeur et Processus</label>
+            </div>
+            <button class="btn btn-sm btn-outline-primary mt-2" onclick="checkAnswer('dimensionsCheck1_2', 'dimensionsCheck1Feedback')">Vérifier</button>
+            <div id="dimensionsCheck1Feedback" class="mt-2 d-none"></div>
+        </div>
+    </section>
+
+    <section id="value-chain" class="container my-6">
+        <div class="row">
+            <div class="col-lg-10 mx-auto text-center">
+                <h2 class="fw-bold mb-1">La Chaîne de Valeur des Services (SVC)</h2>
+                <p class="lead mb-5">Le modèle opérationnel central d'ITIL 4, décrivant la transformation de la demande en valeur.</p>
+            </div>
+        </div>
+
+        <div class="card border-top-primary shadow-sm mb-5">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-diagram-3 me-2"></i>Comprendre la SVC</h5>
+            </div>
+            <div class="card-body">
+                <p>La Chaîne de Valeur des Services (Service Value Chain - SVC) est un modèle opérationnel flexible qui décrit les activités clés nécessaires pour générer de la valeur en réponse à une demande. Elle est au cœur du Système de Valeur des Services (SVS) et est conçue pour être adaptable à diverses situations.</p>
+                <p>Elle se compose de six activités principales, qui ne sont pas nécessairement séquentielles et peuvent être combinées ou répétées selon les besoins du flux de valeur.</p>
+            </div>
+        </div>
+
+        <div class="accordion accordion-flush" id="svcAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <span class="badge bg-primary me-3">1</span> Planifier
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#svcAccordion">
+                    <div class="accordion-body">
+                        <p>L'activité "Planifier" a pour objectif d'assurer une compréhension partagée de la vision, de la mission, des stratégies et des objectifs pour tous les niveaux de l'organisation. Cela inclut la planification des produits, des services, des ressources et des améliorations.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Définir la vision et les objectifs stratégiques.</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Établir les plans pour les produits et services.</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Assurer l'alignement des activités avec les objectifs métier.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <span class="badge bg-success me-3">2</span> Engager
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#svcAccordion">
+                    <div class="accordion-body">
+                        <p>L'activité "Engager" vise à comprendre les besoins des parties prenantes, à établir des relations et à garantir une communication continue. Cela inclut la gestion des demandes, des incidents, des problèmes et des retours d'information des clients.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Interagir avec les clients, utilisateurs et fournisseurs.</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Recueillir les exigences et les attentes.</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Gérer les relations et la communication.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <span class="badge bg-info me-3">3</span> Concevoir et Transiter
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#svcAccordion">
+                    <div class="accordion-body">
+                        <p>L'activité "Concevoir et Transiter" garantit que les produits et services répondent aux attentes en termes de qualité, de coûts et de délais. Elle couvre la conception de nouveaux services, la modification de services existants et leur déploiement dans l'environnement de production.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Concevoir des services et des produits adaptés.</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Construire et tester les composants de service.</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Déployer les services en production de manière contrôlée.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        <span class="badge bg-warning me-3">4</span> Obtenir/Construire
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#svcAccordion">
+                    <div class="accordion-body">
+                        <p>L'activité "Obtenir/Construire" assure que les composants de service sont disponibles quand et où ils sont nécessaires. Cela inclut l'acquisition de ressources externes ou la construction de composants internes, en respectant les spécifications de conception.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Acquérir ou construire les composants de service.</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Gérer les fournisseurs et les contrats.</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Assurer la conformité et la qualité des composants.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFive">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        <span class="badge bg-danger me-3">5</span> Fournir et Supporter
+                    </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#svcAccordion">
+                    <div class="accordion-body">
+                        <p>L'activité "Fournir et Supporter" assure que les services sont livrés et supportés conformément aux accords. C'est là que la valeur est réellement délivrée aux utilisateurs finaux, incluant la gestion des incidents, des requêtes de service et l'exploitation quotidienne.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Livrer les services aux utilisateurs finaux.</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Gérer les incidents et les requêtes de service.</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Assurer le support continu et la maintenance.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSix">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                        <span class="badge bg-secondary me-3">6</span> Améliorer
+                    </button>
+                </h2>
+                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#svcAccordion">
+                    <div class="accordion-body">
+                        <p>L'activité "Améliorer" est présente tout au long de la chaîne de valeur et vise à améliorer continuellement les produits, services et pratiques. Elle utilise le modèle d'amélioration continue pour identifier les opportunités et mettre en œuvre les changements.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Identifier les opportunités d'amélioration.</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Mettre en œuvre les améliorations et mesurer les résultats.</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Maintenir l'élan de l'amélioration continue.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="knowledge-check mt-5">
+            <div class="check-title">
+                <i class="bi bi-question-circle-fill"></i> Vérification des connaissances - Chaîne de Valeur
+            </div>
+            <p><strong>Q1:</strong> Laquelle des activités de la Chaîne de Valeur des Services est responsable de la transformation des exigences en solutions livrables ?</p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="svcCheck1" id="svcCheck1_1">
+                <label class="form-check-label" for="svcCheck1_1">Planifier</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="svcCheck1" id="svcCheck1_2">
+                <label class="form-check-label" for="svcCheck1_2">Engager</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="svcCheck1" id="svcCheck1_3">
+                <label class="form-check-label" for="svcCheck1_3">Concevoir et Transiter</label>
+            </div>
+            <button class="btn btn-sm btn-outline-primary mt-2" onclick="checkAnswer('svcCheck1_3', 'svcCheck1Feedback')">Vérifier</button>
+            <div id="svcCheck1Feedback" class="mt-2 d-none"></div>
+        </div>
+    </section>
+
+    <section id="practices" class="container my-6">
+        <div class="row">
+            <div class="col-lg-10 mx-auto text-center">
+                <h2 class="fw-bold mb-1">Les Pratiques ITIL 4</h2>
+                <p class="lead mb-5">Les ensembles de ressources organisationnelles conçus pour effectuer un travail ou atteindre un objectif spécifique.</p>
+            </div>
+        </div>
+
+        <div class="card border-top-primary shadow-sm mb-5">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-tools me-2"></i>Introduction aux Pratiques</h5>
+            </div>
+            <div class="card-body">
+                <p>ITIL 4 décrit 34 pratiques de management, chacune étant un ensemble de ressources organisationnelles conçues pour effectuer un travail ou atteindre un objectif spécifique. Ces pratiques sont flexibles et peuvent être adaptées aux besoins de chaque organisation. Elles sont regroupées en trois catégories principales : Management Général, Management des Services, et Management Technique.</p>
+            </div>
+        </div>
+
+        <div class="accordion accordion-flush" id="practicesAccordion">
+            <!-- General Management Practices -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="practicesHeadingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#practicesCollapseOne" aria-expanded="false" aria-controls="practicesCollapseOne">
+                        <span class="badge bg-primary me-3">Général</span> Management des Relations
+                    </button>
+                </h2>
+                <div id="practicesCollapseOne" class="accordion-collapse collapse" aria-labelledby="practicesHeadingOne" data-bs-parent="#practicesAccordion">
+                    <div class="accordion-body">
+                        <p>Cette pratique vise à établir et entretenir des liens entre l'organisation et ses parties prenantes. Elle est essentielle pour la co-création de valeur et la satisfaction client.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-star-fill text-warning me-2"></i>Objectif: Assurer une communication efficace et des relations positives.</li>
+                            <li class="list-group-item"><i class="bi bi-lightbulb-fill text-info me-2"></i>Exemple: Gestion des retours clients, enquêtes de satisfaction.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="practicesHeadingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#practicesCollapseTwo" aria-expanded="false" aria-controls="practicesCollapseTwo">
+                        <span class="badge bg-primary me-3">Général</span> Management des Risques
+                    </button>
+                </h2>
+                <div id="practicesCollapseTwo" class="accordion-collapse collapse" aria-labelledby="practicesHeadingTwo" data-bs-parent="#practicesAccordion">
+                    <div class="accordion-body">
+                        <p>Cette pratique vise à identifier, évaluer et contrôler les risques. Elle aide l'organisation à prendre des décisions éclairées et à protéger la valeur.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-star-fill text-warning me-2"></i>Objectif: Minimiser l'impact négatif des incertitudes.</li>
+                            <li class="list-group-item"><i class="bi bi-lightbulb-fill text-info me-2"></i>Exemple: Analyse des menaces de sécurité, plans de continuité.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Management Practices -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="practicesHeadingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#practicesCollapseThree" aria-expanded="false" aria-controls="practicesCollapseThree">
+                        <span class="badge bg-success me-3">Service</span> Gestion des Incidents
+                    </button>
+                </h2>
+                <div id="practicesCollapseThree" class="accordion-collapse collapse" aria-labelledby="practicesHeadingThree" data-bs-parent="#practicesAccordion">
+                    <div class="accordion-body">
+                        <p>L'objectif de la gestion des incidents est de restaurer le fonctionnement normal des services aussi rapidement que possible et de minimiser l'impact négatif sur les opérations métier.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-star-fill text-warning me-2"></i>Objectif: Rétablir le service rapidement.</li>
+                            <li class="list-group-item"><i class="bi bi-lightbulb-fill text-info me-2"></i>Exemple: Réinitialisation de mot de passe, résolution de panne réseau.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="practicesHeadingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#practicesCollapseFour" aria-expanded="false" aria-controls="practicesCollapseFour">
+                        <span class="badge bg-success me-3">Service</span> Gestion des Problèmes
+                    </button>
+                </h2>
+                <div id="practicesCollapseFour" class="accordion-collapse collapse" aria-labelledby="practicesHeadingFour" data-bs-parent="#practicesAccordion">
+                    <div class="accordion-body">
+                        <p>La gestion des problèmes vise à réduire la probabilité et l'impact des incidents en identifiant les causes profondes des problèmes et en gérant les solutions de contournement et les erreurs connues.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-star-fill text-warning me-2"></i>Objectif: Éliminer les causes récurrentes d'incidents.</li>
+                            <li class="list-group-item"><i class="bi bi-lightbulb-fill text-info me-2"></i>Exemple: Analyse des pannes répétées, mise en place de correctifs permanents.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="practicesHeadingFive">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#practicesCollapseFive" aria-expanded="false" aria-controls="practicesCollapseFive">
+                        <span class="badge bg-success me-3">Service</span> Gestion des Requêtes de Service
+                    </button>
+                </h2>
+                <div id="practicesCollapseFive" class="accordion-collapse collapse" aria-labelledby="practicesHeadingFive" data-bs-parent="#practicesAccordion">
+                    <div class="accordion-body">
+                        <p>Cette pratique soutient l'accordé des requêtes de service de manière efficace et conviviale. Une requête de service est une demande d'information, de conseil, un changement standard, ou l'accès à un service.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-star-fill text-warning me-2"></i>Objectif: Répondre aux demandes des utilisateurs rapidement et efficacement.</li>
+                            <li class="list-group-item"><i class="bi bi-lightbulb-fill text-info me-2"></i>Exemple: Demande de nouveau logiciel, accès à un dossier partagé.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="practicesHeadingSix">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#practicesCollapseSix" aria-expanded="false" aria-controls="practicesCollapseSix">
+                        <span class="badge bg-success me-3">Service</span> Gestion des Changements (Change Enablement)
+                    </button>
+                </h2>
+                <div id="practicesCollapseSix" class="accordion-collapse collapse" aria-labelledby="practicesHeadingSix" data-bs-parent="#practicesAccordion">
+                    <div class="accordion-body">
+                        <p>La gestion des changements (anciennement "Gestion des Changements") vise à maximiser le nombre de changements réussis en garantissant que les risques sont correctement évalués et que les changements sont autorisés avant d'être mis en œuvre.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-star-fill text-warning me-2"></i>Objectif: Faciliter les changements bénéfiques avec un risque minimal.</li>
+                            <li class="list-group-item"><i class="bi bi-lightbulb-fill text-info me-2"></i>Exemple: Déploiement d'une nouvelle version logicielle, modification d'infrastructure.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="practicesHeadingSeven">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#practicesCollapseSeven" aria-expanded="false" aria-controls="practicesCollapseSeven">
+                        <span class="badge bg-success me-3">Service</span> Service Desk
+                    </button>
+                </h2>
+                <div id="practicesCollapseSeven" class="accordion-collapse collapse" aria-labelledby="practicesHeadingSeven" data-bs-parent="#practicesAccordion">
+                    <div class="accordion-body">
+                        <p>Le Service Desk est le point de contact unique entre le fournisseur de services et les utilisateurs. Il gère les incidents, les requêtes de service et fournit un support général.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-star-fill text-warning me-2"></i>Objectif: Fournir un point de contact unique et efficace.</li>
+                            <li class="list-group-item"><i class="bi bi-lightbulb-fill text-info me-2"></i>Exemple: Centre d'appels, portail self-service, support par chat.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Management Practices -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="practicesHeadingEight">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#practicesCollapseEight" aria-expanded="false" aria-controls="practicesCollapseEight">
+                        <span class="badge bg-info me-3">Technique</span> Gestion des Infrastructures et Plateformes
+                    </button>
+                </h2>
+                <div id="practicesCollapseEight" class="accordion-collapse collapse" aria-labelledby="practicesHeadingEight" data-bs-parent="#practicesAccordion">
+                    <div class="accordion-body">
+                        <p>Cette pratique vise à gérer l'infrastructure et les plateformes technologiques nécessaires à la fourniture des services.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-star-fill text-warning me-2"></i>Objectif: Assurer la disponibilité et la performance de l'infrastructure.</li>
+                            <li class="list-group-item"><i class="bi bi-lightbulb-fill text-info me-2"></i>Exemple: Maintenance des serveurs, gestion des réseaux.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="knowledge-check mt-5">
+            <div class="check-title">
+                <i class="bi bi-question-circle-fill"></i> Vérification des connaissances - Pratiques
+            </div>
+            <p><strong>Q1:</strong> Quelle pratique ITIL vise à restaurer le fonctionnement normal des services aussi rapidement que possible après une interruption ?</p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="practicesCheck1" id="practicesCheck1_1">
+                <label class="form-check-label" for="practicesCheck1_1">Gestion des Problèmes</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="practicesCheck1" id="practicesCheck1_2">
+                <label class="form-check-label" for="practicesCheck1_2">Gestion des Incidents</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="practicesCheck1" id="practicesCheck1_3">
+                <label class="form-check-label" for="practicesCheck1_3">Gestion des Requêtes de Service</label>
+            </div>
+            <button class="btn btn-sm btn-outline-primary mt-2" onclick="checkAnswer('practicesCheck1_2', 'practicesCheck1Feedback')">Vérifier</button>
+            <div id="practicesCheck1Feedback" class="mt-2 d-none"></div>
+        </div>
+    </section>
+
+    <section id="improvement" class="container my-6">
+        <div class="row">
+            <div class="col-lg-10 mx-auto text-center">
+                <h2 class="fw-bold mb-1">L'Amélioration Continue en ITIL 4</h2>
+                <p class="lead mb-5">Un principe directeur et une pratique essentielle pour l'évolution constante des services.</p>
+            </div>
+        </div>
+
+        <div class="card border-top-primary shadow-sm mb-5">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-arrow-repeat me-2"></i>Le Cycle de l'Amélioration</h5>
+            </div>
+            <div class="card-body">
+                <p>L'amélioration continue est un thème central dans ITIL 4, non seulement en tant que pratique spécifique mais aussi en tant que principe directeur qui doit imprégner toutes les activités de l'organisation. Elle vise à garantir que l'organisation continue d'aligner ses pratiques et services sur les besoins changeants de l'entreprise et de ses parties prenantes.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-12">
+                <div class="key-concept mt-3">
+                    <div class="concept-title"><i class="bi bi-graph-up"></i> Modèle d'Amélioration Continue (ITIL CSI Approach)</div>
+                    <p>ITIL 4 propose un modèle d'amélioration en sept étapes pour guider les initiatives d'amélioration. Ce modèle est cyclique, ce qui signifie que l'amélioration est un processus sans fin.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h6>1. Quelle est la vision ?</h6>
+                            <p>Définir clairement la vision et les objectifs de l'amélioration. Qu'est-ce que nous essayons d'atteindre ?</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h6>2. Où en sommes-nous maintenant ?</h6>
+                            <p>Évaluer la situation actuelle, collecter des données et identifier les lacunes par rapport à la vision.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h6>3. Où voulons-nous être ?</h6>
+                            <p>Définir des objectifs spécifiques, mesurables, atteignables, pertinents et temporellement définis (SMART).</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h6>4. Comment y arriverons-nous ?</h6>
+                            <p>Planifier les actions et les changements nécessaires pour atteindre les objectifs. Cela inclut l'identification des ressources et des responsabilités.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h6>5. Passer à l'action</h6>
+                            <p>Mettre en œuvre le plan d'amélioration. C'est l'étape de l'exécution.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h6>6. Avons-nous atteint notre objectif ?</h6>
+                            <p>Vérifier les résultats par rapport aux objectifs définis. Mesurer la performance et collecter les retours d'information.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h6>7. Comment maintenir l'élan ?</h6>
+                            <p>Intégrer les améliorations réussies dans les opérations standard et chercher de nouvelles opportunités d'amélioration. C'est le début du cycle suivant.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="knowledge-check mt-5">
+            <div class="check-title">
+                <i class="bi bi-question-circle-fill"></i> Vérification des connaissances - Amélioration Continue
+            </div>
+            <p><strong>Q1:</strong> Quelle est la première étape du modèle d'Amélioration Continue d'ITIL ?</p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="improvementCheck1" id="improvementCheck1_1">
+                <label class="form-check-label" for="improvementCheck1_1">Passer à l'action</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="improvementCheck1" id="improvementCheck1_2">
+                <label class="form-check-label" for="improvementCheck1_2">Quelle est la vision ?</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="improvementCheck1" id="improvementCheck1_3">
+                <label class="form-check-label" for="improvementCheck1_3">Où en sommes-nous maintenant ?</label>
+            </div>
+            <button class="btn btn-sm btn-outline-primary mt-2" onclick="checkAnswer('improvementCheck1_2', 'improvementCheck1Feedback')">Vérifier</button>
+            <div id="improvementCheck1Feedback" class="mt-2 d-none"></div>
+        </div>
+    </section>
+
+    <section id="resources" class="container my-6">
+        <div class="row">
+            <div class="col-lg-10 mx-auto text-center">
+                <h2 class="fw-bold mb-1">Ressources Complémentaires pour ITIL 4</h2>
+                <p class="lead mb-5">Approfondissez vos connaissances et préparez-vous encore mieux à l'examen.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-top-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-book me-2"></i>Manuels Officiels</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Le manuel officiel "ITIL 4 Foundation" est la source la plus fiable pour la préparation à l'examen. Il contient toutes les informations détaillées sur les concepts, les dimensions, la chaîne de valeur et les pratiques.</p>
+                        <a href="https://www.axelos.com/certifications/itil-certifications/itil-4-foundation" target="_blank" class="btn btn-sm btn-outline-primary mt-2">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> Acheter le Manuel
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-top-success">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="bi bi-laptop me-2"></i>Plateformes d'Apprentissage</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">De nombreuses plateformes en ligne proposent des cours interactifs, des vidéos et des simulations d'examen pour ITIL 4 Foundation. Elles peuvent compléter efficacement votre apprentissage.</p>
+                        <ul class="list-group list-group-flush mt-3">
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-link-45deg text-success me-2 mt-1"></i>
+                                <a href="https://www.udemy.com/courses/it-and-software/itil/" target="_blank" class="text-decoration-none">Udemy - Cours ITIL</a>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-link-45deg text-success me-2 mt-1"></i>
+                                <a href="https://www.coursera.org/courses?query=itil" target="_blank" class="text-decoration-none">Coursera - Spécialisations ITIL</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-top-warning">
+                    <div class="card-header bg-warning text-white">
+                        <h5 class="mb-0"><i class="bi bi-patch-question me-2"></i>Examens Blancs et Questions</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">La pratique est la clé du succès. Utilisez des examens blancs et des banques de questions pour vous familiariser avec le format et le type de questions de l'examen réel.</p>
+                        <ul class="list-group list-group-flush mt-3">
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-link-45deg text-warning me-2 mt-1"></i>
+                                <a href="https://www.simplilearn.com/free-itil-4-foundation-exam-questions-article" target="_blank" class="text-decoration-none">Simplilearn - Questions gratuites</a>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-link-45deg text-warning me-2 mt-1"></i>
+                                <a href="https://www.itil.org/itil-4-foundation-exam-practice-questions" target="_blank" class="text-decoration-none">ITIL.org - Questions officielles (payant)</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -800,7 +1534,7 @@
         <div class="row">
             <div class="col-lg-10 mx-auto text-center">
                 <h2 class="fw-bold mb-1">Conseils pour l'Examen ITIL 4 Foundation</h2>
-                <p class="lead mb-5">Stratégies et astuces pour maximiser vos chances de réussite</p>
+                <p class="lead mb-5">Stratégies et astuces pour maximiser vos chances de réussite le jour J.</p>
             </div>
         </div>
 
@@ -809,42 +1543,56 @@
                 <div class="exam-tip">
                     <span class="tip-number">1</span>
                     <h5 class="fw-bold d-inline-block">Comprendre les Concepts, pas seulement mémoriser</h5>
-                    <p class="mb-0">L'examen ITIL 4 est basé sur la compréhension des concepts et leur application, pas sur la mémorisation de listes. Concentrez-vous sur <strong>pourquoi</strong> et <strong>comment</strong> ITIL fonctionne.</p>
+                    <p class="mb-0">L'examen ITIL 4 est basé sur la compréhension des concepts et leur application dans des scénarios réels, pas sur la mémorisation de listes ou de définitions. Concentrez-vous sur <strong>pourquoi</strong> et <strong>comment</strong> ITIL fonctionne, et comment les différents éléments s'interconnectent.</p>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="exam-tip">
                     <span class="tip-number">2</span>
                     <h5 class="fw-bold d-inline-block">Pratiquez avec des Questions Officielles</h5>
-                    <p class="mb-0">Utilisez les exemples de questions fournis par AXELOS ou des plateformes reconnues. Cela vous familiarisera avec le format, le vocabulaire et le niveau de difficulté de l'examen.</p>
+                    <p class="mb-0">Utilisez les exemples de questions fournis par AXELOS ou des plateformes reconnues. Cela vous familiarisera avec le format, le vocabulaire spécifique et le niveau de difficulté de l'examen. Ne vous fiez pas uniquement aux questions gratuites trouvées en ligne qui ne sont pas toujours représentatives.</p>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="exam-tip">
                     <span class="tip-number">3</span>
                     <h5 class="fw-bold d-inline-block">Maîtrisez le Vocabulaire ITIL</h5>
-                    <p class="mb-0">ITIL a son propre glossaire. Assurez-vous de bien comprendre les définitions des termes clés comme "valeur", "utilité", "garantie", "service", "produit", etc.</p>
+                    <p class="mb-0">ITIL a son propre glossaire précis. Assurez-vous de bien comprendre les définitions des termes clés comme "valeur", "utilité", "garantie", "service", "produit", "demande", "offre", etc. Une mauvaise interprétation d'un terme peut mener à une erreur.</p>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="exam-tip">
                     <span class="tip-number">4</span>
-                    <h5 class="fw-bold d-inline-block">Gérez votre Temps</h5>
-                    <p class="mb-0">Avec 40 questions en 60 minutes (ou 75 minutes pour les non-anglophones), le temps est limité. Lisez attentivement chaque question et les options de réponse, mais ne restez pas bloqué trop longtemps sur une seule question.</p>
+                    <h5 class="fw-bold d-inline-block">Gérez votre Temps Efficacement</h5>
+                    <p class="mb-0">Avec 40 questions à choix multiples en 60 minutes (ou 75 minutes pour les non-anglophones), le temps est limité. Lisez attentivement chaque question et toutes les options de réponse, mais ne restez pas bloqué trop longtemps sur une seule question. Si vous hésitez, marquez la question et revenez-y plus tard.</p>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="exam-tip">
                     <span class="tip-number">5</span>
-                    <h5 class="fw-bold d-inline-block">Relisez et Vérifiez</h5>
-                    <p class="mb-0">Si le temps le permet, relisez vos réponses. Parfois, un mot clé manqué peut changer le sens d'une question ou d'une option de réponse.</p>
+                    <h5 class="fw-bold d-inline-block">Relisez et Vérifiez vos Réponses</h5>
+                    <p class="mb-0">Si le temps le permet, relisez vos réponses, surtout celles sur lesquelles vous avez hésité. Parfois, un mot clé manqué ou une nuance dans la question ou les options de réponse peut changer complètement le sens et la bonne réponse.</p>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="exam-tip">
                     <span class="tip-number">6</span>
                     <h5 class="fw-bold d-inline-block">Répondez à TOUTES les Questions</h5>
-                    <p class="mb-0">Il n'y a pas de pénalité pour les mauvaises réponses. Si vous n'êtes pas sûr, faites une supposition éclairée. Une réponse fausse vaut 0 point, une absence de réponse vaut aussi 0 point.</p>
+                    <p class="mb-0">Il n'y a pas de pénalité pour les mauvaises réponses. Si vous n'êtes pas sûr, faites une supposition éclairée. Une réponse fausse vaut 0 point, une absence de réponse vaut aussi 0 point. Il est toujours préférable de tenter une réponse.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="exam-tip">
+                    <span class="tip-number">7</span>
+                    <h5 class="fw-bold d-inline-block">Comprenez le Contexte des Questions</h5>
+                    <p class="mb-0">Les questions sont souvent basées sur des scénarios. Lisez attentivement le contexte pour comprendre la situation et appliquez les principes et pratiques ITIL pertinents à ce scénario.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="exam-tip">
+                    <span class="tip-number">8</span>
+                    <h5 class="fw-bold d-inline-block">Reposez-vous bien avant l'examen</h5>
+                    <p class="mb-0">Un esprit reposé est un esprit performant. Assurez-vous de bien dormir la nuit précédant l'examen. Le stress et la fatigue peuvent nuire à votre concentration et à votre capacité de réflexion.</p>
                 </div>
             </div>
         </div>
@@ -859,12 +1607,91 @@
                     </div>
                     <div class="card-body">
                         <p class="lead">Testez vos connaissances avec notre quiz interactif. Chaque question est conçue pour simuler l'examen officiel ITIL 4 Foundation.</p>
-                        <div class="alert alert-info" role="alert">
+                        
+                        <!-- Quiz Question 1 -->
+                        <div class="knowledge-check mt-3">
+                            <div class="check-title">
+                                <i class="bi bi-question-circle-fill"></i> Question 1
+                            </div>
+                            <p><strong>Q:</strong> Quelle est la définition de la "valeur" selon ITIL 4 ?</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quizQ1" id="quizQ1_1">
+                                <label class="form-check-label" for="quizQ1_1">Les bénéfices financiers qu'une organisation réalise.</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quizQ1" id="quizQ1_2">
+                                <label class="form-check-label" for="quizQ1_2">L'utilité d'un produit ou service pour le fournisseur.</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quizQ1" id="quizQ1_3">
+                                <label class="form-check-label" for="quizQ1_3">Les bénéfices perçus, l'utilité et l'importance de quelque chose par une partie prenante.</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quizQ1" id="quizQ1_4">
+                                <label class="form-check-label" for="quizQ1_4">Le coût total de possession d'un service.</label>
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary mt-2" onclick="checkAnswer('quizQ1_3', 'quizQ1Feedback')">Vérifier</button>
+                            <div id="quizQ1Feedback" class="mt-2 d-none"></div>
+                        </div>
+
+                        <!-- Quiz Question 2 -->
+                        <div class="knowledge-check mt-3">
+                            <div class="check-title">
+                                <i class="bi bi-question-circle-fill"></i> Question 2
+                            </div>
+                            <p><strong>Q:</strong> Lequel des éléments suivants N'EST PAS un principe directeur d'ITIL 4 ?</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quizQ2" id="quizQ2_1">
+                                <label class="form-check-label" for="quizQ2_1">Focus sur la valeur</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quizQ2" id="quizQ2_2">
+                                <label class="form-check-label" for="quizQ2_2">Implémenter la technologie en premier</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quizQ2" id="quizQ2_3">
+                                <label class="form-check-label" for="quizQ2_3">Progressez itérativement avec le feedback</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quizQ2" id="quizQ2_4">
+                                <label class="form-check-label" for="quizQ2_4">Pensez et travaillez de manière holistique</label>
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary mt-2" onclick="checkAnswer('quizQ2_2', 'quizQ2Feedback')">Vérifier</button>
+                            <div id="quizQ2Feedback" class="mt-2 d-none"></div>
+                        </div>
+
+                        <!-- Quiz Question 3 -->
+                        <div class="knowledge-check mt-3">
+                            <div class="check-title">
+                                <i class="bi bi-question-circle-fill"></i> Question 3
+                            </div>
+                            <p><strong>Q:</strong> Quelle dimension du management des services ITIL 4 traite des contrats et des accords de niveau de service (SLA) ?</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quizQ3" id="quizQ3_1">
+                                <label class="form-check-label" for="quizQ3_1">Organisations et Personnes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quizQ3" id="quizQ3_2">
+                                <label class="form-check-label" for="quizQ3_2">Information et Technologie</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quizQ3" id="quizQ3_3">
+                                <label class="form-check-label" for="quizQ3_3">Partenaires et Fournisseurs</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quizQ3" id="quizQ3_4">
+                                <label class="form-check-label" for="quizQ3_4">Flux de Valeur et Processus</label>
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary mt-2" onclick="checkAnswer('quizQ3_3', 'quizQ3Feedback')">Vérifier</button>
+                            <div id="quizQ3Feedback" class="mt-2 d-none"></div>
+                        </div>
+
+                        <div class="alert alert-info mt-4" role="alert">
                             <i class="bi bi-info-circle-fill me-2"></i>
-                            Revenez bientôt ! Le quiz complet avec 200+ questions sera disponible ici.
+                            Plus de questions seront ajoutées régulièrement ! Continuez à pratiquer.
                         </div>
                         <a href="#" class="btn btn-primary btn-lg mt-3 disabled">
-                            <i class="bi bi-play-circle me-2"></i>Démarrer le Quiz (Bientôt disponible)
+                            <i class="bi bi-play-circle me-2"></i>Démarrer un Quiz Complet (Bientôt disponible)
                         </a>
                     </div>
                 </div>
@@ -872,6 +1699,7 @@
         </div>
     </section>
 
+    <!-- Modals for Concepts -->
     <div class="modal fade" id="concept1Modal" tabindex="-1" aria-labelledby="concept1ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -881,14 +1709,14 @@
                 </div>
                 <div class="modal-body">
                     <h6>Exemple Concret : Service de Visioconférence</h6>
-                    <p>Une entreprise fournit un service de visioconférence à ses employés.</p>
+                    <p>Une entreprise fournit un service de visioconférence à ses employés. Analysons la valeur :</p>
                     <ul class="list-group list-group-flush mb-3">
-                        <li class="list-group-item"><strong>Utilité :</strong> Permet aux employés de tenir des réunions à distance, de collaborer efficacement et de réduire les déplacements.</li>
-                        <li class="list-group-item"><strong>Garantie :</strong> Le service est disponible 99.9% du temps, avec une qualité audio/vidéo HD et un support technique 24/7.</li>
-                        <li class="list-group-item"><strong>Coûts :</strong> L'entreprise paie des licences logicielles, des infrastructures réseau, et les salaires de l'équipe de support.</li>
-                        <li class="list-group-item"><strong>Risques :</strong> Risque de pannes de service, de problèmes de sécurité, ou de mauvaise qualité de connexion.</li>
+                        <li class="list-group-item"><strong>Utilité :</strong> Permet aux employés de tenir des réunions à distance, de collaborer efficacement sur des documents partagés, de réduire les déplacements et d'améliorer la productivité.</li>
+                        <li class="list-group-item"><strong>Garantie :</strong> Le service est disponible 99.9% du temps (haute disponibilité), avec une qualité audio/vidéo HD et stable, une sécurité des communications (chiffrement), et un support technique 24/7 pour toute interruption.</li>
+                        <li class="list-group-item"><strong>Coûts :</strong> L'entreprise supporte les coûts des licences logicielles, des infrastructures réseau dédiées, de la bande passante, et des salaires de l'équipe de support et d'administration. Les employés investissent du temps pour apprendre à utiliser l'outil.</li>
+                        <li class="list-group-item"><strong>Risques :</strong> Risque de pannes de service (indisponibilité), de problèmes de sécurité (fuite de données), de mauvaise qualité de connexion (réunion inefficace), de non-adoption par les utilisateurs ou de coûts imprévus.</li>
                     </ul>
-                    <p>La <strong>valeur</strong> pour l'employé est la capacité de travailler à distance (utilité) avec fiabilité et performance (garantie), minimisant les interruptions (risques) et les coûts indirects (temps perdu, etc.).</p>
+                    <p>La <strong>valeur</strong> pour l'employé est la capacité de travailler à distance de manière productive (utilité) avec fiabilité et performance (garantie), tout en minimisant les interruptions (risques) et les coûts indirects (temps perdu, frustration). Pour l'entreprise, la valeur se traduit par une meilleure collaboration, une réduction des frais de déplacement et une productivité accrue.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -905,16 +1733,16 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="https://via.placeholder.com/600x400?text=Diagramme+SVS" alt="Diagramme SVS ITIL 4" class="img-fluid rounded shadow-sm mb-3">
+                    <img src="https://placehold.co/600x400/2c5282/ffffff?text=Diagramme+SVS+ITIL+4" alt="Diagramme SVS ITIL 4" class="img-fluid rounded shadow-sm mb-3">
                     <p>Le SVS est au cœur d'ITIL 4, montrant comment la demande est transformée en valeur. Il est composé de :</p>
-                    <ul>
-                        <li><strong>Principes Directeurs :</strong> Les 7 principes qui guident l'organisation.</li>
-                        <li><strong>Gouvernance :</strong> La façon dont l'organisation est dirigée et contrôlée.</li>
-                        <li><strong>Chaîne de Valeur des Services (SVC) :</strong> Le modèle opérationnel qui génère de la valeur.</li>
-                        <li><strong>Pratiques ITIL :</strong> Les ensembles de ressources organisationnelles pour effectuer le travail.</li>
-                        <li><strong>Amélioration Continue :</strong> L'approche récurrente pour améliorer l'efficacité et l'efficience.</li>
+                    <ul class="list-group list-group-flush text-start">
+                        <li class="list-group-item"><strong>Principes Directeurs :</strong> Les 7 principes qui guident l'organisation dans toutes ses activités.</li>
+                        <li class="list-group-item"><strong>Gouvernance :</strong> La façon dont l'organisation est dirigée et contrôlée, y compris l'évaluation, la direction et le suivi.</li>
+                        <li class="list-group-item"><strong>Chaîne de Valeur des Services (SVC) :</strong> Le modèle opérationnel central qui génère de la valeur à travers six activités clés (Planifier, Engager, Concevoir et Transiter, Obtenir/Construire, Fournir et Supporter, Améliorer).</li>
+                        <li class="list-group-item"><strong>Pratiques ITIL :</strong> Les ensembles de ressources organisationnelles pour effectuer le travail, organisées en pratiques de management général, de management des services et de management technique.</li>
+                        <li class="list-group-item"><strong>Amélioration Continue :</strong> L'approche récurrente pour améliorer l'efficacité et l'efficience à tous les niveaux de l'organisation.</li>
                     </ul>
-                    <p class="alert alert-warning"><strong>Point clé pour l'examen :</strong> Comprendre l'interaction entre ces composants pour créer de la valeur.</p>
+                    <p class="alert alert-warning mt-3"><strong>Point clé pour l'examen :</strong> Comprendre l'interaction dynamique entre ces composants pour créer de la valeur de manière holistique et adaptative.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -931,16 +1759,17 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Ces principes doivent guider toutes les décisions et actions d'une organisation :</p>
+                    <p>Ces principes doivent guider toutes les décisions et actions d'une organisation, assurant une approche cohérente et efficace du management des services :</p>
                     <ol>
-                        <li><strong>Focus sur la valeur :</strong> Tout ce que fait l'organisation doit créer de la valeur pour les parties prenantes.</li>
-                        <li><strong>Commencez là où vous êtes :</strong> Ne jetez pas tout ce qui existe ; utilisez ce qui fonctionne et améliorez-le.</li>
-                        <li><strong>Progressez itérativement avec le feedback :</strong> Ne cherchez pas la perfection d'emblée ; livrez par petites étapes et adaptez-vous.</li>
-                        <li><strong>Collaborez et favorisez la visibilité :</strong> Travaillez ensemble et partagez l'information.</li>
-                        <li><strong>Pensez et travaillez de manière holistique :</strong> Voyez le service dans son ensemble, pas seulement ses composants.</li>
-                        <li><strong>Gardez les choses simples et pratiques :</strong> Évitez la complexité inutile ; utilisez le minimum de pas nécessaire pour atteindre l'objectif.</li>
-                        <li><strong>Optimisez et automatisez :</strong> Améliorez l'efficacité et la productivité en éliminant le travail manuel répétitif.</li>
+                        <li><strong>Focus sur la valeur :</strong> Toutes les activités de l'organisation doivent être liées, directement ou indirectement, à la création de valeur pour les parties prenantes.</li>
+                        <li><strong>Commencez là où vous êtes :</strong> N'abandonnez pas ce qui existe et fonctionne bien. Évaluez la situation actuelle et utilisez ce qui est déjà en place comme base pour l'amélioration.</li>
+                        <li><strong>Progressez itérativement avec le feedback :</strong> Ne visez pas la perfection dès le départ. Avancez par petites étapes gérables, en recueillant et en utilisant les retours d'information pour des améliorations continues.</li>
+                        <li><strong>Collaborez et favorisez la visibilité :</strong> Travailler ensemble à travers les silos organisationnels et partager l'information de manière transparente conduit à de meilleures décisions et à une plus grande pertinence.</li>
+                        <li><strong>Pensez et travaillez de manière holistique :</strong> Aucune partie d'un service ou d'une organisation ne fonctionne de manière isolée. Les services doivent être gérés de bout en bout, en tenant compte de toutes les 4 dimensions du management des services.</li>
+                        <li><strong>Gardez les choses simples et pratiques :</strong> Évitez la complexité inutile. Utilisez le nombre minimum d'étapes ou de ressources pour atteindre les objectifs.</li>
+                        <li><strong>Optimisez et automatisez :</strong> Améliorez l'efficacité et la productivité des ressources humaines et techniques. L'automatisation doit être utilisée pour les tâches répétitives et à faible valeur ajoutée, libérant les ressources pour des activités plus stratégiques.</li>
                     </ol>
+                    <p class="alert alert-info mt-3">Ces principes sont interdépendants et doivent être appliqués ensemble pour obtenir les meilleurs résultats.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -953,30 +1782,31 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="concept4ModalLabel">Cycle de Vie des Services (Product Management)</h5>
+                    <h5 class="modal-title" id="concept4ModalLabel">Utilité et Garantie : Exemples Clairs</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>ITIL 4 met l'accent sur la gestion des produits et services tout au long de leur cycle de vie, de la conception à la retraite. Cela inclut :</p>
+                    <p>Pour bien comprendre la valeur d'un service, il est essentiel de distinguer son utilité et sa garantie.</p>
                     <dl class="row">
-                        <dt class="col-sm-3">Planifier</dt>
-                        <dd class="col-sm-9">Comprendre la vision, la mission, les objectifs et la stratégie.</dd>
+                        <dt class="col-sm-3">Utilité (Fitness for Purpose)</dt>
+                        <dd class="col-sm-9">
+                            <p>L'utilité est la fonctionnalité offerte par un produit ou service pour répondre à un besoin particulier. C'est ce que le service fait pour le client.</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><i class="bi bi-lightbulb-fill text-info me-2"></i><strong>Exemple 1 (Service de messagerie) :</strong> La capacité d'envoyer et de recevoir des e-mails, de joindre des fichiers, d'organiser des contacts.</li>
+                                <li class="list-group-item"><i class="bi bi-lightbulb-fill text-info me-2"></i><strong>Exemple 2 (Application de covoiturage) :</strong> La capacité de trouver un chauffeur, de réserver une course, de payer en ligne.</li>
+                            </ul>
+                        </dd>
                         
-                        <dt class="col-sm-3">Engager</dt>
-                        <dd class="col-sm-9">Interagir avec les parties prenantes pour comprendre leurs besoins et leurs attentes.</dd>
-                        
-                        <dt class="col-sm-3">Concevoir & Transiter</dt>
-                        <dd class="col-sm-9">Créer de nouveaux services ou améliorer des services existants pour répondre aux attentes.</dd>
-                        
-                        <dt class="col-sm-3">Obtenir/Construire</dt>
-                        <dd class="col-sm-9">Acquérir ou construire les composants nécessaires aux services.</dd>
-                        
-                        <dt class="col-sm-3">Fournir & Supporter</dt>
-                        <dd class="col-sm-9">Livrer les services et les supporter en continu.</dd>
-                        
-                        <dt class="col-sm-3">Améliorer</dt>
-                        <dd class="col-sm-9">Améliorer continuellement les produits, services et pratiques.</dd>
+                        <dt class="col-sm-3">Garantie (Fitness for Use)</dt>
+                        <dd class="col-sm-9">
+                            <p>La garantie est l'assurance qu'un produit ou service fonctionnera comme prévu, en termes de performance, disponibilité, sécurité, capacité, etc. C'est la manière dont le service est fourni.</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><i class="bi bi-shield-fill-check text-success me-2"></i><strong>Exemple 1 (Service de messagerie) :</strong> Le service est disponible 99.9% du temps, les e-mails sont livrés rapidement, les données sont sécurisées, la capacité de stockage est suffisante.</li>
+                                <li class="list-group-item"><i class="bi bi-shield-fill-check text-success me-2"></i><strong>Exemple 2 (Application de covoiturage) :</strong> Les chauffeurs arrivent à l'heure, les paiements sont sécurisés, le support client est réactif, l'application est rapide et stable.</li>
+                            </ul>
+                        </dd>
                     </dl>
+                    <p class="alert alert-warning mt-3">Un service ne peut créer de la valeur que s'il possède à la fois l'utilité et la garantie nécessaires pour satisfaire les besoins du client.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -989,23 +1819,57 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="concept5ModalLabel">L'Amélioration Continue en ITIL 4</h5>
+                    <h5 class="modal-title" id="concept5ModalLabel">Coûts et Risques dans la Co-création de Valeur</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>L'amélioration continue est un principe directeur et une pratique essentielle d'ITIL 4. Elle s'applique à tous les aspects de l'organisation et du SVS.</p>
-                    <h6>Modèle d'Amélioration Continue (ITIL CSI Approach)</h6>
-                    <p>ITIL 4 propose un modèle d'amélioration en sept étapes pour guider les initiatives d'amélioration :</p>
-                    <ol>
-                        <li><strong>Quelle est la vision ?</strong> Définir les objectifs et la vision de l'amélioration.</li>
-                        <li><strong>Où en sommes-nous maintenant ?</strong> Évaluer la situation actuelle et identifier les lacunes.</li>
-                        <li><strong>Où voulons-nous être ?</strong> Définir les objectifs spécifiques et mesurables.</li>
-                        <li><strong>Comment y arriverons-nous ?</strong> Planifier les actions et les changements nécessaires.</li>
-                        <li><strong>Passer à l'action :</strong> Mettre en œuvre le plan.</li>
-                        <li><strong>Avons-nous atteint notre objectif ?</strong> Vérifier les résultats par rapport aux objectifs.</li>
-                        <li><strong>Comment maintenir l'élan ?</strong> Intégrer les améliorations et continuer à chercher de nouvelles opportunités.</li>
-                    </ol>
-                    <p>Ce modèle est cyclique et favorise une culture d'amélioration constante.</p>
+                    <p>La création de valeur n'est jamais sans contrepartie. Elle implique toujours des coûts et des risques, qui doivent être gérés pour maximiser la valeur nette.</p>
+                    <h6>Coûts</h6>
+                    <p>Les coûts sont la quantité d'argent dépensée ou les ressources consommées pour une activité ou un service. En ITIL, on distingue :</p>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item"><strong>Coûts du fournisseur :</strong> Les coûts supportés par le fournisseur pour créer et livrer le service (ex: salaires, licences logicielles, infrastructure).</li>
+                        <li class="list-group-item"><strong>Coûts du consommateur :</strong> Les coûts supportés par le client pour utiliser le service (ex: frais d'abonnement, temps passé à apprendre le service, consommation d'énergie).</li>
+                    </ul>
+                    <p>La valeur est maximisée lorsque les bénéfices perçus par le client dépassent les coûts totaux (fournisseur + consommateur).</p>
+
+                    <h6>Risques</h6>
+                    <p>Un risque est un événement incertain qui pourrait avoir un effet sur la réalisation des objectifs. Les risques peuvent être positifs (opportunités) ou négatifs (menaces). En ITIL, on se concentre souvent sur les risques négatifs :</p>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item"><strong>Risques liés au service :</strong> Indisponibilité, perte de données, failles de sécurité, non-conformité.</li>
+                        <li class="list-group-item"><strong>Gestion des risques :</strong> Identifier, évaluer et traiter les risques. Cela peut inclure l'atténuation, l'acceptation, le transfert ou l'évitement des risques.</li>
+                    </ul>
+                    <p class="alert alert-info mt-3">ITIL 4 encourage une gestion proactive des coûts et des risques pour optimiser la valeur des services.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="concept6Modal" tabindex="-1" aria-labelledby="concept6ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="concept6ModalLabel">Produits et Services : Une Relation Symbiotique</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>En ITIL 4, la distinction entre produits et services est fondamentale pour comprendre comment la valeur est créée et livrée.</p>
+                    <h6>Produit</h6>
+                    <p>Un <strong>produit</strong> est une configuration de ressources d'une organisation, conçue pour offrir de la valeur à un consommateur. Un produit peut inclure des éléments comme le matériel, les logiciels, les personnes, les informations, les partenaires et les processus. Il est le "quoi" est offert.</p>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item"><strong>Exemple :</strong> Un produit "Suite de productivité bureautique" peut inclure des logiciels de traitement de texte, tableur, présentation, et un espace de stockage cloud.</li>
+                        <li class="list-group-item"><strong>Caractéristique :</strong> Les produits sont la base sur laquelle les services sont construits et configurés pour répondre à des besoins spécifiques.</li>
+                    </ul>
+
+                    <h6>Service</h6>
+                    <p>Un <strong>service</strong> est un moyen de co-créer de la valeur en facilitant les résultats souhaités par les clients, sans que le client ait à gérer des coûts et des risques spécifiques. C'est le "comment" la valeur est délivrée.</p>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item"><strong>Exemple :</strong> Le service "Accès à la suite de productivité" permet à l'utilisateur d'utiliser les logiciels et le stockage sans se soucier de l'installation, de la maintenance des serveurs ou des licences.</li>
+                        <li class="list-group-item"><strong>Caractéristique :</strong> Les services sont des offres tangibles ou intangibles qui permettent la consommation des produits.</li>
+                    </ul>
+                    <p class="alert alert-info mt-3">Les produits sont les "ingrédients" ou les "blocs de construction", tandis que les services sont la "recette" ou la "préparation" qui rend ces ingrédients utiles et consommables pour le client.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -1020,19 +1884,23 @@
             <div class="row">
                 <div class="col-md-4 mb-4 mb-md-0">
                     <h5 class="text-white mb-3">ITIL 4 Foundation</h5>
-                    <p class="text-white-50">Votre guide complet pour la certification et l'application des bonnes pratiques ITIL.</p>
+                    <p class="text-white-50">Votre guide complet pour la certification et l'application des bonnes pratiques ITIL. Apprenez, pratiquez, certifiez-vous !</p>
                 </div>
                 <div class="col-md-4 mb-4 mb-md-0">
-                    <h5 class="text-white mb-3">Liens Rapides</h5>
+                    <h5 class="text-white mb-3">Navigation Rapide</h5>
                     <ul class="list-unstyled">
                         <li><a href="#concepts" class="text-white-50 text-decoration-none">Concepts Clés</a></li>
                         <li><a href="#dimensions" class="text-white-50 text-decoration-none">4 Dimensions</a></li>
+                        <li><a href="#value-chain" class="text-white-50 text-decoration-none">Chaîne de Valeur</a></li>
                         <li><a href="#practices" class="text-white-50 text-decoration-none">Pratiques ITIL</a></li>
+                        <li><a href="#improvement" class="text-white-50 text-decoration-none">Amélioration Continue</a></li>
+                        <li><a href="#resources" class="text-white-50 text-decoration-none">Ressources</a></li>
                         <li><a href="#exam" class="text-white-50 text-decoration-none">Guide Examen</a></li>
+                        <li><a href="#quiz" class="text-white-50 text-decoration-none">Quiz de Préparation</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h5 class="text-white mb-3">Contact</h5>
+                    <h5 class="text-white mb-3">Contactez-nous</h5>
                     <ul class="list-unstyled text-white-50">
                         <li><i class="bi bi-geo-alt-fill me-2"></i>Abidjan, Côte d'Ivoire</li>
                         <li><i class="bi bi-envelope-fill me-2"></i>contact@itilexpert.com</li>
@@ -1056,9 +1924,12 @@
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
+        // Function to check answers for quiz questions
         function checkAnswer(correctId, feedbackId) {
             const feedbackDiv = document.getElementById(feedbackId);
-            const radios = document.querySelectorAll(`input[name="${feedbackId.replace('Feedback', '')}"]`);
+            // Get the name attribute from the feedbackId (e.g., 'introCheck1Feedback' -> 'introCheck1')
+            const questionName = feedbackId.replace('Feedback', ''); 
+            const radios = document.querySelectorAll(`input[name="${questionName}"]`);
             let isCorrect = false;
 
             radios.forEach(radio => {
@@ -1069,9 +1940,9 @@
 
             feedbackDiv.classList.remove('d-none');
             if (isCorrect) {
-                feedbackDiv.innerHTML = '<div class="alert alert-success"><i class="bi bi-check-circle-fill me-2"></i>Correct ! La bonne réponse est AXELOS.</div>';
+                feedbackDiv.innerHTML = '<div class="alert alert-success mt-2"><i class="bi bi-check-circle-fill me-2"></i>Correct !</div>';
             } else {
-                feedbackDiv.innerHTML = '<div class="alert alert-danger"><i class="bi bi-x-circle-fill me-2"></i>Incorrect. Veuillez réessayer.</div>';
+                feedbackDiv.innerHTML = '<div class="alert alert-danger mt-2"><i class="bi bi-x-circle-fill me-2"></i>Incorrect. Veuillez réessayer.</div>';
             }
         }
 
@@ -1080,22 +1951,36 @@
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
 
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    // Calculate offset to account for fixed navbar
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const offsetTop = targetElement.offsetTop - navbarHeight - 20; // Added extra padding
+
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
         // Add active class to nav-link on scroll
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
+        const navbarHeight = document.querySelector('.navbar').offsetHeight;
 
         window.addEventListener('scroll', () => {
             let current = '';
+            // Adjust scroll position by navbar height
+            const scrollY = window.pageYOffset + navbarHeight + 50; // Added extra offset for better active state detection
+
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
-                if (pageYOffset >= sectionTop - 100 && pageYOffset < sectionTop + sectionHeight - 100) {
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
                     current = section.getAttribute('id');
                 }
             });
@@ -1107,6 +1992,12 @@
                 }
             });
         });
+
+        // Initialize Bootstrap tooltips (if any are added)
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
 
     </script>
 </body>
