@@ -1,17 +1,20 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz de Certification ITIL Fondation - Examen Blanc</title>
+    <title>Quiz de Certification ITIL Fondation - Complet et Détaillé</title>
+    <!-- Lien vers Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Lien vers Font Awesome pour les icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Styles CSS personnalisés pour le quiz ITIL */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e8f0f7;
-            color: #2c3e50;
+            background-color: #f0f4f8;
+            color: #333;
             padding-top: 30px;
             padding-bottom: 30px;
         }
@@ -21,15 +24,15 @@
             background-color: #ffffff;
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             animation: fadeIn 1s ease-out;
         }
         .quiz-header {
             text-align: center;
             margin-bottom: 40px;
-            color: #3498db;
+            color: #005a9e;
             font-weight: 700;
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             position: relative;
             padding-bottom: 18px;
         }
@@ -39,22 +42,21 @@
             left: 50%;
             bottom: 0;
             transform: translateX(-50%);
-            width: 120px;
-            height: 5px;
-            background-color: #2c3e50;
-            border-radius: 3px;
+            width: 100px;
+            height: 4px;
+            background-color: #007bff;
+            border-radius: 2px;
         }
 
         .score-progress-container {
             display: flex;
             flex-direction: column;
-            margin-bottom: 25px;
-            padding: 15px 25px;
-            background-color: #f0f8ff;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             font-weight: 600;
-            color: #2c3e50;
+            color: #212529;
         }
         .score-display, .question-progress-display {
             display: flex;
@@ -67,36 +69,33 @@
             margin-bottom: 0;
         }
         .progress {
-            height: 15px;
-            border-radius: 10px;
+            height: 12px;
+            border-radius: 6px;
             background-color: #e9ecef;
             flex-grow: 1;
             margin-left: 20px;
         }
         .progress-bar {
-            background-color: #3498db;
-            border-radius: 10px;
+            background-color: #007bff;
+            border-radius: 6px;
             transition: width 0.5s ease-in-out;
         }
 
         .question-card {
             margin-bottom: 35px;
-            border: none;
+            border: 1px solid #dee2e6;
             border-radius: 12px;
             padding: 30px;
             background-color: #fefefe;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .question-card:hover {
-            transform: translateY(-7px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
+        
         .question-card h5 {
             margin-bottom: 25px;
-            color: #2c3e50;
+            color: #003d6b;
             font-weight: 600;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             line-height: 1.5;
         }
         .answer-option {
@@ -108,202 +107,121 @@
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            background-color: #f8fbfd;
+            background-color: #fff;
         }
         .answer-option:hover {
-            background-color: #eef7ff;
-            border-color: #9ac7ed;
+            background-color: #e9f5ff;
+            border-color: #007bff;
         }
         .answer-option input[type="radio"] {
-            margin-right: 18px;
-            transform: scale(1.3);
+            margin-right: 15px;
+            transform: scale(1.2);
             cursor: pointer;
         }
         .answer-option label {
             cursor: pointer;
             flex-grow: 1;
+            margin-bottom: 0;
         }
 
-        /* Styles pour les retours (correct/incorrect) en mode apprentissage */
         .answer-option.correct {
-            background-color: #d4edda;
-            border-color: #28a745;
-            font-weight: bold;
-            color: #155724;
+            background-color: #d1e7dd;
+            border-color: #198754;
+            color: #0a3622;
             animation: pulseGreen 0.5s ease-out;
         }
         .answer-option.incorrect {
             background-color: #f8d7da;
             border-color: #dc3545;
-            font-weight: bold;
-            color: #721c24;
+            color: #58151c;
             animation: shakeRed 0.5s ease-out;
         }
         .rationale {
-            margin-top: 20px;
+            margin-top: 15px;
             padding: 20px;
-            background-color: #e9eff5;
-            border-left: 6px solid #607d8b;
+            background-color: #eef2f5;
+            border-left: 5px solid #6c757d;
             border-radius: 8px;
-            font-size: 1em;
-            color: #455a64;
+            font-size: 1rem;
+            color: #495057;
             display: none;
             animation: slideInUp 0.4s ease-out;
         }
-        .rationale ul {
-            list-style-type: none;
-            padding-left: 0;
-            margin-bottom: 0;
-        }
-        .rationale li {
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-        .rationale li:last-child {
-            margin-bottom: 0;
-        }
-
+        
         .hint {
-            margin-top: 20px;
+            margin-top: 15px;
             padding: 15px;
-            background-color: #fff8e1;
-            border-left: 6px solid #ffb300;
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
             border-radius: 8px;
             font-size: 0.95em;
-            color: #a1887f;
+            color: #664d03;
             display: none;
             animation: slideInUp 0.4s ease-out;
         }
+
         .show-info {
             display: block;
         }
-        .btn-toggle-info {
-            margin-top: 20px;
-            font-size: 0.95em;
-            padding: 10px 20px;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .btn-toggle-info:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
 
+        .btn-toggle-info {
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+        
         /* Styles pour le pop-up de résultats (modal) */
         .results-modal .modal-content {
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             padding: 20px;
             text-align: center;
         }
         .results-modal .modal-header {
             border-bottom: none;
-            padding-bottom: 0;
             justify-content: center;
         }
         .results-modal .modal-title {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: bold;
-            color: #2c3e50;
-        }
-        .results-modal .modal-body {
-            padding-top: 20px;
-            padding-bottom: 20px;
+            color: #212529;
         }
         .results-modal .score-text {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #495057;
             margin-bottom: 15px;
         }
         .results-modal .score-percentage {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: bold;
             margin-bottom: 30px;
         }
         .results-modal .recommendations {
             margin-top: 20px;
             padding: 20px;
-            background-color: #e9eff5;
+            background-color: #f8f9fa;
             border-radius: 10px;
-            border-left: 6px solid #3498db;
             text-align: left;
         }
-        .results-modal .recommendations h4 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        .results-modal .recommendations ul {
-            list-style-type: disc;
-            padding-left: 25px;
-        }
-        .results-modal .recommendations li {
-            margin-bottom: 8px;
-            color: #495057;
-        }
-        .results-modal .modal-footer {
-            border-top: none;
-            padding-top: 0;
-            justify-content: center;
-        }
-        .results-modal #restart-quiz-btn-modal {
-            padding: 12px 30px;
-            font-size: 1.2rem;
-            border-radius: 8px;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideInUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pulseGreen {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.005); }
-            100% { transform: scale(1); }
-        }
-        @keyframes shakeRed {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-8px); }
-            40%, 80% { transform: translateX(8px); }
-        }
         
-        /* Badges de difficulté */
-        .difficulty-badge {
-            font-size: 0.8rem;
-            padding: 3px 8px;
-            border-radius: 10px;
-            margin-left: 10px;
-        }
-        .easy {
-            background-color: #28a745;
-            color: white;
-        }
-        .medium {
-            background-color: #ffc107;
-            color: #212529;
-        }
-        .hard {
-            background-color: #dc3545;
-            color: white;
-        }
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseGreen { 0% { transform: scale(1); } 50% { transform: scale(1.005); } 100% { transform: scale(1); } }
+        @keyframes shakeRed { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
+        
     </style>
 </head>
 <body>
     <div class="container quiz-container">
-        <h2 class="quiz-header">Quiz de Certification ITIL Fondation</h2>
-        <p class="text-center text-muted mb-5">Testez vos connaissances sur les concepts clés d'ITIL v4. Chaque question offre un indice et une explication détaillée.</p>
+        <h2 class="quiz-header">Quiz ITIL 4 - Explications Détaillées</h2>
+        <p class="text-center text-muted mb-5">Testez vos connaissances sur les concepts clés d'ITIL v4. Chaque question offre une explication approfondie pour renforcer votre apprentissage.</p>
 
         <div class="score-progress-container">
             <div class="score-display">
-                <span id="current-score-display">Score: 0 / 0</span>
+                <span id="current-score-display">Score: 0 / 39</span>
             </div>
             <div class="question-progress-display">
-                <span id="question-count-display">Question: 1 / 40</span>
+                <span id="question-count-display">Question: 1 / 39</span>
                 <div class="progress">
                     <div id="question-progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
@@ -311,16 +229,16 @@
         </div>
 
         <div id="quiz-display">
+            <!-- La question actuelle sera chargée dynamiquement ici par JavaScript -->
             <div class="text-center my-5" id="loading-spinner">
                 <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Chargement des questions...</span>
+                    <span class="visually-hidden">Chargement...</span>
                 </div>
-                <p class="mt-2 text-muted">Chargement des questions du quiz...</p>
             </div>
         </div>
 
         <div class="d-flex justify-content-between mt-4" id="quiz-navigation">
-            <button id="prev-btn" class="btn btn-primary" disabled>
+            <button id="prev-btn" class="btn btn-secondary" disabled>
                 <i class="fas fa-arrow-left me-2"></i> Précédent
             </button>
             <button id="next-btn" class="btn btn-primary" disabled>
@@ -329,20 +247,19 @@
         </div>
     </div>
 
+    <!-- Modal pour les résultats du quiz -->
     <div class="modal fade results-modal" id="resultsModal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="resultsModalLabel">Résultats du Quiz</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="score-text">Vous avez répondu correctement à <span id="final-score-correct">0</span> questions sur <span id="final-score-total">0</span>.</p>
-                    <p class="score-percentage" id="final-score-percentage" style="color: #28a745;">0%</p>
-                    <div class="recommendations" id="final-recommendations">
-                        </div>
+                    <p class="score-text">Vous avez obtenu <span id="final-score-correct">0</span> sur <span id="final-score-total">0</span>.</p>
+                    <p class="score-percentage" id="final-score-percentage">0%</p>
+                    <div class="recommendations" id="final-recommendations"></div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-primary" id="restart-quiz-btn-modal">
                         <i class="fas fa-redo me-2"></i> Recommencer le quiz
                     </button>
@@ -357,863 +274,827 @@
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
         const loadingSpinner = document.getElementById('loading-spinner');
-        const quizNavigationDiv = document.getElementById('quiz-navigation');
         const currentScoreDisplay = document.getElementById('current-score-display');
         const questionCountDisplay = document.getElementById('question-count-display');
         const questionProgressBar = document.getElementById('question-progress-bar');
-
-        // Modal elements
         const resultsModal = new bootstrap.Modal(document.getElementById('resultsModal'));
-        const finalScoreCorrectSpan = document.getElementById('final-score-correct');
-        const finalScoreTotalSpan = document.getElementById('final-score-total');
-        const finalScorePercentage = document.getElementById('final-score-percentage');
-        const finalRecommendationsDiv = document.getElementById('final-recommendations');
-        const restartQuizBtnModal = document.getElementById('restart-quiz-btn-modal');
+        const quizNavigationDiv = document.getElementById('quiz-navigation'); // Déclaration de quizNavigationDiv
 
         let currentQuestionIndex = 0;
         let questions = [];
         let score = 0;
-        let userAnswers = new Array(40).fill(null);
+        let userAnswers = [];
 
-        // Données du quiz ITIL Fondation (40 questions)
         const quizData = {
-            "title": "Quiz de Certification ITIL Fondation - Examen Blanc 1",
+            "title": "Quiz de Certification ITIL Fondation – Examen Blanc 1",
             "questions": [
                 {
                     "question": "Quelle est la pratique qui permet de déplacer de nouveaux matériels, logiciels ou tout autre composant dans l’environnement de production ?",
-                    "difficulty": "easy",
                     "answer_options": [
                         {"text": "Contrôle des changements", "is_correct": false},
                         {"text": "Gestion des versions", "is_correct": false},
                         {"text": "Gestion des mises en production", "is_correct": false},
                         {"text": "Gestion des déploiements", "is_correct": true}
                     ],
-                    "rationale": "La gestion des déploiements permet de déplacer des composants vers les environnements de production.",
-                    "hint": "Pensez au processus de mise en service de nouveaux éléments."
+                    "rationale": "La pratique de gestion des déploiements est spécifiquement responsable du mouvement physique ou logique de tout nouveau composant ou service vers l'environnement de production. Cela inclut le matériel, les logiciels, la documentation, et tout autre élément nécessaire au fonctionnement du service. Contrairement à la gestion des mises en production, qui planifie et coordonne l'ensemble du cycle de vie d'une version, la gestion des déploiements se concentre sur l'étape technique de l'installation et de la mise à disposition. Une bonne gestion des déploiements assure que le transfert se fait avec un minimum de perturbations pour les utilisateurs et les services existants."
                 },
                 {
                     "question": "Quelle pratique est responsable de la gestion des questions, demandes et incidents des utilisateurs ?",
-                    "difficulty": "easy",
                     "answer_options": [
                         {"text": "Centre de services", "is_correct": true},
                         {"text": "Gestion des incidents", "is_correct": false},
                         {"text": "Gestion des demandes de service", "is_correct": false},
                         {"text": "Contrôle des changements", "is_correct": false}
                     ],
-                    "rationale": "Le centre de services est le point de contact unique pour les utilisateurs.",
-                    "hint": "Pensez au point d'entrée unique pour toutes les interactions utilisateurs."
+                    "rationale": "Le centre de services (Service Desk) agit comme le point de contact central et unique pour toutes les interactions entre les utilisateurs et le fournisseur de services informatiques. Il ne se contente pas de gérer les incidents, mais prend également en charge les demandes de service (comme une demande de nouveau matériel) et répond aux questions des utilisateurs. En centralisant ces communications, le centre de services garantit une prise en charge rapide, un suivi efficace et une meilleure communication avec les utilisateurs. Il est essentiel pour capturer la demande et assurer la satisfaction des utilisateurs au quotidien."
                 },
                 {
                     "question": "Quelle pratique inclut l'identification des métriques qui reflètent l'expérience réelle du client ?",
-                    "difficulty": "medium",
                     "answer_options": [
                         {"text": "Gestion des incidents", "is_correct": false},
                         {"text": "Centre de services", "is_correct": false},
                         {"text": "Gestion des niveaux de service", "is_correct": true},
                         {"text": "Gestion des fournisseurs", "is_correct": false}
                     ],
-                    "rationale": "Elle permet de mesurer la qualité de service perçue.",
-                    "hint": "Cette pratique est liée aux accords de service."
+                    "rationale": "La gestion des niveaux de service (SLM - Service Level Management) est la pratique qui vise à négocier et à convenir des niveaux de service, puis à s'assurer que ces derniers sont atteints. Pour ce faire, il est crucial d'aller au-delà des métriques purement techniques et d'identifier des indicateurs qui reflètent véritablement l'expérience et la satisfaction du client (XLA - eXperience Level Agreements). Cela inclut la mesure de la qualité perçue du service, en se basant sur les résultats métier obtenus par le client. Ainsi, la SLM assure un alignement constant entre les services fournis et les attentes réelles des clients."
                 },
                 {
                     "question": "Quelle est l’utilité principale du calendrier des changements ?",
-                    "difficulty": "easy",
                     "answer_options": [
                         {"text": "Créer des changements urgents", "is_correct": false},
                         {"text": "Fournir une structure d’autorisation", "is_correct": false},
                         {"text": "Planifier les changements et éviter les conflits", "is_correct": true},
                         {"text": "Affecter des ressources aux changements", "is_correct": false}
                     ],
-                    "rationale": "Il permet de visualiser les changements prévus pour éviter les collisions.",
-                    "hint": "Pensez à un outil de planification pour les modifications."
+                    "rationale": "Le calendrier des changements est un outil essentiel pour la pratique du contrôle des changements, offrant une vue d'ensemble de tous les changements planifiés. Son utilité principale est de permettre une planification efficace, d'éviter les conflits potentiels entre différents changements et de coordonner les activités avec les autres parties prenantes. Il aide également à évaluer l'impact cumulatif des changements sur les services et les utilisateurs. En fournissant cette visibilité, il minimise les risques d'interruptions de service imprévues dues à des modifications concurrentes ou mal coordonnées."
                 },
                 {
                     "question": "Quelle dimension du management des services est axée sur les activités de l’organisation et leur coordination ?",
-                    "difficulty": "medium",
                     "answer_options": [
                         {"text": "Organisation et personnes", "is_correct": false},
                         {"text": "Information et technologie", "is_correct": false},
                         {"text": "Partenaires et fournisseurs", "is_correct": false},
                         {"text": "Flux de valeur et processus", "is_correct": true}
                     ],
-                    "rationale": "Elle décrit comment les différentes parties de l’organisation travaillent ensemble.",
-                    "hint": "Cette dimension concerne la manière dont le travail est effectué."
+                    "rationale": "La dimension 'Flux de valeur et processus' se concentre sur la manière dont les différentes parties de l'organisation travaillent de manière intégrée et coordonnée pour permettre la création de valeur à travers des produits et services. Elle examine comment les activités sont organisées, quels sont les flux de travail, et comment ces flux contribuent à la livraison efficace des résultats aux clients. Alors que 'Organisation et personnes' concerne la structure humaine, cette dimension s'intéresse à la logique et à l'orchestration des activités. Elle est fondamentale pour comprendre et optimiser la manière dont le travail est effectué de bout en bout."
                 },
                 {
                     "question": "Pourquoi catégoriser les incidents ?",
-                    "difficulty": "easy",
                     "answer_options": [
                         {"text": "Diriger vers le groupe de support approprié", "is_correct": true},
                         {"text": "S'assurer qu'ils sont résolus dans les délais", "is_correct": false},
                         {"text": "Faciliter l'escalade", "is_correct": false},
                         {"text": "Faciliter la documentation", "is_correct": false}
                     ],
-                    "rationale": "Cela optimise leur prise en charge.",
-                    "hint": "Pensez à la meilleure façon d'acheminer un problème."
+                    "rationale": "La catégorisation des incidents est une étape cruciale qui consiste à attribuer une ou plusieurs catégories prédéfinies à chaque incident. L'objectif principal est d'assurer que l'incident est acheminé vers le groupe de support le plus compétent et le plus approprié pour le résoudre, ce qui accélère la résolution. De plus, une bonne catégorisation permet une analyse de tendance plus précise pour la gestion des problèmes, en identifiant les types d'incidents les plus fréquents. Cela aide également à définir des modèles d'incidents et à automatiser une partie du processus de prise en charge."
                 },
                 {
                     "question": "Un service facilite la co-création de valeur en facilitant [...]",
-                    "difficulty": "medium",
                     "answer_options": [
                         {"text": "l'optimisation des coûts", "is_correct": false},
                         {"text": "les résultats", "is_correct": true},
                         {"text": "les sorties", "is_correct": false},
                         {"text": "les tâches", "is_correct": false}
                     ],
-                    "rationale": "Un service aide à atteindre des résultats désirés sans gérer les coûts ou risques.",
-                    "hint": "Le but ultime de tout service pour le client."
+                    "rationale": "Selon ITIL 4, la finalité d'un service n'est pas simplement de fournir des 'sorties' (outputs), comme un rapport ou un accès à une application. Le véritable objectif est de faciliter les 'résultats' (outcomes) souhaités par le client, c'est-à-dire l'aider à atteindre ses propres objectifs. La valeur est co-créée lorsque le service aide le client à obtenir ces résultats, en supprimant des coûts ou des risques qu'il devrait sinon gérer lui-même. L'optimisation des coûts et les tâches sont des moyens pour y parvenir, mais le but ultime est toujours le résultat pour le client."
                 },
                 {
                     "question": "Quelle est la recommandation liée à l’amélioration continue ?",
-                    "difficulty": "easy",
                     "answer_options": [
                         {"text": "Avoir une équipe dédiée", "is_correct": true},
                         {"text": "Éviter l’utilisation d’outils", "is_correct": false},
                         {"text": "Réagir uniquement aux erreurs", "is_correct": false},
                         {"text": "S’appuyer uniquement sur le centre de services", "is_correct": false}
                     ],
-                    "rationale": "Une équipe dédiée favorise la culture d’amélioration.",
-                    "hint": "Pensez à la structure nécessaire pour une amélioration constante."
+                    "rationale": "Pour que l'amélioration continue soit efficace et pérenne, il est souvent recommandé d'établir une équipe dédiée, même si elle est de petite taille. Cette équipe peut agir comme un champion de l'amélioration, en promouvant la culture, en fournissant des outils et des méthodes, et en coordonnant les initiatives à travers l'organisation. Bien que l'amélioration soit la responsabilité de tous, une équipe dédiée assure que les efforts sont structurés, suivis et alignés avec les objectifs stratégiques. Cela évite que l'amélioration ne soit qu'une activité ponctuelle et réactive."
                 },
                 {
                     "question": "Quel est l’un des avantages d’un outil ITSM dans la gestion des incidents ?",
-                    "difficulty": "medium",
                     "answer_options": [
                         {"text": "Accès aux enregistrements financiers", "is_correct": false},
                         {"text": "Appariement automatique avec des problèmes connus", "is_correct": true},
                         {"text": "Création d’événements", "is_correct": false},
                         {"text": "Accès direct aux fournisseurs", "is_correct": false}
                     ],
-                    "rationale": "Cela accélère la résolution des incidents.",
-                    "hint": "Pensez à la rapidité de résolution des problèmes récurrents."
+                    "rationale": "Les outils de gestion des services informatiques (ITSM) modernes offrent de nombreuses fonctionnalités pour optimiser la gestion des incidents. L'un des avantages les plus significatifs est leur capacité à aider à la résolution rapide en suggérant des solutions basées sur des incidents passés ou en faisant le lien avec des problèmes connus et leurs solutions de contournement. Cet appariement automatique, souvent basé sur les mots-clés ou la catégorisation de l'incident, permet aux agents de support de gagner un temps précieux. Cela réduit le temps moyen de résolution et améliore la cohérence des réponses apportées aux utilisateurs."
                 },
                 {
                     "question": "Qui peut soumettre une demande de service ?",
-                    "difficulty": "easy",
                     "answer_options": [
                         {"text": "L'utilisateur ou son représentant", "is_correct": true},
                         {"text": "Le technicien IT", "is_correct": false},
                         {"text": "Le fournisseur de service", "is_correct": false},
                         {"text": "Le gestionnaire de changements", "is_correct": false}
                     ],
-                    "rationale": "Toute personne bénéficiant du service.",
-                    "hint": "C'est la personne qui utilise le service."
+                    "rationale": "Une demande de service est une demande d'un utilisateur pour une prestation de service standard et pré-approuvée, comme une réinitialisation de mot de passe ou l'installation d'un logiciel. Par conséquent, c'est l'utilisateur qui bénéficie du service, ou une personne agissant en son nom (comme un manager), qui est habilité à soumettre une telle demande. Les techniciens ou les gestionnaires peuvent initier d'autres types d'enregistrements (comme des changements ou des problèmes), mais la demande de service est fondamentalement initiée par le consommateur du service. Cela fait partie de la relation normale entre le fournisseur et ses utilisateurs."
                 },
                 {
-                    "question": "Quelle pratique fournit un point de contact unique pour les utilisateurs ?",
-                    "difficulty": "easy",
+                    "question": "Quelle pratique permet la coexistence et le partage de ressources dans un environnement sécurisé ?",
+                    "answer_options": [
+                        {"text": "Gestion des événements", "is_correct": false},
+                        {"text": "Gestion des problèmes", "is_correct": false},
+                        {"text": "Gestion de la sécurité de l'information", "is_correct": true},
+                        {"text": "Gestion des niveaux de service", "is_correct": false}
+                    ],
+                    "rationale": "La gestion de la sécurité de l'information est la pratique qui assure la confidentialité, l'intégrité et la disponibilité (C.I.D.) des informations et des actifs informatiques. Elle vise à protéger les ressources de l'organisation contre tout accès, utilisation, divulgation, perturbation, modification ou destruction non autorisés. Cette pratique est essentielle pour permettre aux utilisateurs de coexister et de partager des ressources de manière sécurisée et fiable. En définissant des politiques, des contrôles et des procédures, elle minimise les risques liés à la sécurité et maintient la confiance des parties prenantes."
+                },
+                {
+                    "question": "Quels types de coûts sont supportés par le consommateur de service ?",
+                    "answer_options": [
+                        {"text": "Coûts de gestion et coûts d’optimisation", "is_correct": false},
+                        {"text": "Coûts de production et coûts de support", "is_correct": false},
+                        {"text": "Coûts de service et coûts de risque", "is_correct": true},
+                        {"text": "Coûts d’investissement et coûts de fonctionnement", "is_correct": false}
+                    ],
+                    "rationale": "Lorsque les consommateurs utilisent un service, ils supportent deux principaux types de coûts : les coûts de service et les coûts de risque. Les coûts de service peuvent inclure le prix payé pour le service, mais aussi les coûts de formation pour leurs employés ou l'adaptation de leurs processus internes. Les coûts de risque sont ceux que le consommateur doit gérer, par exemple le risque d'une panne de service qui affecterait ses opérations, ou les risques liés à la sécurité des données qu'il confie au fournisseur. Un bon service vise à minimiser ces coûts et risques pour le consommateur, car c'est ainsi que la valeur est perçue."
+                },
+                {
+                    "question": "Quel est le but de la pratique d’amélioration continue ?",
+                    "answer_options": [
+                        {"text": "Aligner les pratiques et services de l’organisation sur les besoins changeants de l’entreprise", "is_correct": true},
+                        {"text": "Se concentrer sur les améliorations financières uniquement", "is_correct": false},
+                        {"text": "Garantir que tous les changements sont urgents", "is_correct": false},
+                        {"text": "S’assurer que les pratiques ne changent jamais", "is_correct": false}
+                    ],
+                    "rationale": "Le but de l'amélioration continue est de s'assurer que les pratiques et les services de l'organisation s'adaptent constamment pour mieux répondre aux besoins évolutifs de l'entreprise et de ses parties prenantes. Il s'agit d'un effort continu pour améliorer l'efficacité et l'efficience, en identifiant les opportunités d'optimisation et en mettant en œuvre des changements bénéfiques. Cette pratique est fondamentale pour maintenir la pertinence et la compétitivité des services dans un environnement en constante évolution. Elle va au-delà de la simple correction d'erreurs pour rechercher proactivement des moyens de faire mieux."
+                },
+                {
+                    "question": "Quelle est la caractéristique de la gestion des problèmes ?",
+                    "answer_options": [
+                        {"text": "Elle peut se produire en même temps que la gestion des incidents.", "is_correct": true},
+                        {"text": "Elle est toujours une activité proactive.", "is_correct": false},
+                        {"text": "Elle se concentre uniquement sur la résolution des incidents.", "is_correct": false},
+                        {"text": "Elle ne nécessite pas de collaboration avec le centre de services.", "is_correct": false}
+                    ],
+                    "rationale": "La gestion des problèmes et la gestion des incidents sont deux pratiques distinctes mais étroitement liées. La gestion des incidents se concentre sur la restauration rapide du service, tandis que la gestion des problèmes vise à identifier la cause racine des incidents pour les prévenir ou les minimiser. Il est courant que ces deux pratiques se déroulent simultanément ; par exemple, un incident majeur peut déclencher immédiatement une investigation de problème en parallèle à la résolution de l'incident. Bien que leurs objectifs diffèrent, leur collaboration est essentielle pour réduire les perturbations à long terme et améliorer la stabilité des services."
+                },
+                {
+                    "question": "Quel est l’objectif de la gestion des incidents ?",
+                    "answer_options": [
+                        {"text": "Rétablir le fonctionnement normal du service le plus rapidement possible.", "is_correct": true},
+                        {"text": "Identifier la cause racine des incidents.", "is_correct": false},
+                        {"text": "Mettre en œuvre des solutions permanentes aux problèmes.", "is_correct": false},
+                        {"text": "Minimiser le coût des interruptions de service.", "is_correct": false}
+                    ],
+                    "rationale": "L'objectif principal de la gestion des incidents est de restaurer le fonctionnement normal des services dès que possible, afin de minimiser l'impact négatif sur les opérations métier. Un incident est une interruption non planifiée d'un service ou une dégradation de la qualité d'un service. La gestion des incidents se concentre sur la résolution rapide et efficace de ces perturbations pour que les utilisateurs puissent reprendre leurs activités habituelles avec un minimum de délai. Cette pratique est très réactive et vise à rétablir la situation à un état opérationnel acceptable."
+                },
+                {
+                    "question": "Quel est le but de la pratique de gestion des fournisseurs ?",
+                    "answer_options": [
+                        {"text": "Évaluer les performances internes uniquement.", "is_correct": false},
+                        {"text": "Se concentrer sur l'acquisition de nouveaux matériels.", "is_correct": false},
+                        {"text": "Gérer les relations avec les clients.", "is_correct": false},
+                        {"text": "Gérer les fournisseurs et leurs performances pour supporter la fourniture de services harmonieuse.", "is_correct": true}
+                    ],
+                    "rationale": "La pratique de gestion des fournisseurs (Supplier Management) a pour but de garantir que les fournisseurs de l'organisation et leurs performances sont gérés efficacement pour supporter la fourniture harmonieuse et continue des services. Cela inclut la sélection des fournisseurs appropriés, la négociation des contrats, la gestion des relations et le suivi des performances pour s'assurer qu'ils respectent leurs engagements. L'objectif est d'optimiser la valeur obtenue des fournisseurs et de minimiser les risques associés à la dépendance vis-à-vis de tiers. Elle est cruciale pour une chaîne de valeur de service intégrée."
+                },
+                {
+                    "question": "Quelle pratique coordonne la classification, le stockage, la propriété et l’accessibilité des informations ?",
+                    "answer_options": [
+                        {"text": "Gestion de l'infrastructure", "is_correct": false},
+                        {"text": "Gestion des événements", "is_correct": false},
+                        {"text": "Gestion de l'information et de la connaissance", "is_correct": true},
+                        {"text": "Contrôle des changements", "is_correct": false}
+                    ],
+                    "rationale": "La pratique de gestion de l'information et de la connaissance (Information and Knowledge Management) est responsable de l'organisation, du stockage, de la propriété, de la distribution et de l'accessibilité des informations et de la connaissance au sein de l'organisation. Son but est de s'assurer que les bonnes informations sont disponibles pour les bonnes personnes au bon moment, afin de soutenir la prise de décision et l'exécution des tâches. Cela inclut la gestion des bases de connaissances, des documentations, des leçons apprises et d'autres actifs informationnels. Cette pratique est essentielle pour capitaliser sur l'expérience collective et favoriser l'apprentissage organisationnel."
+                },
+                {
+                    "question": "Quel terme décrit les activités qu’une organisation effectue pour fournir un service ?",
+                    "answer_options": [
+                        {"text": "Consommation de service", "is_correct": false},
+                        {"text": "Prestation de service", "is_correct": true},
+                        {"text": "Offre de service", "is_correct": false},
+                        {"text": "Valeur du service", "is_correct": false}
+                    ],
+                    "rationale": "La 'Prestation de service' (Service Provision) fait référence à toutes les activités qu'une organisation, en tant que fournisseur de services, doit réaliser pour effectivement délivrer un service à ses consommateurs. Cela inclut la gestion des ressources, la configuration des composants techniques, l'exécution des processus, et la gestion continue de l'environnement de service. C'est l'ensemble des moyens et des efforts déployés pour rendre le service disponible et utilisable par le client. C'est le côté 'production' du service, en contraste avec la 'Consommation de service' qui est le côté client."
+                },
+                {
+                    "question": "Quel est un exemple de valeur pour les consommateurs de service ?",
+                    "answer_options": [
+                        {"text": "Disponibilité de l'infrastructure", "is_correct": false},
+                        {"text": "Coûts de licence du logiciel", "is_correct": false},
+                        {"text": "Temps de réponse du service desk", "is_correct": false},
+                        {"text": "Réduction du temps de commercialisation", "is_correct": true}
+                    ],
+                    "rationale": "La valeur pour un consommateur de service se manifeste par les avantages qu'il retire de l'utilisation du service, souvent en termes de facilitation des résultats et de réduction des coûts ou des risques. La réduction du temps de commercialisation (Time to Market) est un excellent exemple de valeur, car elle permet à une entreprise cliente de lancer plus rapidement ses propres produits ou services sur le marché. Cela peut se traduire par un avantage concurrentiel significatif et une augmentation des revenus. Les autres options sont davantage des sorties techniques ou des coûts internes du fournisseur, et non des bénéfices directs perçus par le consommateur."
+                },
+                {
+                    "question": "Quelle pratique est la source de demandes de service pour les activités d'amélioration continue ?",
                     "answer_options": [
                         {"text": "Gestion des incidents", "is_correct": false},
-                        {"text": "Contrôle des changements", "is_correct": false},
-                        {"text": "Centre de services", "is_correct": true},
-                        {"text": "Gestion des demandes de service", "is_correct": false}
-                    ],
-                    "rationale": "Le centre de services est le point d'entrée unique pour tous les utilisateurs.",
-                    "hint": "Déjà vu? C'est un concept fondamental."
-                },
-                {
-                    "question": "Quel principe directeur recommande de prendre en compte les quatre dimensions de la gestion des services ?",
-                    "difficulty": "medium",
-                    "answer_options": [
-                        {"text": "Penser et travailler de façon holistique", "is_correct": true},
-                        {"text": "Avancer par itérations avec des retours", "is_correct": false},
-                        {"text": "Privilégier la valeur", "is_correct": false},
-                        {"text": "Opter pour la simplicité et rester pratique", "is_correct": false}
-                    ],
-                    "rationale": "Il vise à coordonner tous les aspects de l’organisation.",
-                    "hint": "Ce principe encourage une vue d'ensemble."
-                },
-                {
-                    "question": "Quelle option correspond à une demande de service ?",
-                    "difficulty": "easy",
-                    "answer_options": [
-                        {"text": "Une demande de changement", "is_correct": false},
-                        {"text": "Une demande d'un élément courant du service", "is_correct": true},
-                        {"text": "Une interruption de service", "is_correct": false},
-                        {"text": "Une enquête sur un problème", "is_correct": false}
-                    ],
-                    "rationale": "Une demande de service porte sur un élément standard, comme un accès ou un équipement.",
-                    "hint": "Pensez à des requêtes routinières et pré-approuvées."
-                },
-                {
-                    "question": "Quelle pratique est de la responsabilité de chacun dans l'organisation ?",
-                    "difficulty": "easy",
-                    "answer_options": [
-                        {"text": "Gestion des niveaux de service", "is_correct": false},
-                        {"text": "Contrôle des changements", "is_correct": false},
+                        {"text": "Gestion des demandes de service", "is_correct": true},
                         {"text": "Gestion des problèmes", "is_correct": false},
-                        {"text": "Amélioration continue", "is_correct": true}
+                        {"text": "Gestion des niveaux de service", "is_correct": false}
                     ],
-                    "rationale": "Chaque employé contribue à l'amélioration continue.",
-                    "hint": "C'est un effort collectif pour progresser."
+                    "rationale": "La gestion des demandes de service est la pratique qui gère les demandes pré-approuvées et standards des utilisateurs. En collectant et en analysant ces demandes, elle peut identifier des tendances, des besoins récurrents ou des opportunités d'amélioration des services. Par exemple, si de nombreuses demandes similaires sont reçues, cela peut indiquer la nécessité d'automatiser un processus ou d'améliorer la documentation. Ainsi, les données issues de la gestion des demandes de service deviennent une source précieuse d'informations pour alimenter et prioriser les activités de l'amélioration continue, en se concentrant sur ce qui apporte le plus de valeur aux utilisateurs."
                 },
                 {
-                    "question": "Quel est le but de la gestion de la sécurité de l'information ?",
-                    "difficulty": "easy",
+                    "question": "Quelle déclaration à propos du principe “Collaborer et promouvoir la visibilité” est correcte ?",
                     "answer_options": [
-                        {"text": "Stocker les données", "is_correct": false},
-                        {"text": "Fournir des données", "is_correct": false},
-                        {"text": "Vérifier les données", "is_correct": false},
-                        {"text": "Protéger les informations", "is_correct": true}
+                        {"text": "Il s’agit de travailler en silos.", "is_correct": false},
+                        {"text": "Il n'y a pas besoin de partager l'information.", "is_correct": false},
+                        {"text": "La collaboration n'est pas essentielle pour la création de valeur.", "is_correct": false},
+                        {"text": "Il s’agit de travailler ensemble et de ne pas travailler en silos.", "is_correct": true}
                     ],
-                    "rationale": "Elle couvre confidentialité, intégrité, disponibilité, non-répudiation.",
-                    "hint": "L'objectif principal est la protection des données."
+                    "rationale": "Le principe directeur 'Collaborer et promouvoir la visibilité' d'ITIL 4 souligne l'importance du travail d'équipe et de la transparence au sein de l'organisation et avec les partenaires. Il encourage à briser les silos départementaux en partageant les informations, les objectifs et les résultats. La collaboration efficace et une visibilité accrue sur l'ensemble du flux de valeur permettent une meilleure prise en décision, une résolution plus rapide des problèmes et une innovation plus alignée. Il s'agit de s'assurer que toutes les parties prenantes pertinentes comprennent le tableau d'ensemble et travaillent vers des objectifs communs."
                 },
                 {
-                    "question": "Quel principe recommande de collecter des données avant d'agir ?",
-                    "difficulty": "medium",
+                    "question": "Quelle est la meilleure description d'une demande de service ?",
                     "answer_options": [
-                        {"text": "Privilégier la valeur", "is_correct": false},
-                        {"text": "Commencer là où vous êtes", "is_correct": true},
-                        {"text": "Collaborer et promouvoir la visibilité", "is_correct": false},
-                        {"text": "Penser et travailler de façon holistique", "is_correct": false}
+                        {"text": "Une demande d’un utilisateur pour la fourniture d’informations, ou un conseil, ou pour l’accès à un service ou un composant de service.", "is_correct": true},
+                        {"text": "Une interruption non planifiée d’un service, ou une dégradation de la qualité d’un service.", "is_correct": false},
+                        {"text": "L’ajout, la modification ou la suppression de tout ce qui pourrait avoir un effet sur les services.", "is_correct": false},
+                        {"text": "Une investigation de la cause racine d’un incident.", "is_correct": false}
                     ],
-                    "rationale": "Il s'agit d'évaluer l'état actuel avant toute initiative.",
-                    "hint": "Ne pas agir à l'aveugle."
+                    "rationale": "Une demande de service (Service Request) est une demande formelle d'un utilisateur pour obtenir un élément ou une action standard et pré-approuvée, distincte d'un incident ou d'un changement. Cela inclut typiquement des demandes d'information (ex: 'comment faire X ?'), de conseil, d'accès à un service (ex: 'besoin d'accès VPN'), ou de fourniture d'un composant standard (ex: 'demande un nouveau moniteur'). Elles sont souvent automatisées et ne nécessitent pas d'autorisation complexe. Elles représentent des interactions courantes et planifiées avec le service desk, contrairement aux incidents qui sont des interruptions imprévues."
                 },
                 {
-                    "question": "Quels sont les deux types de demandes de service les plus courants dans un centre de services ?",
-                    "difficulty": "easy",
+                    "question": "Quel est l’objectif de la pratique de gestion des problèmes ?",
                     "answer_options": [
-                        {"text": "Demande de rapport et demande de changement", "is_correct": false},
-                        {"text": "Demande d’information et demande de logiciel", "is_correct": false},
-                        {"text": "Demande de fonctionnalité et demande de support", "is_correct": false},
-                        {"text": "Demande d’accès et demande d’information", "is_correct": true}
+                        {"text": "Rétablir le fonctionnement normal du service le plus rapidement possible.", "is_correct": false},
+                        {"text": "Gérer les requêtes d'accès des utilisateurs.", "is_correct": false},
+                        {"text": "Réduire la probabilité des changements.", "is_correct": false},
+                        {"text": "Réduire la probabilité et l’impact des incidents.", "is_correct": true}
                     ],
-                    "rationale": "Accès (mot de passe, compte) et information (comment faire, statut) sont très fréquents.",
-                    "hint": "Pensez aux requêtes simples et fréquentes des utilisateurs."
+                    "rationale": "L'objectif principal de la gestion des problèmes (Problem Management) est de réduire à la fois la probabilité que des incidents se produisent et leur impact si jamais ils surviennent. Contrairement à la gestion des incidents qui se concentre sur la restauration rapide du service, la gestion des problèmes vise à identifier et à éliminer les causes profondes des incidents récurrents ou majeurs. Cela implique l'analyse des tendances, la recherche des causes racines, le développement de solutions de contournement et la mise en œuvre de changements permanents pour prévenir de futures perturbations. C'est une démarche proactive et réactive à long terme."
                 },
                 {
-                    "question": "Quel est le but de la gestion des problèmes ?",
-                    "difficulty": "medium",
+                    "question": "Quelle est l'une des activités de la pratique de gestion des risques ?",
                     "answer_options": [
-                        {"text": "Éviter la récurrence des incidents", "is_correct": true},
-                        {"text": "Restaurer les services rapidement", "is_correct": false},
-                        {"text": "Gérer les changements planifiés", "is_correct": false},
-                        {"text": "Documenter les actifs IT", "is_correct": false}
+                        {"text": "Fournir des services standard", "is_correct": false},
+                        {"text": "Identifier et évaluer les risques.", "is_correct": true},
+                        {"text": "Gérer les incidents majeurs", "is_correct": false},
+                        {"text": "Coordonner les déploiements", "is_correct": false}
                     ],
-                    "rationale": "La gestion des problèmes cherche à identifier et résoudre les causes racines pour éviter que les incidents ne se reproduisent.",
-                    "hint": "C'est une approche proactive par rapport aux incidents."
+                    "rationale": "La gestion des risques (Risk Management) est une pratique fondamentale qui vise à identifier, évaluer et traiter les risques potentiels qui pourraient avoir un impact négatif sur la capacité de l'organisation à atteindre ses objectifs. L'identification des risques implique de reconnaître les incertitudes et les menaces, tandis que l'évaluation des risques consiste à analyser leur probabilité d'occurrence et leur impact potentiel. Une fois les risques identifiés et évalués, des stratégies sont développées pour les atténuer, les transférer, les éviter ou les accepter. Cette pratique aide à prendre des décisions éclairées et à protéger la valeur."
                 },
                 {
-                    "question": "Quelle dimension du management des services comprend les partenaires, les fournisseurs et les accords associés ?",
-                    "difficulty": "easy",
+                    "question": "Quels sont les objectifs de la pratique d’activation des changements ?",
+                    "answer_options": [
+                        {"text": "Réduire le nombre total de changements.", "is_correct": false},
+                        {"text": "Maximiser le nombre de changements réussis en garantissant une bonne évaluation des risques et en minimisant les impacts négatifs.", "is_correct": true},
+                        {"text": "Approuver tous les changements sans examen.", "is_correct": false},
+                        {"text": "Éviter tout changement urgent.", "is_correct": false}
+                    ],
+                    "rationale": "L'activation des changements (Change Enablement) est la pratique qui vise à maximiser le nombre de changements de service et de produit réussis. Son objectif principal est de s'assurer que les changements sont correctement évalués, autorisés, planifiés et mis en œuvre, tout en minimisant les risques et les impacts négatifs sur les services existants. Il ne s'agit pas de bloquer les changements, car les changements sont nécessaires à l'évolution et à l'amélioration des services, mais de les faciliter de manière contrôlée et sécurisée. Une gestion efficace des changements permet à l'organisation de s'adapter rapidement tout en maintenant la stabilité et la disponibilité de ses services."
+                },
+                {
+                    "question": "Quel est un bénéfice clé du modèle d’amélioration continue ?",
+                    "answer_options": [
+                        {"text": "Il garantit que tous les problèmes sont éliminés immédiatement.", "is_correct": false},
+                        {"text": "Il permet d’améliorer continuellement les produits, services et pratiques.", "is_correct": true},
+                        {"text": "Il se concentre uniquement sur la réduction des coûts.", "is_correct": false},
+                        {"text": "Il élimine le besoin de nouvelles technologies.", "is_correct": false}
+                    ],
+                    "rationale": "Le modèle d'amélioration continue ITIL, avec ses sept étapes (Quelle est la vision ? Où en sommes-nous ? Où voulons-nous aller ? Comment y arriver ? Agir, Avons-nous atteint l'objectif ? Comment maintenir l'élan ?), est un cadre structuré pour conduire des améliorations systématiques. Son bénéfice clé est de permettre une amélioration progressive et continue des produits, services et pratiques de l'organisation. Il s'agit d'une approche itérative qui encourage l'apprentissage et l'adaptation constants, conduisant à une meilleure valeur pour les clients et à une efficience accrue pour le fournisseur de services. Il ne s'agit pas de se concentrer uniquement sur les performances financières, mais sur l'amélioration globale de la qualité et de la pertinence des services."
+                },
+                {
+                    "question": "Quelle est la définition d’un changement ?",
+                    "answer_options": [
+                        {"text": "Une modification planifiée uniquement à un composant technologique.", "is_correct": false},
+                        {"text": "Une mise à jour urgente du système d’exploitation.", "is_correct": false},
+                        {"text": "Une nouvelle version d’un logiciel.", "is_correct": false},
+                        {"text": "L’ajout, la modification ou la suppression de tout ce qui pourrait avoir un effet direct ou indirect sur les services.", "is_correct": true}
+                    ],
+                    "rationale": "Dans le contexte ITIL, un changement est défini très largement comme toute addition, modification ou suppression de tout élément qui pourrait avoir un impact, direct ou indirect, sur les services. Cela inclut non seulement les changements techniques (logiciels, matériel), mais aussi les changements de processus, de rôles, de documentation, ou de relations avec les fournisseurs. Cette définition large garantit que tous les éléments potentiellement impactant sont soumis à un contrôle, permettant d'évaluer les risques et d'éviter les perturbations. La gestion des changements ne se limite donc pas aux infrastructures, mais englobe l'ensemble du système de valeur."
+                },
+                {
+                    "question": "Quelle est l’activité qui crée un avantage concurrentiel pour le fournisseur de services ?",
+                    "answer_options": [
+                        {"text": "Gestion des incidents", "is_correct": false},
+                        {"text": "Gestion des relations", "is_correct": true},
+                        {"text": "Gestion des problèmes", "is_correct": false},
+                        {"text": "Gestion des niveaux de service", "is_correct": false}
+                    ],
+                    "rationale": "La gestion des relations (Relationship Management) est la pratique qui consiste à établir et entretenir des liens solides et productifs avec toutes les parties prenantes, y compris les clients, les utilisateurs, les fournisseurs et les partenaires. Un avantage concurrentiel est créé en comprenant profondément les besoins des clients, en anticipant leurs évolutions et en construisant une confiance mutuelle. Des relations solides favorisent la co-création de valeur, la collaboration et une meilleure adaptation aux demandes du marché. Elle permet de différencier le fournisseur par la qualité de son engagement et sa capacité à répondre efficacement aux attentes, au-delà de la simple prestation technique."
+                },
+                {
+                    "question": "Quelle est l'une des activités de la pratique de gestion des problèmes ?",
+                    "answer_options": [
+                        {"text": "Enregistrer les incidents.", "is_correct": false},
+                        {"text": "Gérer les demandes de réinitialisation de mot de passe.", "is_correct": false},
+                        {"text": "Gérer les relations avec les clients.", "is_correct": false},
+                        {"text": "Analyse des tendances des incidents.", "is_correct": true}
+                    ],
+                    "rationale": "La gestion des problèmes est un processus structuré qui comprend plusieurs activités clés. L'analyse des tendances des incidents est l'une des activités principales, consistant à examiner les données d'incidents passés pour identifier des schémas, des récurrences ou des goulots d'étranglement. Cette analyse aide à découvrir la cause racine des problèmes sous-jacents, qui sont souvent à l'origine de multiples incidents. En identifiant ces tendances, la gestion des problèmes peut passer de la simple réaction à une approche proactive, permettant de prévenir de futurs incidents similaires ou de réduire leur impact de manière significative."
+                },
+                {
+                    "question": "Quel est le but d’une demande de service standard ?",
+                    "answer_options": [
+                        {"text": "Résoudre les pannes de service complexes.", "is_correct": false},
+                        {"text": "Gérer les changements urgents.", "is_correct": false},
+                        {"text": "Fournir un moyen pré-défini pour les utilisateurs de demander un service.", "is_correct": true},
+                        {"text": "Documenter les problèmes connus.", "is_correct": false}
+                    ],
+                    "rationale": "Une demande de service standard est une demande de service pré-approuvée, de faible risque, et généralement simple à réaliser, pour laquelle les étapes de livraison sont bien connues. Son but est de fournir un moyen efficace et efficient pour les utilisateurs de demander des services courants sans passer par le processus complexe de gestion des changements ou des incidents. Elles sont souvent automatisées via un portail de services, ce qui permet une exécution rapide et réduit la charge de travail du service desk. Cela améliore l'expérience utilisateur et l'efficacité opérationnelle en rationalisant la manière dont les requêtes courantes sont traitées."
+                },
+                {
+                    "question": "Quel est le but de la pratique d’analyse ?",
+                    "answer_options": [
+                        {"text": "Déployer des nouvelles applications.", "is_correct": false},
+                        {"text": "Automatiser les processus informatiques.", "is_correct": false},
+                        {"text": "Comprendre les besoins des parties prenantes.", "is_correct": true},
+                        {"text": "Gérer les bases de données clients.", "is_correct": false}
+                    ],
+                    "rationale": "La pratique d'analyse (Analysis), bien que n'étant pas une pratique ITIL individuelle majeure comme d'autres, est une activité transversale essentielle qui vise à collecter, interpréter et comprendre les données et les informations. Son but fondamental est de comprendre les besoins, les exigences et les motivations des diverses parties prenantes, qu'il s'agisse des clients, des utilisateurs, des fournisseurs ou des équipes internes. Cette compréhension approfondie est cruciale pour la conception de services pertinents, la résolution de problèmes complexes et la prise de décisions éclairées. Sans une analyse rigoureuse, il est difficile d'aligner les services sur les attentes réelles et de créer une valeur optimale."
+                },
+                {
+                    "question": "Quelle dimension du management des services se concentre sur la chaîne d’approvisionnement de l’organisation ?",
                     "answer_options": [
                         {"text": "Organisation et personnes", "is_correct": false},
                         {"text": "Information et technologie", "is_correct": false},
                         {"text": "Partenaires et fournisseurs", "is_correct": true},
                         {"text": "Flux de valeur et processus", "is_correct": false}
                     ],
-                    "rationale": "Cette dimension traite de la façon dont l'organisation interagit avec des tiers.",
-                    "hint": "Le nom de la dimension est explicite."
+                    "rationale": "La dimension 'Partenaires et fournisseurs' du système de valeur de service ITIL 4 se concentre spécifiquement sur les relations d'une organisation avec des entités externes qui contribuent à la conception, au développement, à la livraison, au support ou à l'amélioration continue des services. Cela inclut la gestion de la chaîne d'approvisionnement des services, englobant les contrats, les accords de niveau de service avec les tiers, et la performance globale des fournisseurs. Cette dimension reconnaît que de nombreuses organisations dépendent fortement de partenaires externes pour délivrer leurs services, rendant la gestion de ces relations cruciale pour la création de valeur."
                 },
                 {
-                    "question": "Quel est le but de la gestion des demandes de service ?",
-                    "difficulty": "easy",
+                    "question": "Quelle dimension du management des services traite de la gestion de l’infrastructure et des applications ?",
                     "answer_options": [
-                        {"text": "Gérer tous les changements", "is_correct": false},
-                        {"text": "Fournir les éléments courants du service", "is_correct": true},
-                        {"text": "Résoudre les incidents complexes", "is_correct": false},
-                        {"text": "Définir les niveaux de service", "is_correct": false}
+                        {"text": "Information et technologie", "is_correct": true},
+                        {"text": "Organisation et personnes", "is_correct": false},
+                        {"text": "Partenaires et fournisseurs", "is_correct": false},
+                        {"text": "Flux de valeur et processus", "is_correct": false}
                     ],
-                    "rationale": "Elle assure la livraison efficace des services de routine.",
-                    "hint": "Il s'agit de la mise à disposition d'éléments pré-définis."
+                    "rationale": "La dimension 'Information et technologie' du système de valeur de service ITIL 4 est axée sur les informations et les connaissances nécessaires à la gestion des services, ainsi que sur les technologies et les systèmes qui les supportent. Cela inclut la gestion de l'infrastructure technologique (matériel, réseau, serveurs), des applications, des outils de gestion des services, des bases de données et de la sécurité de l'information. Cette dimension est essentielle car elle fournit les fondations techniques sur lesquelles les services sont construits et délivrés. Elle garantit que l'organisation dispose des capacités technologiques adéquates pour soutenir ses objectifs métier."
                 },
                 {
-                    "question": "Quel est le but principal de l’amélioration continue ?",
-                    "difficulty": "easy",
+                    "question": "Un résultat est ...",
                     "answer_options": [
-                        {"text": "Augmenter l'efficacité des services", "is_correct": true},
-                        {"text": "Réduire les coûts IT", "is_correct": false},
-                        {"text": "Installer de nouveaux logiciels", "is_correct": false},
-                        {"text": "Gérer les contrats fournisseurs", "is_correct": false}
+                        {"text": "Un service fourni par le fournisseur.", "is_correct": false},
+                        {"text": "Ce qu’un client cherche à atteindre.", "is_correct": true},
+                        {"text": "Une activité effectuée par un fournisseur de services.", "is_correct": false},
+                        {"text": "Une technologie utilisée pour fournir un service.", "is_correct": false}
                     ],
-                    "rationale": "L'amélioration continue vise à améliorer constamment les produits, services et pratiques.",
-                    "hint": "C'est un objectif général de progression."
-                },
-                {
-                    "question": "Quel est le principe directeur qui met l'accent sur la création de valeur pour les parties prenantes ?",
-                    "difficulty": "medium",
-                    "answer_options": [
-                        {"text": "Commencer là où vous êtes", "is_correct": false},
-                        {"text": "Avancer par itérations avec des retours", "is_correct": false},
-                        {"text": "Privilégier la valeur", "is_correct": true},
-                        {"text": "Collaborer et promouvoir la visibilité", "is_correct": false}
-                    ],
-                    "rationale": "Le principe “Privilégier la valeur” est fondamental à ITIL et met l’accent sur la compréhension et la création de valeur pour les consommateurs de services et autres parties prenantes.",
-                    "hint": "Le nom du principe est assez explicite."
-                },
-                {
-                    "question": "Quels sont les deux types d’améliorations possibles dans l’amélioration continue ?",
-                    "difficulty": "medium",
-                    "answer_options": [
-                        {"text": "Opérationnelles et financières", "is_correct": false},
-                        {"text": "Techniques et humaines", "is_correct": false},
-                        {"text": "Progressives et transformatives", "is_correct": true},
-                        {"text": "Internes et externes", "is_correct": false}
-                    ],
-                    "rationale": "Les améliorations peuvent être des petits pas progressifs ou des changements majeurs transformatifs.",
-                    "hint": "Pensez à l'échelle des changements."
-                },
-                {
-                    "question": "Quel est l’un des buts du principe directeur “Collaborer et promouvoir la visibilité” ?",
-                    "difficulty": "easy",
-                    "answer_options": [
-                        {"text": "Réduire les communications", "is_correct": false},
-                        {"text": "Augmenter la bureaucratie", "is_correct": false},
-                        {"text": "Améliorer la confiance et la compréhension mutuelle", "is_correct": true},
-                        {"text": "Travailler de manière isolée", "is_correct": false}
-                    ],
-                    "rationale": "La collaboration et la visibilité favorisent une meilleure compréhension et un environnement de confiance.",
-                    "hint": "Pensez à l'importance de l'ouverture et du partage."
-                },
-                {
-                    "question": "Quels sont les trois principaux éléments du système de valeur du service (SVS) ITIL ?",
-                    "difficulty": "hard",
-                    "answer_options": [
-                        {"text": "Processus, outils et personnes", "is_correct": false},
-                        {"text": "Opportunité/Demande, Principe directeur et Gouvernance", "is_correct": false},
-                        {"text": "Principes directeurs, Gouvernance et Chaîne de valeur du service", "is_correct": true},
-                        {"text": "Services, produits et ressources", "is_correct": false}
-                    ],
-                    "rationale": "Le SVS se compose des Principes directeurs, de la Gouvernance, de la Chaîne de valeur du service, des Pratiques et de l’Amélioration continue.",
-                    "hint": "Pensez aux composants fondamentaux qui permettent à une organisation de créer de la valeur."
-                },
-                {
-                    "question": "Quel est le but de la pratique de gestion des risques ?",
-                    "difficulty": "medium",
-                    "answer_options": [
-                        {"text": "Éliminer tous les risques", "is_correct": false},
-                        {"text": "Identifier, évaluer et contrôler les risques", "is_correct": true},
-                        {"text": "Augmenter les risques pour l'innovation", "is_correct": false},
-                        {"text": "Ignorer les risques mineurs", "is_correct": false}
-                    ],
-                    "rationale": "La gestion des risques vise à comprendre et à gérer l'incertitude.",
-                    "hint": "C'est une pratique essentielle pour la stabilité et la résilience."
-                },
-                {
-                    "question": "Quel est le principal objectif de la chaîne de valeur du service ITIL ?",
-                    "difficulty": "medium",
-                    "answer_options": [
-                        {"text": "Fournir des rapports détaillés", "is_correct": false},
-                        {"text": "Définir les processus techniques", "is_correct": false},
-                        {"text": "Convertir la demande en valeur", "is_correct": true},
-                        {"text": "Gérer les ressources humaines", "is_correct": false}
-                    ],
-                    "rationale": "La chaîne de valeur du service est un modèle opérationnel générique qui convertit la demande en valeur.",
-                    "hint": "C'est le cœur du système de valeur du service."
-                },
-                {
-                    "question": "Dans le système de valeur du service ITIL (SVS), que représentent les Pratiques ?",
-                    "difficulty": "medium",
-                    "answer_options": [
-                        {"text": "Des ensembles d'outils IT", "is_correct": false},
-                        {"text": "Des ressources humaines dédiées", "is_correct": false},
-                        {"text": "Des ensembles de ressources organisationnelles conçues pour effectuer un travail ou atteindre un objectif", "is_correct": true},
-                        {"text": "Des modèles financiers pour l'investissement", "is_correct": false}
-                    ],
-                    "rationale": "Les pratiques sont des ensembles de ressources conçues pour accomplir un travail spécifique.",
-                    "hint": "Pensez aux capacités et activités d'une organisation."
-                },
-                {
-                    "question": "Quel principe directeur insiste sur le fait de commencer par une approche simple et d'ajouter de la complexité si nécessaire ?",
-                    "difficulty": "easy",
-                    "answer_options": [
-                        {"text": "Privilégier la valeur", "is_correct": false},
-                        {"text": "Commencer là où vous êtes", "is_correct": false},
-                        {"text": "Avancer par itérations avec des retours", "is_correct": false},
-                        {"text": "Opter pour la simplicité et rester pratique", "is_correct": true}
-                    ],
-                    "rationale": "Ce principe met l’accent sur l’importance de faire ce qui est le plus simple et le plus efficace pour atteindre l’objectif.",
-                    "hint": "Évitez la sur-ingénierie."
-                },
-                {
-                    "question": "Quelle est la différence entre un problème et un incident ?",
-                    "difficulty": "easy",
-                    "answer_options": [
-                        {"text": "Un problème est une cause inconnue d'un ou plusieurs incidents, un incident est une interruption ou une dégradation de service", "is_correct": true},
-                        {"text": "Un problème est toujours plus grave qu'un incident", "is_correct": false},
-                        {"text": "Un incident est planifié, un problème est inattendu", "is_correct": false},
-                        {"text": "Un problème est résolu par les utilisateurs, un incident par le support IT", "is_correct": false}
-                    ],
-                    "rationale": "Un incident est une interruption, un problème est la cause sous-jacente inconnue d'incidents.",
-                    "hint": "Un incident est le 'quoi', un problème est le 'pourquoi'."
-                },
-                {
-                    "question": "Laquelle des activités suivantes est incluse dans la pratique de gestion des incidents ?",
-                    "difficulty": "easy",
-                    "answer_options": [
-                        {"text": "Identifier les causes racines des erreurs", "is_correct": false},
-                        {"text": "Mettre à jour le calendrier des changements", "is_correct": false},
-                        {"text": "Résoudre les interruptions de service", "is_correct": true},
-                        {"text": "Négocier des accords de niveau de service", "is_correct": false}
-                    ],
-                    "rationale": "La gestion des incidents vise à restaurer le service normal aussi rapidement que possible.",
-                    "hint": "Pensez à l'action immédiate en cas de panne."
-                },
-                {
-                    "question": "Laquelle des affirmations suivantes concernant le principe directeur « Privilégier la valeur » est VRAIE ?",
-                    "difficulty": "medium",
-                    "answer_options": [
-                        {"text": "Il se concentre sur l'optimisation des coûts pour le fournisseur de services", "is_correct": false},
-                        {"text": "Il met l'accent sur les sorties (outputs) plutôt que sur les résultats (outcomes)", "is_correct": false},
-                        {"text": "Il implique de comprendre comment le service crée de la valeur pour le consommateur", "is_correct": true},
-                        {"text": "Il suggère de toujours créer une nouvelle solution pour chaque demande", "is_correct": false}
-                    ],
-                    "rationale": "Le principe met l'accent sur la compréhension des résultats que le service aide à atteindre.",
-                    "hint": "Concentrez-vous sur ce qui importe le plus pour le client."
-                },
-                {
-                    "question": "Quelle dimension du management des services comprend les rôles, les responsabilités et les structures organisationnelles ?",
-                    "difficulty": "easy",
-                    "answer_options": [
-                        {"text": "Information et technologie", "is_correct": false},
-                        {"text": "Flux de valeur et processus", "is_correct": false},
-                        {"text": "Organisation et personnes", "is_correct": true},
-                        {"text": "Partenaires et fournisseurs", "is_correct": false}
-                    ],
-                    "rationale": "Cette dimension se concentre sur la structure humaine et la culture.",
-                    "hint": "Pensez aux aspects humains de l'organisation."
+                    "rationale": "Dans le vocabulaire ITIL 4, un 'résultat' (outcome) est la valeur fondamentale que le client cherche à atteindre grâce à l'utilisation d'un service. C'est l'effet ou l'état qu'il souhaite obtenir. Par exemple, une entreprise qui utilise un service de cloud computing ne veut pas simplement des serveurs virtuels (une sortie), mais elle veut une plus grande agilité et une réduction de ses coûts d'infrastructure (un résultat). Les résultats sont spécifiques aux besoins du client et représentent la justification ultime de la fourniture d'un service. La co-création de valeur se produit lorsque le service aide le client à atteindre ces résultats désirés."
                 },
                 {
                     "question": "Quel élément NE fait PAS partie d’\"Information et technologie\" ?",
-                    "difficulty": "medium",
                     "answer_options": [
                         {"text": "Sécurité et conformité", "is_correct": false},
                         {"text": "Systèmes de communication", "is_correct": false},
                         {"text": "Systèmes d’inventaire", "is_correct": false},
                         {"text": "Rôles et responsabilités", "is_correct": true}
                     ],
-                    "rationale": "Ils relèvent d’\"Organisation et personnes\".",
-                    "hint": "Cette option n'est pas technologique."
+                    "rationale": "La dimension 'Information et technologie' se concentre sur les aspects techniques et informationnels nécessaires à la fourniture de services, tels que la sécurité et la conformité des données, les systèmes de communication qui permettent la collaboration, et les systèmes d'inventaire qui suivent les actifs. En revanche, les rôles et responsabilités sont des éléments clés de la dimension 'Organisation et personnes'. Cette dernière dimension traite de la structure de l'entreprise, des compétences requises, des rôles des individus et de la culture organisationnelle. Il est important de bien distinguer ces dimensions pour comprendre comment chaque aspect contribue au système de valeur de service global."
                 },
                 {
                     "question": "Pratiques impliquées dans la résolution de problèmes ?",
-                    "difficulty": "hard",
                     "answer_options": [
                         {"text": "Amélioration continue + Gestion des demandes", "is_correct": false},
                         {"text": "Niveaux de service + Demandes", "is_correct": false},
                         {"text": "Niveaux de service + Changements", "is_correct": false},
                         {"text": "Amélioration continue + Changements", "is_correct": true}
                     ],
-                    "rationale": "Ces deux pratiques pilotent les résolutions.",
-                    "hint": "Pensez aux pratiques qui adressent les causes profondes et les modifications nécessaires."
+                    "rationale": "La résolution des problèmes, qui vise à identifier et éliminer les causes profondes des incidents, est intrinsèquement liée à plusieurs pratiques. L'amélioration continue est essentielle, car elle fournit la méthodologie pour analyser, planifier et mettre en œuvre les améliorations nécessaires pour prévenir de futurs incidents. Les changements sont également critiques, car la mise en œuvre de solutions permanentes aux problèmes identifiés implique souvent des modifications de l'infrastructure, des processus ou des applications, ce qui nécessite une gestion rigoureuse des changements. Ainsi, ces deux pratiques travaillent de concert pour améliorer la stabilité et la robustesse des services à long terme."
                 },
                 {
                     "question": "Élément clé du principe “Opter pour la simplicité” ?",
-                    "difficulty": "medium",
                     "answer_options": [
                         {"text": "Créer une solution pour chaque exception", "is_correct": false},
                         {"text": "Comprendre comment chaque élément crée de la valeur", "is_correct": true},
                         {"text": "Ignorer les conflits", "is_correct": false},
                         {"text": "Commencer complexe", "is_correct": false}
                     ],
-                    "rationale": "Simplicité rime avec pertinence.",
-                    "hint": "Moins c'est mieux, mais sans sacrifier l'utilité."
+                    "rationale": "Le principe directeur 'Opter pour la simplicité et être pratique' encourage les organisations à utiliser le moins d'étapes possible pour atteindre un objectif, en se concentrant sur ce qui est pertinent et nécessaire. Un élément clé de ce principe est de bien comprendre comment chaque activité, chaque ressource ou chaque élément contribue à la création de valeur. En identifiant les éléments qui n'apportent pas de valeur ou qui ajoutent une complexité inutile, il est possible de les éliminer ou de les simplifier. Ce principe promeut une approche pragmatique, en évitant la surcharge de travail et en se concentrant sur les résultats réels pour le client."
                 },
                 {
                     "question": "Première étape pour “Privilégier la valeur” ?",
-                    "difficulty": "easy",
                     "answer_options": [
                         {"text": "Identifier résultats", "is_correct": false},
                         {"text": "Identifier partenaires", "is_correct": false},
                         {"text": "Déterminer le consommateur", "is_correct": true},
                         {"text": "Évaluer le coût", "is_correct": false}
                     ],
-                    "rationale": "Cibler le bon bénéficiaire.",
-                    "hint": "Qui bénéficiera de la valeur ?"
+                    "rationale": "Le principe directeur 'Privilégier la valeur' est fondamental en ITIL 4 et met l'accent sur la création de valeur pour les parties prenantes. La toute première étape pour privilégier la valeur est de clairement déterminer et comprendre qui est le consommateur du service. C'est en connaissant les consommateurs (clients et utilisateurs) que l'on peut identifier leurs besoins, leurs attentes et les résultats qu'ils cherchent à atteindre. Sans cette compréhension claire du bénéficiaire final, il est impossible de concevoir, de livrer et d'améliorer des services qui apportent réellement de la valeur. Tout effort de création de valeur doit partir de cette perspective client."
                 },
                 {
                     "question": "Un pack “PC + logiciels + support” est un exemple de ?",
-                    "difficulty": "easy",
                     "answer_options": [
-                        {"text": "Un bien", "is_correct": false},
-                        {"text": "Un service", "is_correct": false},
-                        {"text": "Un produit", "is_correct": true},
-                        {"text": "Une ressource", "is_correct": false}
+                        {"text": "Produit", "is_correct": true},
+                        {"text": "Service", "is_correct": false},
+                        {"text": "Valeur", "is_correct": false},
+                        {"text": "Consommation de service", "is_correct": false}
                     ],
-                    "rationale": "Un produit est une configuration de ressources qui est ou sera proposée à des consommateurs.",
-                    "hint": "C'est une offre complète pour le client."
+                    "rationale": "Dans le cadre d'ITIL 4, un 'produit' est une configuration de ressources, conçue pour offrir de la valeur à un consommateur. Un pack combinant un PC, des logiciels installés et un service de support est un excellent exemple de produit. Ce produit est configuré pour répondre à un besoin spécifique du client (ex: poste de travail pour un employé) et comprend tous les composants nécessaires, qu'ils soient tangibles (PC, logiciels) ou intangibles (support). Un service est la capacité de co-créer de la valeur en facilitant les résultats pour le client, tandis que le produit est ce qui permet cette facilitation. Les produits sont la base sur laquelle les services sont construits et délivrés aux consommateurs."
                 },
                 {
-                    "question": "Quelle est la relation entre les sorties (outputs) et les résultats (outcomes) ?",
-                    "difficulty": "medium",
+                    "question": "Quel est l’objectif de la chaîne de valeur de service ?",
                     "answer_options": [
-                        {"text": "Les sorties sont la cause directe des résultats", "is_correct": false},
-                        {"text": "Les sorties sont les services fournis, les résultats sont ce que le client réalise grâce à eux", "is_correct": true},
-                        {"text": "Les sorties et les résultats sont synonymes", "is_correct": false},
-                        {"text": "Les résultats sont indépendants des sorties", "is_correct": false}
+                        {"text": "Co-créer de la valeur avec les parties prenantes.", "is_correct": true},
+                        {"text": "Optimiser le coût des services.", "is_correct": false},
+                        {"text": "Gérer les incidents et les problèmes.", "is_correct": false},
+                        {"text": "Assurer la conformité réglementaire.", "is_correct": false}
                     ],
-                    "rationale": "Les sorties sont ce qui est produit, les résultats sont l’effet obtenu.",
-                    "hint": "Pensez à la différence entre livrables et bénéfices."
+                    "rationale": "La chaîne de valeur de service (Service Value Chain - SVC) est un modèle opérationnel fondamental d'ITIL 4, décrivant les activités nécessaires pour créer, livrer et améliorer des produits et services. Son objectif principal est de faciliter la co-création de valeur avec les parties prenantes, en transformant la demande en valeur à travers une série d'activités interconnectées (Planifier, Améliorer, Engager, Concevoir et Transitionner, Obtenir/Construire, Livrer et Supporter). La SVC assure que toutes les activités sont alignées sur la création de valeur pour le consommateur, en fournissant un cadre flexible et intégré pour la gestion des services."
                 },
                 {
-                    "question": "Quel est le but de la pratique de gestion de la continuité du service ?",
-                    "difficulty": "easy",
+                    "question": "Quel est un élément clé de la dimension 'Organisation et personnes' ?",
                     "answer_options": [
-                        {"text": "Assurer que les services peuvent continuer après une interruption majeure", "is_correct": true},
-                        {"text": "Gérer les problèmes récurrents", "is_correct": false},
-                        {"text": "Planifier les changements d'infrastructure", "is_correct": false},
-                        {"text": "Fournir un support technique quotidien", "is_correct": false}
+                        {"text": "Bases de données", "is_correct": false},
+                        {"text": "Culture organisationnelle", "is_correct": true},
+                        {"text": "Architecture technologique", "is_correct": false},
+                        {"text": "Contrats avec les fournisseurs", "is_correct": false}
                     ],
-                    "rationale": "Elle garantit la résilience des services face aux catastrophes.",
-                    "hint": "C'est pour les situations d'urgence ou de crise."
+                    "rationale": "La dimension 'Organisation et personnes' du système de valeur de service ITIL 4 se concentre sur les rôles, les responsabilités, les compétences, la culture et la structure organisationnelle nécessaires pour gérer et fournir des services. Un élément clé de cette dimension est la culture organisationnelle, qui influence la manière dont les individus travaillent ensemble, collaborent et adoptent de nouvelles pratiques. Une culture forte et positive est essentielle pour l'intégration des pratiques ITIL et la réussite de la transformation des services. Les autres options appartiennent aux dimensions 'Information et technologie' ou 'Partenaires et fournisseurs'."
                 },
                 {
-                    "question": "Quel est le but de la pratique de gestion des fournisseurs ?",
-                    "difficulty": "easy",
+                    "question": "Quel est le but de la pratique de surveillance et d’événements ?",
                     "answer_options": [
-                        {"text": "Gérer les contrats avec les clients", "is_correct": false},
-                        {"text": "Gérer les relations avec les tiers qui fournissent des services", "is_correct": true},
-                        {"text": "Gérer les finances de l'organisation", "is_correct": false},
-                        {"text": "Gérer les équipements internes", "is_correct": false}
+                        {"text": "Restaurer rapidement le service après un incident.", "is_correct": false},
+                        {"text": "Minimiser le risque de changements non autorisés.", "is_correct": false},
+                        {"text": "Observer les services et identifier les changements d'état importants.", "is_correct": true},
+                        {"text": "Déployer de nouvelles versions de logiciels.", "is_correct": false}
                     ],
-                    "rationale": "Elle assure une valeur optimale des fournisseurs.",
-                    "hint": "Pensez aux parties externes qui contribuent au service."
+                    "rationale": "La pratique de surveillance et d'événements (Monitoring and Event Management) a pour objectif d'observer les services et les composants de service, et d'enregistrer les événements identifiés. Un événement est tout changement d'état significatif pour la gestion d'un élément de configuration ou la fourniture d'un service. Le but est de détecter les conditions anormales, de comprendre la performance du service, et de déclencher des actions si nécessaire. Cette pratique est cruciale pour une détection proactive des problèmes, la gestion des incidents, et pour s'assurer que les services fonctionnent comme prévu, contribuant à la stabilité et la disponibilité."
                 },
                 {
-                    "question": "Quel principe directeur est le plus pertinent pour la mise en œuvre de nouvelles technologies ?",
-                    "difficulty": "medium",
+                    "question": "Quel principe directeur ITIL est le plus lié à l’agilité ?",
                     "answer_options": [
                         {"text": "Privilégier la valeur", "is_correct": false},
                         {"text": "Commencer là où vous êtes", "is_correct": false},
-                        {"text": "Avancer par itérations avec des retours", "is_correct": true},
+                        {"text": "Progresser de manière itérative avec rétroaction", "is_correct": true},
+                        {"text": "Collaborer et promouvoir la visibilité", "is_correct": false}
+                    ],
+                    "rationale": "Le principe directeur 'Progresser de manière itérative avec rétroaction' est le plus étroitement lié au concept d'agilité. Il préconise d'organiser le travail en petites itérations gérables, d'obtenir des retours d'information (feedback) réguliers et de les utiliser pour s'adapter et s'améliorer continuellement. Cette approche permet aux organisations de répondre rapidement aux changements, de minimiser les risques d'échec de grands projets et d'assurer que la valeur est délivrée progressivement. Elle favorise l'apprentissage, l'expérimentation et l'ajustement constant, des caractéristiques fondamentales des méthodes agiles."
+                },
+                {
+                    "question": "Quelle est la définition d'un risque ?",
+                    "answer_options": [
+                        {"text": "Un événement imprévu qui provoque un incident.", "is_correct": false},
+                        {"text": "Un effet incertain sur un objectif.", "is_correct": true},
+                        {"text": "Une vulnérabilité qui peut être exploitée.", "is_correct": false},
+                        {"text": "Une menace potentielle pour un actif.", "is_correct": false}
+                    ],
+                    "rationale": "Dans ITIL, un risque est défini comme un effet incertain sur un objectif. Cette incertitude peut être une opportunité (effet positif) ou une menace (effet négatif). La gestion des risques vise à identifier, évaluer et répondre à ces incertitudes afin de maximiser les résultats positifs et de minimiser les résultats négatifs. Il est important de noter que le risque n'est pas seulement le danger lui-même, mais l'incertitude quant à l'atteinte d'un objectif en raison de cet effet. La bonne gestion des risques est essentielle pour la résilience et la réussite des services."
+                },
+                {
+                    "question": "Quel est le but de la gestion de portefeuille ?",
+                    "answer_options": [
+                        {"text": "Gérer tous les services actifs uniquement.", "is_correct": false},
+                        {"text": "Maximiser la valeur du portefeuille de produits et de services.", "is_correct": true},
+                        {"text": "Assurer la conformité des licences logicielles.", "is_correct": false},
+                        {"text": "Contrôler les changements individuels.", "is_correct": false}
+                    ],
+                    "rationale": "La pratique de gestion de portefeuille (Portfolio Management) vise à maximiser la valeur que l'organisation tire de ses investissements dans les produits et services. Cela inclut la gestion du portefeuille de services, de produits et de projets, en équilibrant les investissements, les avantages, les coûts et les risques. Le but est de s'assurer que le portefeuille est aligné sur la stratégie de l'entreprise et qu'il optimise la création de valeur pour les clients. Elle aide l'organisation à prendre des décisions éclairées sur ce qu'il faut investir, maintenir ou abandonner, garantissant ainsi l'utilisation la plus efficace des ressources."
+                },
+                {
+                    "question": "Quelle est la relation entre les services et la valeur ?",
+                    "answer_options": [
+                        {"text": "Les services créent toujours de la valeur sans effort du consommateur.", "is_correct": false},
+                        {"text": "Les services co-créent de la valeur en facilitant les résultats du consommateur.", "is_correct": true},
+                        {"text": "La valeur est uniquement déterminée par le coût du service.", "is_correct": false},
+                        {"text": "Les services ne sont pas liés à la valeur.", "is_correct": false}
+                    ],
+                    "rationale": "Dans ITIL 4, la valeur est un concept clé, et elle est co-créée par le fournisseur et le consommateur du service. Les services facilitent la co-création de valeur en aidant le consommateur à atteindre les résultats qu'il désire, tout en gérant certains coûts et risques pour lui. Le fournisseur apporte ses ressources et compétences, et le consommateur intègre le service dans ses propres activités pour obtenir les bénéfices souhaités. La valeur n'est donc pas une entité fixe ou uniquement liée au coût, mais une perception subjective et une expérience partagée qui dépend de la capacité du service à générer les résultats escomptés pour le client."
+                },
+                {
+                    "question": "Quel principe directeur qui met l’accent sur la compréhension de l’état actuel avant de commencer une initiative ?",
+                    "answer_options": [
+                        {"text": "Privilégier la valeur", "is_correct": false},
+                        {"text": "Commencer là où vous êtes", "is_correct": true},
+                        {"text": "Progresser de manière itérative avec rétroaction", "is_correct": false},
+                        {"text": "Penser et travailler de manière holistique", "is_correct": false}
+                    ],
+                    "rationale": "Le principe directeur 'Commencer là où vous êtes' (Start where you are) insiste sur l'importance de ne pas partir de zéro ou de réinventer la roue sans nécessité. Avant d'entreprendre toute nouvelle initiative d'amélioration ou de service, il est crucial d'évaluer et de comprendre en profondeur l'état actuel : quelles pratiques sont déjà en place, quelles ressources sont disponibles, quels sont les succès et les échecs passés. Cette compréhension du contexte existant permet d'éviter la duplication des efforts, de capitaliser sur les atouts existants et de prendre des décisions plus éclairées et plus efficaces pour l'avenir. Cela assure que les efforts sont pertinents et bien ancrés dans la réalité de l'organisation."
+                },
+                {
+                    "question": "Quelle est la définition d'un événement ?",
+                    "answer_options": [
+                        {"text": "Une modification non planifiée d'un service.", "is_correct": false},
+                        {"text": "Une dégradation de la qualité d'un service.", "is_correct": false},
+                        {"text": "Tout changement d’état significatif pour la gestion d’un élément de configuration ou la fourniture d’un service.", "is_correct": true},
+                        {"text": "Une demande d'informations de la part d'un utilisateur.", "is_correct": false}
+                    ],
+                    "rationale": "Dans ITIL, un événement est défini comme tout changement d'état significatif pour la gestion d'un élément de configuration (CI) ou la fourniture d'un service. Les événements peuvent être des alertes, des notifications ou des informations indiquant qu'un seuil a été atteint, qu'une anomalie s'est produite, ou qu'une activité est terminée. Ils peuvent être positifs (ex: service démarré), négatifs (ex: erreur de disque) ou informatifs. La gestion des événements est cruciale pour la surveillance des services, la détection des problèmes potentiels et le déclenchement des actions appropriées, contribuant à la stabilité et à la performance des services."
+                },
+                {
+                    "question": "Quel est le but du système de valeur de service ITIL (SVS) ?",
+                    "answer_options": [
+                        {"text": "Fournir des produits et services pour résoudre des problèmes complexes.", "is_correct": false},
+                        {"text": "Co-créer de la valeur avec toutes les parties prenantes.", "is_correct": true},
+                        {"text": "Minimiser le nombre de fournisseurs.", "is_correct": false},
+                        {"text": "Automatiser toutes les activités de gestion des services.", "is_correct": false}
+                    ],
+                    "rationale": "Le Système de Valeur de Service (SVS) ITIL est un modèle holistique qui décrit comment tous les composants et activités d'une organisation travaillent ensemble pour créer de la valeur. Le but principal du SVS est de faciliter la co-création de valeur avec toutes les parties prenantes, y compris les clients, les utilisateurs, les fournisseurs et les équipes internes. Le SVS est composé des principes directeurs, de la gouvernance, de la chaîne de valeur de service, des pratiques et de l'amélioration continue. Il assure que l'organisation est capable de s'adapter, d'innover et de répondre aux demandes de ses clients de manière efficace et efficiente."
+                },
+                {
+                    "question": "Quel est le but de la pratique d’ingénierie ?",
+                    "answer_options": [
+                        {"text": "Gérer les problèmes de sécurité.", "is_correct": false},
+                        {"text": "Concevoir et développer de nouveaux produits et services.", "is_correct": true},
+                        {"text": "Résoudre les incidents urgents.", "is_correct": false},
+                        {"text": "Négocier les contrats avec les fournisseurs.", "is_correct": false}
+                    ],
+                    "rationale": "La pratique d'ingénierie (Engineering) est centrée sur la conception et le développement de nouveaux produits et services, ainsi que sur l'amélioration des services existants. Elle implique l'application de principes scientifiques et techniques pour créer des solutions robustes, efficaces et évolutives. Cette pratique couvre l'ensemble du cycle de vie du développement, de la conception initiale à la mise en œuvre, en passant par les tests et l'intégration. Elle est essentielle pour l'innovation et pour s'assurer que les services répondent aux exigences fonctionnelles et non fonctionnelles, garantissant leur performance et leur fiabilité futures."
+                },
+                {
+                    "question": "Quelle est la définition d'une sortie (output) ?",
+                    "answer_options": [
+                        {"text": "Les résultats que le client cherche à atteindre.", "is_correct": false},
+                        {"text": "Un service fourni par un fournisseur externe.", "is_correct": false},
+                        {"text": "Un livrable d’une activité.", "is_correct": true},
+                        {"text": "La valeur perçue par le consommateur.", "is_correct": false}
+                    ],
+                    "rationale": "Dans le contexte ITIL, une 'sortie' (output) est un livrable tangible ou intangible d'une activité ou d'un processus. C'est ce qui est produit par une action ou un ensemble d'actions. Par exemple, un rapport généré par un système est une sortie, ou un accès à une application est une sortie. Les sorties ne sont pas intrinsèquement la valeur elle-même, mais elles contribuent à faciliter les 'résultats' (outcomes) pour le client. Il est important de distinguer les sorties des résultats, car la valeur réelle réside dans l'impact positif que ces sorties ont sur les objectifs du consommateur."
+                },
+                {
+                    "question": "Quel est le but de la pratique de gestion des actifs informatiques ?",
+                    "answer_options": [
+                        {"text": "Réduire la visibilité des actifs de l’organisation.", "is_correct": false},
+                        {"text": "Planifier et gérer le cycle de vie complet de tous les actifs informatiques.", "is_correct": true},
+                        {"text": "Se concentrer uniquement sur les actifs logiciels.", "is_correct": false},
+                        {"text": "Gérer les compétences des employés.", "is_correct": false}
+                    ],
+                    "rationale": "La pratique de gestion des actifs informatiques (IT Asset Management - ITAM) vise à planifier, contrôler et gérer le cycle de vie complet de tous les actifs informatiques de l'organisation. Un actif informatique est tout élément qui a une valeur pour l'organisation et qui contribue à la prestation des services. Cela inclut le matériel, les logiciels, les licences, les informations, et même le personnel. Le but de l'ITAM est d'optimiser les coûts, de gérer les risques, de maximiser la valeur et de soutenir la prise de décision tout au long du cycle de vie des actifs, de l'acquisition à la mise hors service. Elle garantit l'utilisation efficiente et conforme des ressources informatiques."
+                },
+                {
+                    "question": "Laquelle des affirmations suivantes concernant les pratiques est VRAIE ?",
+                    "answer_options": [
+                        {"text": "Les pratiques sont obligatoires pour toutes les organisations.", "is_correct": false},
+                        {"text": "Les pratiques sont des ensembles de ressources organisationnelles conçues pour effectuer un travail ou atteindre un objectif.", "is_correct": true},
+                        {"text": "Les pratiques sont uniquement liées aux processus techniques.", "is_correct": false},
+                        {"text": "Il n'y a que 5 pratiques définies dans ITIL 4.", "is_correct": false}
+                    ],
+                    "rationale": "Dans ITIL 4, les pratiques sont définies comme des ensembles de ressources organisationnelles conçues pour effectuer un travail ou atteindre un objectif spécifique. Elles représentent les capacités de l'organisation à gérer ses services, et peuvent être techniques, managériales ou générales. ITIL 4 décrit 34 pratiques de gestion, bien plus que 5, et elles ne sont pas toutes uniquement techniques. Elles ne sont pas obligatoires dans leur intégralité pour toutes les organisations ; chaque organisation doit adapter et adopter les pratiques pertinentes pour ses propres besoins et contextes. C'est la flexibilité et l'adaptabilité qui caractérisent l'approche ITIL 4."
+                },
+                {
+                    "question": "Quel est le but de la pratique de gestion des relations ?",
+                    "answer_options": [
+                        {"text": "Gérer les performances des fournisseurs.", "is_correct": false},
+                        {"text": "Établir et entretenir des liens entre l’organisation et ses parties prenantes.", "is_correct": true},
+                        {"text": "Coordonner les activités de déploiement de logiciels.", "is_correct": false},
+                        {"text": "Résoudre les incidents complexes.", "is_correct": false}
+                    ],
+                    "rationale": "La pratique de gestion des relations (Relationship Management) a pour objectif d'établir et d'entretenir des liens solides et productifs entre l'organisation et toutes ses parties prenantes pertinentes, y compris les clients, les utilisateurs, les fournisseurs, les partenaires et les régulateurs. Le but est de créer et de maintenir de bonnes relations, de comprendre leurs besoins et attentes, et de favoriser une collaboration efficace. Une gestion des relations réussie est essentielle pour la co-création de valeur, la fidélisation des clients et la pérennité des partenariats stratégiques. Elle assure que les services sont alignés sur les objectifs et les attentes des différentes parties."
+                },
+                {
+                    "question": "Comment le principe directeur “Maintenir le progrès” contribue-t-il à l’amélioration continue ?",
+                    "answer_options": [
+                        {"text": "Il encourage à démarrer de nouvelles initiatives avant d'avoir terminé les précédentes.", "is_correct": false},
+                        {"text": "Il se concentre uniquement sur la correction des erreurs passées.", "is_correct": false},
+                        {"text": "Il met l’accent sur la consolidation des gains et l’intégration de l’amélioration dans la culture.", "is_correct": true},
+                        {"text": "Il suggère d'ignorer la rétroaction une fois l'amélioration terminée.", "is_correct": false}
+                    ],
+                    "rationale": "Le principe directeur 'Maintenir le progrès' (Keep it simple and practical) dans ITIL 4 est essentiel pour l'amélioration continue. Il ne s'agit pas seulement de faire des améliorations ponctuelles, mais de s'assurer que ces gains sont consolidés, intégrés dans les pratiques quotidiennes et maintenus sur le long terme. Ce principe souligne l'importance de pérenniser les changements positifs et de faire de l'amélioration une partie intégrante de la culture organisationnelle. Il encourage à ne pas revenir aux anciennes méthodes, à documenter les leçons apprises et à célébrer les succès pour motiver la poursuite de l'élan d'amélioration. C'est une vision à long terme de l'évolution des services."
+                },
+                {
+                    "question": "Quelle est la définition d'un problème ?",
+                    "answer_options": [
+                        {"text": "Une cause ou cause potentielle d’un ou plusieurs incidents.", "is_correct": true},
+                        {"text": "Un événement inattendu qui interrompt un service.", "is_correct": false},
+                        {"text": "Une demande de service standard d'un utilisateur.", "is_correct": false},
+                        {"text": "Un changement non autorisé à un service.", "is_correct": false}
+                    ],
+                    "rationale": "Dans ITIL, un 'problème' est défini comme une cause ou une cause potentielle d'un ou de plusieurs incidents. Contrairement à un incident qui est une interruption ou une dégradation de service immédiate, un problème est l'entité sous-jacente qui est à l'origine de ces incidents. La gestion des problèmes vise à identifier ces causes profondes, qu'elles soient connues ou inconnues, afin de les éliminer ou de les réduire, évitant ainsi la répétition des incidents. C'est une approche plus proactive et à long terme que la gestion des incidents, qui se concentre sur la restauration rapide."
+                },
+                {
+                    "question": "Quel est le but de la pratique d'analyse des affaires (business analysis) ?",
+                    "answer_options": [
+                        {"text": "Définir les exigences des services.", "is_correct": true},
+                        {"text": "Déployer de nouveaux logiciels.", "is_correct": false},
+                        {"text": "Gérer les fournisseurs externes.", "is_correct": false},
+                        {"text": "Résoudre les incidents techniques.", "is_correct": false}
+                    ],
+                    "rationale": "La pratique d'analyse des affaires (Business Analysis) se concentre sur l'identification et la compréhension des besoins et des exigences des parties prenantes, en particulier des utilisateurs et des clients, afin de traduire ces besoins en spécifications pour les services et les produits informatiques. Elle vise à s'assurer que les solutions développées apportent une valeur réelle à l'entreprise en résolvant les problèmes métier ou en exploitant de nouvelles opportunités. L'analyste métier agit comme un pont entre les besoins métier et les capacités technologiques, garantissant que les services sont conçus pour soutenir efficacement les objectifs de l'organisation. Cette pratique est essentielle pour la conception de services pertinents et efficaces."
+                },
+                {
+                    "question": "Quel principe directeur ITIL met l’accent sur la valeur pour toutes les parties prenantes ?",
+                    "answer_options": [
+                        {"text": "Penser et travailler de manière holistique", "is_correct": false},
+                        {"text": "Progresser de manière itérative avec rétroaction", "is_correct": false},
+                        {"text": "Privilégier la valeur", "is_correct": true},
                         {"text": "Optimiser et automatiser", "is_correct": false}
                     ],
-                    "rationale": "L'approche itérative avec retours est essentielle pour l'adoption de nouvelles technologies, permettant des ajustements et des améliorations continues.",
-                    "hint": "Cette approche permet d'apprendre et de s'adapter."
+                    "rationale": "Le principe directeur 'Privilégier la valeur' (Focus on value) est le principe fondamental d'ITIL 4. Il met l'accent sur la création de valeur pour toutes les parties prenantes, y compris les clients, les utilisateurs, les employés, et même les actionnaires. Il s'agit de s'assurer que toutes les activités, services et produits de gestion de service sont conçus et livrés de manière à maximiser les avantages perçus par ces parties prenantes. Ce principe guide toutes les décisions, de la conception d'un nouveau service à sa mise en œuvre et à son amélioration continue, garantissant que les efforts sont dirigés vers ce qui compte le plus pour ceux qui en bénéficient."
                 },
                 {
-                    "question": "Quelle est la définition d'un « résultat » (outcome) dans ITIL ?",
-                    "difficulty": "hard",
+                    "question": "Quel est l’objectif de la pratique de gestion des tests et de la validation ?",
                     "answer_options": [
-                        {"text": "Un livrable spécifique du processus", "is_correct": false},
-                        {"text": "Un état pour une partie prenante, facilité par une ou plusieurs sorties", "is_correct": true},
-                        {"text": "L'ensemble des activités réalisées", "is_correct": false},
-                        {"text": "La performance mesurable d'un service", "is_correct": false}
+                        {"text": "Déployer de nouvelles versions de logiciels.", "is_correct": false},
+                        {"text": "Assurer que les produits et services répondent aux exigences avant leur mise en production.", "is_correct": true},
+                        {"text": "Gérer les incidents techniques.", "is_correct": false},
+                        {"text": "Négocier les contrats avec les fournisseurs.", "is_correct": false}
                     ],
-                    "rationale": "Un résultat est ce que le consommateur réalise, un effet souhaité.",
-                    "hint": "Il s'agit des bénéfices ou changements perçus par l'utilisateur."
+                    "rationale": "La pratique de gestion des tests et de la validation (Test and Validation Management) a pour objectif de s'assurer que les nouveaux ou les services et produits modifiés répondent aux exigences spécifiées et fonctionnent comme prévu, avant leur déploiement en production. Cela implique de planifier, concevoir, exécuter et évaluer des tests pour vérifier la fonctionnalité, la performance, la sécurité et la compatibilité. Cette pratique est essentielle pour minimiser les risques d'incidents, de problèmes ou de dégradations de service qui pourraient survenir lors de la mise en production. Elle garantit la qualité et la fiabilité des services délivrés aux utilisateurs."
                 },
                 {
-                    "question": "Quel est le but de la pratique de surveillance et de gestion des événements ?",
-                    "difficulty": "easy",
+                    "question": "Quel est le but de la pratique de gestion du portefeuille de services ?",
                     "answer_options": [
-                        {"text": "Planifier les futurs événements", "is_correct": false},
-                        {"text": "Observer les services et leurs composants pour détecter les changements d'état", "is_correct": true},
-                        {"text": "Gérer les réservations de salles", "is_correct": false},
-                        {"text": "Documenter les réunions", "is_correct": false}
+                        {"text": "Documenter tous les problèmes connus.", "is_correct": false},
+                        {"text": "Gérer tous les services offerts par l'organisation.", "is_correct": true},
+                        {"text": "Se concentrer sur les services qui n'apportent pas de valeur.", "is_correct": false},
+                        {"text": "Évaluer la satisfaction client après chaque incident.", "is_correct": false}
                     ],
-                    "rationale": "Elle détecte et analyse les événements pour déclencher des actions si nécessaire.",
-                    "hint": "C'est l'écoute et l'observation constante du système."
+                    "rationale": "La pratique de gestion du portefeuille de services (Service Portfolio Management) a pour but de gérer l'ensemble des services d'une organisation, y compris les services à venir, les services actifs et les services retirés. L'objectif est d'optimiser la valeur de l'offre de services en s'assurant qu'elle est alignée sur les objectifs stratégiques de l'entreprise et les besoins des clients. Cela implique de prendre des décisions sur les services à investir, à développer, à maintenir ou à décommissionner, en fonction de leur valeur, de leurs coûts et de leurs risques. C'est une vue stratégique qui assure une gestion efficace des investissements en services."
                 },
                 {
-                    "question": "Quel est le but de la pratique de gestion des actifs IT ?",
-                    "difficulty": "easy",
+                    "question": "Quelle est la caractéristique d’une approche holistique ?",
                     "answer_options": [
-                        {"text": "Créer de nouveaux logiciels", "is_correct": false},
-                        {"text": "Planifier le budget IT", "is_correct": false},
-                        {"text": "Gérer le cycle de vie des actifs IT", "is_correct": true},
-                        {"text": "Former le personnel IT", "is_correct": false}
+                        {"text": "Elle ignore les relations entre les composants.", "is_correct": false},
+                        {"text": "Elle se concentre sur un seul aspect de l'organisation.", "is_correct": false},
+                        {"text": "Elle s’assure que tous les composants d’une organisation travaillent ensemble pour fournir de la valeur.", "is_correct": true},
+                        {"text": "Elle ne prend en compte que les aspects techniques.", "is_correct": false}
                     ],
-                    "rationale": "Elle optimise le coût, le risque et la valeur des actifs tout au long de leur vie.",
-                    "hint": "C'est la gestion de l'inventaire matériel et logiciel."
+                    "rationale": "Le principe directeur 'Penser et travailler de manière holistique' (Think and work holistically) est fondamental en ITIL 4. Une approche holistique signifie que l'organisation doit considérer toutes les dimensions de la gestion de service (Organisation et personnes, Information et technologie, Partenaires et fournisseurs, Flux de valeur et processus) et s'assurer que tous les composants travaillent ensemble de manière intégrée pour co-créer de la valeur. Il s'agit de comprendre que les services ne sont pas des entités isolées, mais des systèmes complexes où chaque partie influence les autres. Cette vision globale est cruciale pour une gestion efficace et la maximisation de la valeur délivrée."
                 },
                 {
-                    "question": "Quel principe directeur encourage la transparence et la communication ?",
-                    "difficulty": "easy",
+                    "question": "Quel est le but de la pratique de gestion des fournisseurs (supplier management) ?",
                     "answer_options": [
-                        {"text": "Privilégier la valeur", "is_correct": false},
-                        {"text": "Commencer là où vous êtes", "is_correct": false},
-                        {"text": "Collaborer et promouvoir la visibilité", "is_correct": true},
-                        {"text": "Avancer par itérations avec des retours", "is_correct": false}
+                        {"text": "Acquérir de nouveaux fournisseurs uniquement.", "is_correct": false},
+                        {"text": "Assurer que les fournisseurs sont gérés de manière appropriée.", "is_correct": true},
+                        {"text": "Résoudre tous les problèmes de sécurité.", "is_correct": false},
+                        {"text": "Gérer les relations avec les utilisateurs finaux.", "is_correct": false}
                     ],
-                    "rationale": "Il s'agit de s'assurer que toutes les parties prenantes ont une compréhension claire des choses et de travailler ensemble.",
-                    "hint": "Éviter les silos et favoriser le partage."
+                    "rationale": "La pratique de gestion des fournisseurs (Supplier Management) a pour but de garantir que les fournisseurs de l'organisation et leurs performances sont gérés efficacement pour supporter la fourniture harmonieuse et continue des services. Cela inclut la sélection des fournisseurs appropriés, la négociation des contrats, la gestion des relations et le suivi des performances pour s'assurer qu'ils respectent leurs engagements. L'objectif est d'optimiser la valeur obtenue des fournisseurs et de minimiser les risques associés à la dépendance vis-à-vis de tiers. Elle est cruciale pour une chaîne de valeur de service intégrée."
                 },
                 {
-                    "question": "La valeur pour une organisation peut être influencée par quels facteurs ?",
-                    "difficulty": "medium",
+                    "question": "Quelle est la principale caractéristique d'un service ?",
                     "answer_options": [
-                        {"text": "Uniquement les facteurs financiers", "is_correct": false},
-                        {"text": "Uniquement les facteurs technologiques", "is_correct": false},
-                        {"text": "Les facteurs de qualité, de coût et de risque", "is_correct": true},
-                        {"text": "Uniquement les facteurs humains", "is_correct": false}
+                        {"text": "Il est toujours fourni par une organisation interne.", "is_correct": false},
+                        {"text": "Il facilite la co-création de valeur en facilitant les résultats pour le consommateur.", "is_correct": true},
+                        {"text": "Il se compose uniquement d'éléments technologiques.", "is_correct": false},
+                        {"text": "Il est défini uniquement par les sorties qu'il produit.", "is_correct": false}
                     ],
-                    "rationale": "La valeur est souvent perçue comme un équilibre entre l'utilité, la garantie, le coût et le risque.",
-                    "hint": "Pensez à ce qui rend un service 'bon' ou 'mauvais' pour une entreprise."
+                    "rationale": "La caractéristique principale d'un service, selon ITIL 4, est sa capacité à faciliter la co-création de valeur en aidant le consommateur à atteindre ses propres résultats souhaités. Un service n'est pas seulement une série d'activités techniques ou la production de 'sorties' (outputs), mais un moyen de générer de la valeur pour le client. Cette facilitation implique souvent de gérer certains coûts et risques pour le consommateur. Les services peuvent être fournis par des entités internes ou externes et combinent des aspects technologiques, humains et organisationnels. La co-création de valeur est au cœur de la définition même du service dans ITIL 4."
                 },
                 {
-                    "question": "Quel est le but de la pratique de la gestion des relations ?",
-                    "difficulty": "easy",
+                    "question": "Quel est l’objectif de la pratique de gestion des changements (change enablement) ?",
                     "answer_options": [
-                        {"text": "Gérer les problèmes internes de l'équipe", "is_correct": false},
-                        {"text": "Établir et maintenir des liens entre l'organisation et ses parties prenantes", "is_correct": true},
-                        {"text": "Gérer les contrats de travail", "is_correct": false},
-                        {"text": "Gérer les réseaux sociaux de l'entreprise", "is_correct": false}
+                        {"text": "Minimiser le nombre de changements.", "is_correct": false},
+                        {"text": "Maximiser le nombre de changements réussis et réduire l'impact négatif des changements.", "is_correct": true},
+                        {"text": "Approuver uniquement les changements urgents.", "is_correct": false},
+                        {"text": "S'assurer que les changements sont toujours automatisés.", "is_correct": false}
                     ],
-                    "rationale": "Elle assure la bonne communication et l'engagement des parties prenantes.",
-                    "hint": "C'est l'art de construire des ponts et des partenariats."
-                },
-                {
-                    "question": "Laquelle des affirmations suivantes est VRAIE concernant les coûts et les risques liés à la consommation d'un service ?",
-                    "difficulty": "hard",
-                    "answer_options": [
-                        {"text": "Le consommateur n'est pas responsable des coûts et des risques liés à la consommation du service", "is_correct": false},
-                        {"text": "Le consommateur supporte certains des coûts et risques liés à la consommation du service", "is_correct": true},
-                        {"text": "Le fournisseur de services est entièrement responsable de tous les coûts et risques", "is_correct": false},
-                        {"text": "Les coûts et les risques sont toujours les mêmes pour tous les consommateurs", "is_correct": false}
-                    ],
-                    "rationale": "ITIL 4 reconnaît que la valeur est co-créée, et que les consommateurs contribuent aux coûts et risques.",
-                    "hint": "La responsabilité n'est pas unilatérale."
-                },
-                {
-                    "question": "Quel est le but de la pratique de la gestion de portefeuille ?",
-                    "difficulty": "medium",
-                    "answer_options": [
-                        {"text": "Gérer les finances de l'organisation", "is_correct": false},
-                        {"text": "Maximiser la valeur des produits et services de l'organisation", "is_correct": true},
-                        {"text": "Gérer les projets individuels", "is_correct": false},
-                        {"text": "Gérer les ressources humaines", "is_correct": false}
-                    ],
-                    "rationale": "Elle garantit que l'organisation investit dans les bons services et produits.",
-                    "hint": "C'est la vue d'ensemble des offres de l'organisation."
-                },
-                {
-                    "question": "Les parties prenantes clés d'un service comprennent le fournisseur, le consommateur et quels autres groupes ?",
-                    "difficulty": "hard",
-                    "answer_options": [
-                        {"text": "Uniquement les actionnaires", "is_correct": false},
-                        {"text": "Les régulateurs et les auditeurs", "is_correct": false},
-                        {"text": "Les fournisseurs tiers et d'autres parties intéressées", "is_correct": true},
-                        {"text": "Uniquement les employés de l'entreprise", "is_correct": false}
-                    ],
-                    "rationale": "Les parties prenantes incluent tous ceux qui ont un intérêt ou sont affectés par le service.",
-                    "hint": "Pensez à tous ceux qui ont un rôle ou un impact sur le service."
-                },
-                {
-                    "question": "Quel est l'objectif de la pratique de la gestion des connaissances ?",
-                    "difficulty": "easy",
-                    "answer_options": [
-                        {"text": "Créer de nouvelles connaissances", "is_correct": false},
-                        {"text": "Partager des informations au sein de l'organisation", "is_correct": true},
-                        {"text": "Protéger les secrets commerciaux", "is_correct": false},
-                        {"text": "Gérer les documents physiques", "is_correct": false}
-                    ],
-                    "rationale": "Elle assure que les informations sont disponibles, appropriées et exploitables.",
-                    "hint": "C'est la capitalisation et la diffusion de l'information."
+                    "rationale": "La pratique de gestion des changements (Change Enablement) vise à maximiser le nombre de changements de service et de produit réussis en garantissant une bonne évaluation des risques et en minimisant les impacts négatifs. L'objectif n'est pas de minimiser le nombre de changements, car les changements sont nécessaires à l'évolution et à l'amélioration des services, mais de les faciliter de manière contrôlée et sécurisée. Cette pratique est essentielle pour permettre à l'organisation de s'adapter rapidement aux nouvelles exigences tout en maintenant la stabilité et la disponibilité de ses services. Elle contribue à la résilience et à l'agilité de l'entreprise."
                 }
             ]
         };
 
+        function initQuiz() {
+            questions = quizData.questions;
+            userAnswers = new Array(questions.length).fill(null);
+            currentQuestionIndex = 0;
+            score = 0;
+            quizDisplayDiv.style.display = 'block';
+            quizNavigationDiv.style.display = 'flex'; 
+            loadingSpinner.style.display = 'none';
+            displayQuestion(currentQuestionIndex);
+            updateNavigation(); // Ensure navigation buttons are updated on init
+        }
+
         function displayQuestion(index) {
-            loadingSpinner.style.display = 'none'; // Hide loading spinner once questions are loaded
-            quizDisplayDiv.innerHTML = ''; // Clear previous question
+            if (index < 0 || index >= questions.length) return;
 
-            if (index >= 0 && index < questions.length) {
-                const questionData = questions[index];
-                const questionHtml = `
-                    <div class="question-card">
-                        <h5>${index + 1}. ${questionData.question} <span class="badge difficulty-badge ${questionData.difficulty}">${questionData.difficulty.charAt(0).toUpperCase() + questionData.difficulty.slice(1)}</span></h5>
-                        <div class="options-container">
-                            ${questionData.answer_options.map((option, i) => `
-                                <div class="answer-option" data-index="${i}">
-                                    <input type="radio" id="q${index}-option${i}" name="question${index}" value="${i}" ${userAnswers[index] === i ? 'checked' : ''} onchange="selectAnswer(${index}, ${i})">
-                                    <label for="q${index}-option${i}">${String.fromCharCode(65 + i)}. ${option.text}</label>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <button class="btn btn-info btn-toggle-info mt-3" onclick="toggleInfo(${index}, 'hint')">
-                            <i class="fas fa-lightbulb me-2"></i> Afficher l'indice
-                        </button>
-                        <div class="hint mt-2" id="hint-${index}">${questionData.hint}</div>
-
-                        <button class="btn btn-secondary btn-toggle-info mt-3" onclick="toggleInfo(${index}, 'rationale')">
-                            <i class="fas fa-comment-dots me-2"></i> Afficher l'explication
-                        </button>
-                        <div class="rationale mt-2" id="rationale-${index}">
-                            <h6>Explication:</h6>
-                            <ul>
-                                <li>${questionData.rationale}</li>
-                            </ul>
-                        </div>
+            const questionData = questions[index];
+            let optionsHtml = '';
+            questionData.answer_options.forEach((option, i) => {
+                optionsHtml += `
+                    <div class="form-check answer-option" data-is-correct="${option.is_correct}">
+                        <input class="form-check-input" type="radio" name="q${index}" id="q${index}-opt${i}" value="${i}" ${userAnswers[index] !== null ? 'disabled' : ''}>
+                        <label class="form-check-label" for="q${index}-opt${i}">${option.text}</label>
                     </div>
                 `;
-                quizDisplayDiv.innerHTML = questionHtml;
-                updateNavigationButtons();
-                updateProgress();
-
-                // Re-apply correct/incorrect classes if already answered
-                if (userAnswers[index] !== null) {
-                    highlightAnswer(index, userAnswers[index], true);
-                }
-            } else if (index === questions.length) {
-                showResults();
-            }
-        }
-
-        function selectAnswer(questionIndex, selectedOptionIndex) {
-            const questionData = questions[questionIndex];
-            const selectedOption = questionData.answer_options[selectedOptionIndex];
-
-            // Clear previous highlighting
-            const options = quizDisplayDiv.querySelectorAll('.answer-option');
-            options.forEach(option => {
-                option.classList.remove('correct', 'incorrect');
             });
 
-            // Update user answer and score
-            const previousAnswer = userAnswers[questionIndex];
-            userAnswers[questionIndex] = selectedOptionIndex;
-
-            if (previousAnswer === null || (previousAnswer !== null && selectedOption.is_correct !== questionData.answer_options[previousAnswer].is_correct)) {
-                if (selectedOption.is_correct) {
-                    score++;
-                } else if (previousAnswer !== null && questionData.answer_options[previousAnswer].is_correct) {
-                    score--;
-                }
-            }
-            
-            highlightAnswer(questionIndex, selectedOptionIndex);
-            updateScoreDisplay();
-        }
-
-        function highlightAnswer(questionIndex, selectedOptionIndex, isLoad = false) {
-            const questionData = questions[questionIndex];
-            const options = quizDisplayDiv.querySelectorAll('.answer-option');
-
-            options.forEach((optionElement, i) => {
-                const inputRadio = optionElement.querySelector('input[type="radio"]');
-                inputRadio.disabled = true; // Disable all options after selection
-
-                if (questionData.answer_options[i].is_correct) {
-                    optionElement.classList.add('correct');
-                } else if (i === selectedOptionIndex && !questionData.answer_options[i].is_correct) {
-                    optionElement.classList.add('incorrect');
-                }
-            });
-
-            // Show rationale and hint automatically after answering
-            toggleInfo(questionIndex, 'rationale', true);
-            toggleInfo(questionIndex, 'hint', true);
-
-            // Hide info toggle buttons
-            quizDisplayDiv.querySelectorAll('.btn-toggle-info').forEach(btn => btn.style.display = 'none');
-        }
-
-
-        function toggleInfo(questionIndex, type, forceShow = false) {
-            const infoElement = document.getElementById(`${type}-${questionIndex}`);
-            if (infoElement) {
-                if (forceShow || infoElement.style.display === 'none' || infoElement.style.display === '') {
-                    infoElement.style.display = 'block';
-                } else {
-                    infoElement.style.display = 'none';
-                }
-            }
-        }
-
-        function updateNavigationButtons() {
-            prevBtn.disabled = currentQuestionIndex === 0;
-            nextBtn.disabled = currentQuestionIndex === questions.length; // Next button disabled on final results screen
-        }
-
-        function updateProgress() {
-            currentScoreDisplay.textContent = `Score: ${score} / ${questions.length}`;
-            questionCountDisplay.textContent = `Question: ${currentQuestionIndex + 1} / ${questions.length}`;
-            const progressPercentage = (currentQuestionIndex / questions.length) * 100;
-            questionProgressBar.style.width = `${progressPercentage}%`;
-            questionProgressBar.setAttribute('aria-valuenow', progressPercentage);
-        }
-
-        function updateScoreDisplay() {
-             currentScoreDisplay.textContent = `Score: ${score} / ${questions.length}`;
-        }
-
-        function nextQuestion() {
-            if (currentQuestionIndex < questions.length) {
-                currentQuestionIndex++;
-                displayQuestion(currentQuestionIndex);
-            }
-        }
-
-        function previousQuestion() {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                displayQuestion(currentQuestionIndex);
-            }
-        }
-
-        function showResults() {
-            quizDisplayDiv.innerHTML = `
-                <div class="text-center my-5">
-                    <h3>Quiz Terminé !</h3>
-                    <p>Veuillez cliquer sur "Voir les résultats" pour votre score final.</p>
+            const questionHtml = `
+                <div class="question-card" id="qcard-${index}">
+                    <h5>${index + 1}. ${questionData.question}</h5>
+                    <div class="options-container">${optionsHtml}</div>
+                    <div class="rationale" id="rationale-${index}">
+                        <strong>Explication détaillée :</strong>
+                        <p>${questionData.rationale}</p>
+                    </div>
                 </div>
             `;
-            quizNavigationDiv.style.display = 'none'; // Hide navigation buttons
+            quizDisplayDiv.innerHTML = questionHtml;
+
+            // Add event listeners to new options
+            quizDisplayDiv.querySelectorAll('.answer-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    if (userAnswers[currentQuestionIndex] === null) {
+                        option.querySelector('input').checked = true;
+                        handleAnswerSelection();
+                    }
+                });
+            });
+
+            if (userAnswers[index] !== null) {
+                const selectedOptionIndex = userAnswers[index];
+                quizDisplayDiv.querySelector(`input[value="${selectedOptionIndex}"]`).checked = true;
+                showFeedback(selectedOptionIndex);
+            }
+            updateNavigation();
+        }
+
+        function handleAnswerSelection() {
+            const selectedRadio = quizDisplayDiv.querySelector('input[type="radio"]:checked');
+            if (!selectedRadio) return;
+
+            const selectedOptionIndex = parseInt(selectedRadio.value);
+            userAnswers[currentQuestionIndex] = selectedOptionIndex;
+
+            const isCorrect = questions[currentQuestionIndex].answer_options[selectedOptionIndex].is_correct;
+            if (isCorrect) {
+                score++;
+            }
+            showFeedback(selectedOptionIndex);
+            updateNavigation();
+        }
+
+        function showFeedback(selectedOptionIndex) {
+            const options = quizDisplayDiv.querySelectorAll('.answer-option');
+            options.forEach((option, index) => {
+                const input = option.querySelector('input');
+                input.disabled = true;
+                const correct = option.dataset.isCorrect === 'true';
+
+                if (correct) {
+                    option.classList.add('correct');
+                } else if (index === selectedOptionIndex) {
+                    option.classList.add('incorrect');
+                }
+            });
+            document.getElementById(`rationale-${currentQuestionIndex}`).classList.add('show-info');
+        }
+
+        function updateNavigation() {
+            // Update progress bar and text
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            questionProgressBar.style.width = `${progress}%`;
+            questionProgressBar.setAttribute('aria-valuenow', progress);
+            questionCountDisplay.textContent = `Question: ${currentQuestionIndex + 1} / ${questions.length}`;
+            currentScoreDisplay.textContent = `Score: ${score} / ${questions.length}`;
+
+            // Update buttons
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.disabled = userAnswers[currentQuestionIndex] === null && currentQuestionIndex < questions.length -1; // Disable next if not answered and not last question
+
+            if (currentQuestionIndex === questions.length - 1 && userAnswers[currentQuestionIndex] !== null) {
+                nextBtn.textContent = 'Voir les résultats';
+                nextBtn.classList.remove('btn-primary');
+                nextBtn.classList.add('btn-success');
+                nextBtn.disabled = false; // Enable "Voir les résultats" button
+            } else {
+                nextBtn.textContent = 'Suivant';
+                nextBtn.classList.remove('btn-success');
+                nextBtn.classList.add('btn-primary');
+            }
+        }
+        
+        function showFinalResults() {
+            const finalScoreCorrectSpan = document.getElementById('final-score-correct');
+            const finalScoreTotalSpan = document.getElementById('final-score-total');
+            const finalScorePercentage = document.getElementById('final-score-percentage');
+            const finalRecommendationsDiv = document.getElementById('final-recommendations');
 
             const percentage = (score / questions.length) * 100;
             let recommendationsHtml = '';
-            let scoreColor = '#28a745'; // Green for good score
+            let scoreColor = '';
 
             if (percentage >= 80) {
-                recommendationsHtml = `
-                    <h4>Félicitations ! Excellent travail !</h4>
-                    <p>Vous avez une solide compréhension des concepts ITIL. Continuez à réviser pour maintenir votre niveau.</p>
-                `;
+                scoreColor = '#198754';
+                recommendationsHtml = `<h4>Félicitations !</h4><p>Votre score de ${percentage.toFixed(1)}% est excellent. Vous avez une solide maîtrise des concepts fondamentaux d'ITIL 4.</p>`;
             } else if (percentage >= 60) {
-                scoreColor = '#ffc107'; // Yellow for average
-                recommendationsHtml = `
-                    <h4>Bon effort !</h4>
-                    <p>Vous êtes sur la bonne voie. Concentrez-vous sur les domaines où vous avez eu des difficultés.</p>
-                    <ul>
-                        <li>Revoyez les concepts clés d'ITIL.</li>
-                        <li>Pratiquez davantage avec des questions similaires.</li>
-                    </ul>
-                `;
+                scoreColor = '#ffc107';
+                recommendationsHtml = `<h4>Bien joué !</h4><p>Votre score de ${percentage.toFixed(1)}% est bon. Continuez à réviser les domaines où vous avez hésité pour renforcer vos connaissances.</p>`;
             } else {
-                scoreColor = '#dc3545'; // Red for low score
-                recommendationsHtml = `
-                    <h4>À revoir !</h4>
-                    <p>Il semble y avoir des lacunes importantes. Voici quelques recommandations :</p>
-                    <ul>
-                        <li>Reprenez les bases d'ITIL depuis le début.</li>
-                        <li>Étudiez systématiquement toutes les explications.</li>
-                        <li>Considérez une formation préparatoire avant de tenter l'examen.</li>
-                    </ul>
-                `;
+                scoreColor = '#dc3545';
+                recommendationsHtml = `<h4>Effort à poursuivre.</h4><p>Votre score de ${percentage.toFixed(1)}% indique que certains concepts clés nécessitent une révision approfondie. Relisez attentivement les explications pour progresser.</p>`;
             }
 
             finalScoreCorrectSpan.textContent = score;
             finalScoreTotalSpan.textContent = questions.length;
-            finalScorePercentage.textContent = `${percentage.toFixed(2)}%`;
+            finalScorePercentage.textContent = `${percentage.toFixed(1)}%`;
             finalScorePercentage.style.color = scoreColor;
             finalRecommendationsDiv.innerHTML = recommendationsHtml;
 
             resultsModal.show();
         }
 
-        function restartQuiz() {
-            currentQuestionIndex = 0;
-            score = 0;
-            userAnswers = new Array(questions.length).fill(null);
-            quizNavigationDiv.style.display = 'flex';
-            resultsModal.hide();
-            displayQuestion(currentQuestionIndex);
-        }
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex === questions.length - 1) {
+                showFinalResults();
+            } else {
+                currentQuestionIndex++;
+                displayQuestion(currentQuestionIndex);
+            }
+        });
 
-        // Attach navigation button handlers
-        nextBtn.addEventListener('click', nextQuestion);
-        prevBtn.addEventListener('click', previousQuestion);
-        restartQuizBtnModal.addEventListener('click', restartQuiz);
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion(currentQuestionIndex);
+            }
+        });
+        
+        document.getElementById('restart-quiz-btn-modal').addEventListener('click', () => {
+            resultsModal.hide();
+            initQuiz();
+        });
 
         // Initial load of the quiz
-        document.addEventListener('DOMContentLoaded', () => {
-            loadingSpinner.style.display = 'none'; 
-            questions = quizData.questions;
-            displayQuestion(currentQuestionIndex);
-        });
+        document.addEventListener('DOMContentLoaded', initQuiz);
     </script>
 </body>
 </html>
