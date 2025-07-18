@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation Complète ITIL 4 Foundation - Certification Officielle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-dark: #1a365d;
+            --primary-color: #2c5282;
+            --secondary-color: #3182ce;
+            --accent-color: #e53e3e;
+            --success-color: #38a169;
+            --warning-color: #dd6b20;
+            --light-color: #ebf8ff;
+            --dark-color: #2d3748;
+            --highlight-color: #f6e05e;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark-color);
+            line-height: 1.7;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: white !important;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255,255,255,0.15);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            color: white;
+            padding: 5rem 0 4rem;
+            margin-bottom: 3rem;
+            border-radius: 0 0 25px 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.03)" d="M0,0 L100,0 L100,100 Q50,80 0,100 Z"></path></svg>');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            background-position: bottom;
+        }
+        
+        .display-4 {
+            font-weight: 800;
+            line-height: 1.3;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .lead-hero {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 25px;
+            overflow: hidden;
+            background-color: white;
+            border-top: 4px solid transparent;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            padding: 1.25rem;
+            border-bottom: none;
+        }
+        
+        .card-body {
+            padding: 1.75rem;
+        }
+        
+        .card-footer {
+            background-color: rgba(0,0,0,0.03);
+            border-top: none;
+            padding: 1.25rem;
+        }
+        
+        .btn {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2c5282;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(44, 82, 130, 0.4);
+        }
+        
+        .btn-outline-primary {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .badge {
+            padding: 0.5rem 0.8rem;
+            font-weight: 600;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+        }
+        
+        .accordion {
+            --bs-accordion-border-color: none;
+            --bs-accordion-btn-focus-box-shadow: none;
+        }
+        
+        .accordion-item {
+            border: none;
+            border-radius: 10px !important;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+        }
+        
+        .accordion-button {
+            font-weight: 600;
+            padding: 1.25rem;
+            background-color: white;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background-color: rgba(49, 130, 206, 0.08);
+            color: var(--secondary-color);
+            box-shadow: none;
+        }
+        
+        .accordion-body {
+            padding: 1.5rem;
+            background-color: rgba(245, 245, 245, 0.5);
+        }
+        
+        .progress {
+            height: 12px;
+            border-radius: 6px;
+            background-color: #e9ecef;
+        }
+        
+        .progress-bar {
+            background-color: var(--secondary-color);
+            border-radius: 6px;
+        }
+        
+        .table {
+            --bs-table-striped-bg: rgba(49, 130, 206, 0.05);
+        }
+        
+        .table-hover tbody tr:hover {
+            background-color: rgba(49, 130, 206, 0.1);
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 5rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path fill="white" d="M0,0 L100,0 Q50,10 0,0 Z"></path></svg>');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: top;
+        }
+        
+        /* Effets spéciaux */
+        .floating {
+            animation: floating 4s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse {
+            animation: pulse 2.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(49, 130, 206, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(49, 130, 206, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(49, 130, 206, 0); }
+        }
+        
+        .highlight {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .highlight::after {
+            content: "";
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background-color: var(--highlight-color);
+            opacity: 0.3;
+            z-index: -1;
+            transform: rotate(-1deg);
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -40px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            border: 4px solid var(--secondary-color);
+        }
+        
+        /* Exam tips */
+        .exam-tip {
+            background-color: white;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .exam-tip:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .exam-tip .tip-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* Knowledge check */
+        .knowledge-check {
+            background-color: rgba(49, 130, 206, 0.08);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .knowledge-check .check-title {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .knowledge-check .check-title i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* Key concept */
+        .key-concept {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--warning-color);
+        }
+        
+        .key-concept .concept-title {
+            font-weight: 700;
+            color: var(--warning-color);
+            margin-bottom: 1rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .hero-section {
+                padding: 4rem 0 3rem;
+            }
+            
+            .display-4 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 3rem 0 2rem;
+                border-radius: 0 0 15px 15px;
+            }
+            
+            .display-4 {
+                font-size: 2.3rem;
+            }
+            
+            .lead-hero {
+                font-size: 1.1rem;
+            }
+            
+            .card-body, .accordion-body {
+                padding: 1.25rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-section {
+                padding: 2.5rem 0 1.5rem;
+            }
+            
+            .display-4 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="bi bi-award-fill me-2"></i>ITIL 4 Expert
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#concepts">Concepts Clés</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#dimensions">Dimensions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#practices">Pratiques</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#value-chain">Chaîne de Valeur</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#resources">Ressources</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#exam">Examen</a>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <a class="nav-link btn btn-outline-light" href="#quiz">Quiz <i class="bi bi-arrow-right ms-1"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <div class="col-lg-7 text-center text-lg-start">
+                    <h1 class="display-4 fw-bold mb-3">Maîtrisez la Certification <span class="highlight">ITIL 4</span></h1>
+                    <p class="lead-hero mb-4">Le guide expert complet pour réussir l'examen Foundation et maîtriser les bonnes pratiques du management des services IT</p>
+                    <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
+                        <a href="#start" class="btn btn-light btn-lg px-4">
+                            <i class="bi bi-book me-2"></i>Commencer l'apprentissage
+                        </a>
+                        <a href="#exam" class="btn btn-outline-light btn-lg px-4">
+                            <i class="bi bi-patch-question me-2"></i>Guide de l'examen
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5 mt-5 mt-lg-0">
+                    <div class="text-center floating">
+                        <img src="https://via.placeholder.com/400x300" alt="ITIL 4 Certification" class="img-fluid rounded-3 shadow" style="max-height: 300px;">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-5 pt-3 text-center">
+                <div class="d-flex flex-wrap justify-content-center gap-4">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill text-success me-2 fs-5"></i>
+                        <span>Guide complet ITIL 4</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill text-success me-2 fs-5"></i>
+                        <span>200+ questions pratiques</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill text-success me-2 fs-5"></i>
+                        <span>Stratégies d'examen</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="start" class="container my-6">
+        <div class="row g-4">
+            <div class="col-lg-8 mx-auto">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0"><i class="bi bi-info-circle me-2"></i>Introduction à ITIL 4</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="lead">ITIL 4 (Information Technology Infrastructure Library) est le cadre de référence mondial pour la gestion des services informatiques, développé par <strong>AXELOS</strong>. Il fournit des bonnes pratiques pour aligner les services IT sur les besoins des entreprises.</p>
+                        
+                        <div class="key-concept mt-3">
+                            <div class="concept-title"><i class="bi bi-lightbulb"></i> Pourquoi ITIL 4 ?</div>
+                            <p>ITIL 4 aide les organisations à créer de la valeur grâce à des services IT bien gérés. Il intègre des concepts modernes comme Agile, DevOps et Lean tout en conservant les bonnes pratiques éprouvées d'ITIL v3. ITIL 4 se concentre sur la co-création de valeur entre les fournisseurs de services et leurs clients.</p>
+                        </div>
+                        
+                        <h4 class="mt-4 fw-bold">Objectifs de la Certification</h4>
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check2-square text-success me-2 mt-1"></i>
+                                <span>Comprendre les concepts clés du management des services IT</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check2-square text-success me-2 mt-1"></i>
+                                <span>Maîtriser les 4 dimensions et 34 pratiques</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check2-square text-success me-2 mt-1"></i>
+                                <span>Comprendre la chaîne de valeur des services</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-check2-square text-success me-2 mt-1"></i>
+                                <span>Préparer et réussir l'examen ITIL 4 Foundation</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="knowledge-check">
+                            <div class="check-title">
+                                <i class="bi bi-question-circle-fill"></i> Vérification des connaissances
+                            </div>
+                            <p><strong>Q:</strong> Quel organisme développe et maintient le cadre ITIL ?</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="introCheck" id="introCheck1">
+                                <label class="form-check-label" for="introCheck1">ISO</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="introCheck" id="introCheck2">
+                                <label class="form-check-label" for="introCheck2">AXELOS</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="introCheck" id="introCheck3">
+                                <label class="form-check-label" for="introCheck3">ISACA</label>
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary mt-2" onclick="checkAnswer('introCheck2', 'introCheckFeedback')">Vérifier</button>
+                            <div id="introCheckFeedback" class="mt-2 d-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="concepts" class="container my-6">
+        <div class="row">
+            <div class="col-lg-10 mx-auto text-center">
+                <h2 class="fw-bold mb-1">Concepts Clés d'ITIL 4</h2>
+                <p class="lead mb-5">Fondamentaux à maîtriser pour comprendre l'approche ITIL 4</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-top-primary">
+                    <div class="card-header d-flex align-items-center">
+                        <span class="badge bg-primary me-3">1</span>
+                        <h5 class="mb-0">Valeur des Services</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">La valeur est définie par le client et co-créée par le fournisseur et le client à travers le service.</p>
+                        
+                        <div class="key-concept mt-3">
+                            <div class="concept-title">Composants de la valeur</div>
+                            <p>Résultats atteints + Expérience client - Coûts + Risques</p>
+                            <div class="progress mt-2">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">Résultats</div>
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">Expérience</div>
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Coûts</div>
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">Risques</div>
+                            </div>
+                        </div>
+                        
+                        <ul class="list-group list-group-flush mt-3">
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-arrow-right-circle text-primary me-2 mt-1"></i>
+                                <span>La valeur est subjective et perçue</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-arrow-right-circle text-primary me-2 mt-1"></i>
+                                <span>Nécessite une compréhension des besoins clients</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-arrow-right-circle text-primary me-2 mt-1"></i>
+                                <span>Évolue avec le temps et le contexte</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#concept1Modal">
+                            <i class="bi bi-zoom-in me-1"></i> Exemple détaillé
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-top-success">
+                    <div class="card-header d-flex align-items-center">
+                        <span class="badge bg-success me-3">2</span>
+                        <h5 class="mb-0">Modèle SVS</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Le Système de Valeur des Services (SVS) décrit comment tous les composants travaillent ensemble pour créer de la valeur.</p>
+                        
+                        <div class="key-concept mt-3">
+                            <div class="concept-title">Composants du SVS</div>
+                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                <span class="badge bg-primary">Chaîne de valeur</span>
+                                <span class="badge bg-success">Pratiques</span>
+                                <span class="badge bg-info">Principes</span>
+                                <span class="badge bg-warning">Gouvernance</span>
+                                <span class="badge bg-secondary">Amélioration</span>
+                            </div>
+                        </div>
+                        
+                        <ul class="list-group list-group-flush mt-3">
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-arrow-right-circle text-success me-2 mt-1"></i>
+                                <span>Approche holistique du management des services</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-arrow-right-circle text-success me-2 mt-1"></i>
+                                <span>Flexible et adaptable</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-arrow-right-circle text-success me-2 mt-1"></i>
+                                <span>Permet la co-création de valeur</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#concept2Modal">
+                            <i class="bi bi-diagram-3 me-1"></i> Visualiser
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-top-info">
+                    <div class="card-header d-flex align-items-center">
+                        <span class="badge bg-info me-3">3</span>
+                        <h5 class="mb-0">7 Principes Directeurs</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Recommandations universelles pour guider les décisions et actions dans toutes les circonstances.</p>
+                        
+                        <div class="key-concept mt-3">
+                            <div class="concept-title">Les 7 Principes</div>
+                            <div class="row mt-2 g-2">
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded text-center">
+                                        <i class="bi bi-eye text-primary"></i>
+                                        <small>Focus sur la valeur</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded text-center">
+                                        <i class="bi bi-arrow-repeat text-success"></i>
+                                        <small>Commencez là où vous êtes</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded text-center">
+                                        <i class="bi bi-graph-up text-info"></i>
+                                        <small>Progressez itérativement</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded text-center">
+                                        <i class="bi bi-people text-warning"></i>
+                                        <small>Collaborez et favorisez la visibilité</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded text-center">
+                                        <i class="bi bi-lightbulb text-danger"></i>
+                                        <small>Pensez et travaillez de manière holistique</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded text-center">
+                                        <i class="bi bi-tools text-secondary"></i>
+                                        <small>Gardez les choses simples et pratiques</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded text-center">
+                                        <i class="bi bi-bezier2 text-dark"></i>
+                                        <small>Optimisez et automatisez</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#concept3Modal">
+                            <i class="bi bi-list-ol me-1"></i> Voir les 7
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-top-warning">
+                    <div class="card-header d-flex align-items-center">
+                        <span class="badge bg-warning me-3">4</span>
+                        <h5 class="mb-0">Gestion des Produits & Services</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Approche centrée sur le client pour développer et gérer des services tout au long de leur cycle de vie.</p>
+                        
+                        <div class="key-concept mt-3">
+                            <div class="concept-title">Cycle de Vie des Services</div>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <h6>Engagement</h6>
+                                    <p>Comprendre les besoins et opportunités</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <h6>Conception & Transition</h6>
+                                    <p>Créer et déployer le service</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <h6>Fourniture & Support</h6>
+                                    <p>Livrer et maintenir le service</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <h6>Amélioration</h6>
+                                    <p>Optimiser continuellement</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#concept4Modal">
+                            <i class="bi bi-arrow-repeat me-1"></i> Processus
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-top-danger">
+                    <div class="card-header d-flex align-items-center">
+                        <span class="badge bg-danger me-3">5</span>
+                        <h5 class="mb-0">Amélioration Continue</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Approche structurée pour améliorer les produits, services et pratiques au fil du temps.</p>
+                        
+                        <div class="key-concept mt-3">
+                            <div class="concept-title">Modèle d'Amélioration Continue (CSI)</div>
+                            <ol>
+                                <li>Quelle est la vision ?</li>
+                                <li>Où en sommes-nous ?</li>
+                                <li>Où voulons-nous être ?</li>
+                                <li>Comment y arriverons-nous ?</li>
+                                <li>Passer à l'action</li>
+                                <li>Avons-nous atteint notre objectif ?</li>
+                                <li>Comment maintenir l'élan ?</li>
+                            </ol>
+                        </div>
+                        
+                        <ul class="list-group list-group-flush mt-3">
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-arrow-right-circle text-danger me-2 mt-1"></i>
+                                <span>Essentielle pour l'adaptabilité</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-arrow-right-circle text-danger me-2 mt-1"></i>
+                                <span>Application à tous les niveaux</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-start">
+                                <i class="bi bi-arrow-right-circle text-danger me-2 mt-1"></i>
+                                <span>Cycle itératif</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#concept5Modal">
+                            <i class="bi bi-graph-up me-1"></i> En savoir plus
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="exam" class="container my-6">
+        <div class="row">
+            <div class="col-lg-10 mx-auto text-center">
+                <h2 class="fw-bold mb-1">Conseils pour l'Examen ITIL 4 Foundation</h2>
+                <p class="lead mb-5">Stratégies et astuces pour maximiser vos chances de réussite</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="exam-tip">
+                    <span class="tip-number">1</span>
+                    <h5 class="fw-bold d-inline-block">Comprendre les Concepts, pas seulement mémoriser</h5>
+                    <p class="mb-0">L'examen ITIL 4 est basé sur la compréhension des concepts et leur application, pas sur la mémorisation de listes. Concentrez-vous sur <strong>pourquoi</strong> et <strong>comment</strong> ITIL fonctionne.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="exam-tip">
+                    <span class="tip-number">2</span>
+                    <h5 class="fw-bold d-inline-block">Pratiquez avec des Questions Officielles</h5>
+                    <p class="mb-0">Utilisez les exemples de questions fournis par AXELOS ou des plateformes reconnues. Cela vous familiarisera avec le format, le vocabulaire et le niveau de difficulté de l'examen.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="exam-tip">
+                    <span class="tip-number">3</span>
+                    <h5 class="fw-bold d-inline-block">Maîtrisez le Vocabulaire ITIL</h5>
+                    <p class="mb-0">ITIL a son propre glossaire. Assurez-vous de bien comprendre les définitions des termes clés comme "valeur", "utilité", "garantie", "service", "produit", etc.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="exam-tip">
+                    <span class="tip-number">4</span>
+                    <h5 class="fw-bold d-inline-block">Gérez votre Temps</h5>
+                    <p class="mb-0">Avec 40 questions en 60 minutes (ou 75 minutes pour les non-anglophones), le temps est limité. Lisez attentivement chaque question et les options de réponse, mais ne restez pas bloqué trop longtemps sur une seule question.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="exam-tip">
+                    <span class="tip-number">5</span>
+                    <h5 class="fw-bold d-inline-block">Relisez et Vérifiez</h5>
+                    <p class="mb-0">Si le temps le permet, relisez vos réponses. Parfois, un mot clé manqué peut changer le sens d'une question ou d'une option de réponse.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="exam-tip">
+                    <span class="tip-number">6</span>
+                    <h5 class="fw-bold d-inline-block">Répondez à TOUTES les Questions</h5>
+                    <p class="mb-0">Il n'y a pas de pénalité pour les mauvaises réponses. Si vous n'êtes pas sûr, faites une supposition éclairée. Une réponse fausse vaut 0 point, une absence de réponse vaut aussi 0 point.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz" class="container my-6">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0"><i class="bi bi-patch-question me-2"></i>Quiz de Préparation</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="lead">Testez vos connaissances avec notre quiz interactif. Chaque question est conçue pour simuler l'examen officiel ITIL 4 Foundation.</p>
+                        <div class="alert alert-info" role="alert">
+                            <i class="bi bi-info-circle-fill me-2"></i>
+                            Revenez bientôt ! Le quiz complet avec 200+ questions sera disponible ici.
+                        </div>
+                        <a href="#" class="btn btn-primary btn-lg mt-3 disabled">
+                            <i class="bi bi-play-circle me-2"></i>Démarrer le Quiz (Bientôt disponible)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade" id="concept1Modal" tabindex="-1" aria-labelledby="concept1ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="concept1ModalLabel">Valeur des Services - Exemple détaillé</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Exemple Concret : Service de Visioconférence</h6>
+                    <p>Une entreprise fournit un service de visioconférence à ses employés.</p>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item"><strong>Utilité :</strong> Permet aux employés de tenir des réunions à distance, de collaborer efficacement et de réduire les déplacements.</li>
+                        <li class="list-group-item"><strong>Garantie :</strong> Le service est disponible 99.9% du temps, avec une qualité audio/vidéo HD et un support technique 24/7.</li>
+                        <li class="list-group-item"><strong>Coûts :</strong> L'entreprise paie des licences logicielles, des infrastructures réseau, et les salaires de l'équipe de support.</li>
+                        <li class="list-group-item"><strong>Risques :</strong> Risque de pannes de service, de problèmes de sécurité, ou de mauvaise qualité de connexion.</li>
+                    </ul>
+                    <p>La <strong>valeur</strong> pour l'employé est la capacité de travailler à distance (utilité) avec fiabilité et performance (garantie), minimisant les interruptions (risques) et les coûts indirects (temps perdu, etc.).</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="concept2Modal" tabindex="-1" aria-labelledby="concept2ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="concept2ModalLabel">Système de Valeur des Services (SVS)</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="https://via.placeholder.com/600x400?text=Diagramme+SVS" alt="Diagramme SVS ITIL 4" class="img-fluid rounded shadow-sm mb-3">
+                    <p>Le SVS est au cœur d'ITIL 4, montrant comment la demande est transformée en valeur. Il est composé de :</p>
+                    <ul>
+                        <li><strong>Principes Directeurs :</strong> Les 7 principes qui guident l'organisation.</li>
+                        <li><strong>Gouvernance :</strong> La façon dont l'organisation est dirigée et contrôlée.</li>
+                        <li><strong>Chaîne de Valeur des Services (SVC) :</strong> Le modèle opérationnel qui génère de la valeur.</li>
+                        <li><strong>Pratiques ITIL :</strong> Les ensembles de ressources organisationnelles pour effectuer le travail.</li>
+                        <li><strong>Amélioration Continue :</strong> L'approche récurrente pour améliorer l'efficacité et l'efficience.</li>
+                    </ul>
+                    <p class="alert alert-warning"><strong>Point clé pour l'examen :</strong> Comprendre l'interaction entre ces composants pour créer de la valeur.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="concept3Modal" tabindex="-1" aria-labelledby="concept3ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="concept3ModalLabel">Les 7 Principes Directeurs d'ITIL 4</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Ces principes doivent guider toutes les décisions et actions d'une organisation :</p>
+                    <ol>
+                        <li><strong>Focus sur la valeur :</strong> Tout ce que fait l'organisation doit créer de la valeur pour les parties prenantes.</li>
+                        <li><strong>Commencez là où vous êtes :</strong> Ne jetez pas tout ce qui existe ; utilisez ce qui fonctionne et améliorez-le.</li>
+                        <li><strong>Progressez itérativement avec le feedback :</strong> Ne cherchez pas la perfection d'emblée ; livrez par petites étapes et adaptez-vous.</li>
+                        <li><strong>Collaborez et favorisez la visibilité :</strong> Travaillez ensemble et partagez l'information.</li>
+                        <li><strong>Pensez et travaillez de manière holistique :</strong> Voyez le service dans son ensemble, pas seulement ses composants.</li>
+                        <li><strong>Gardez les choses simples et pratiques :</strong> Évitez la complexité inutile ; utilisez le minimum de pas nécessaire pour atteindre l'objectif.</li>
+                        <li><strong>Optimisez et automatisez :</strong> Améliorez l'efficacité et la productivité en éliminant le travail manuel répétitif.</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="concept4Modal" tabindex="-1" aria-labelledby="concept4ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="concept4ModalLabel">Cycle de Vie des Services (Product Management)</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>ITIL 4 met l'accent sur la gestion des produits et services tout au long de leur cycle de vie, de la conception à la retraite. Cela inclut :</p>
+                    <dl class="row">
+                        <dt class="col-sm-3">Planifier</dt>
+                        <dd class="col-sm-9">Comprendre la vision, la mission, les objectifs et la stratégie.</dd>
+                        
+                        <dt class="col-sm-3">Engager</dt>
+                        <dd class="col-sm-9">Interagir avec les parties prenantes pour comprendre leurs besoins et leurs attentes.</dd>
+                        
+                        <dt class="col-sm-3">Concevoir & Transiter</dt>
+                        <dd class="col-sm-9">Créer de nouveaux services ou améliorer des services existants pour répondre aux attentes.</dd>
+                        
+                        <dt class="col-sm-3">Obtenir/Construire</dt>
+                        <dd class="col-sm-9">Acquérir ou construire les composants nécessaires aux services.</dd>
+                        
+                        <dt class="col-sm-3">Fournir & Supporter</dt>
+                        <dd class="col-sm-9">Livrer les services et les supporter en continu.</dd>
+                        
+                        <dt class="col-sm-3">Améliorer</dt>
+                        <dd class="col-sm-9">Améliorer continuellement les produits, services et pratiques.</dd>
+                    </dl>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="concept5Modal" tabindex="-1" aria-labelledby="concept5ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="concept5ModalLabel">L'Amélioration Continue en ITIL 4</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>L'amélioration continue est un principe directeur et une pratique essentielle d'ITIL 4. Elle s'applique à tous les aspects de l'organisation et du SVS.</p>
+                    <h6>Modèle d'Amélioration Continue (ITIL CSI Approach)</h6>
+                    <p>ITIL 4 propose un modèle d'amélioration en sept étapes pour guider les initiatives d'amélioration :</p>
+                    <ol>
+                        <li><strong>Quelle est la vision ?</strong> Définir les objectifs et la vision de l'amélioration.</li>
+                        <li><strong>Où en sommes-nous maintenant ?</strong> Évaluer la situation actuelle et identifier les lacunes.</li>
+                        <li><strong>Où voulons-nous être ?</strong> Définir les objectifs spécifiques et mesurables.</li>
+                        <li><strong>Comment y arriverons-nous ?</strong> Planifier les actions et les changements nécessaires.</li>
+                        <li><strong>Passer à l'action :</strong> Mettre en œuvre le plan.</li>
+                        <li><strong>Avons-nous atteint notre objectif ?</strong> Vérifier les résultats par rapport aux objectifs.</li>
+                        <li><strong>Comment maintenir l'élan ?</strong> Intégrer les améliorations et continuer à chercher de nouvelles opportunités.</li>
+                    </ol>
+                    <p>Ce modèle est cyclique et favorise une culture d'amélioration constante.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="text-white mb-3">ITIL 4 Foundation</h5>
+                    <p class="text-white-50">Votre guide complet pour la certification et l'application des bonnes pratiques ITIL.</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="text-white mb-3">Liens Rapides</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#concepts" class="text-white-50 text-decoration-none">Concepts Clés</a></li>
+                        <li><a href="#dimensions" class="text-white-50 text-decoration-none">4 Dimensions</a></li>
+                        <li><a href="#practices" class="text-white-50 text-decoration-none">Pratiques ITIL</a></li>
+                        <li><a href="#exam" class="text-white-50 text-decoration-none">Guide Examen</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="text-white mb-3">Contact</h5>
+                    <ul class="list-unstyled text-white-50">
+                        <li><i class="bi bi-geo-alt-fill me-2"></i>Abidjan, Côte d'Ivoire</li>
+                        <li><i class="bi bi-envelope-fill me-2"></i>contact@itilexpert.com</li>
+                        <li><i class="bi bi-phone-fill me-2"></i>+225 07 00 00 00 00</li>
+                    </ul>
+                    <div class="mt-3">
+                        <a href="#" class="text-white me-3"><i class="bi bi-linkedin fs-4"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter fs-4"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-facebook fs-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 border-light opacity-25">
+            <div class="text-white-50">
+                &copy; <span id="currentYear"></span> ITIL 4 Expert. Tous droits réservés.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        function checkAnswer(correctId, feedbackId) {
+            const feedbackDiv = document.getElementById(feedbackId);
+            const radios = document.querySelectorAll(`input[name="${feedbackId.replace('Feedback', '')}"]`);
+            let isCorrect = false;
+
+            radios.forEach(radio => {
+                if (radio.id === correctId && radio.checked) {
+                    isCorrect = true;
+                }
+            });
+
+            feedbackDiv.classList.remove('d-none');
+            if (isCorrect) {
+                feedbackDiv.innerHTML = '<div class="alert alert-success"><i class="bi bi-check-circle-fill me-2"></i>Correct ! La bonne réponse est AXELOS.</div>';
+            } else {
+                feedbackDiv.innerHTML = '<div class="alert alert-danger"><i class="bi bi-x-circle-fill me-2"></i>Incorrect. Veuillez réessayer.</div>';
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add active class to nav-link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100 && pageYOffset < sectionTop + sectionHeight - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
